@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   
+    <bean id="excelLgaStockSummry" class="com.chai.util.LgaStockPerformanceExcelGen" />
+     <bean id="excelStatestockPerformanceDashboard" class="com.chai.util.StateStockPerformanceDashboardExcelGen" />
+      <bean id="excelLgaAggstockeDashboard" class="com.chai.util.LGAAggStockDashboardExcelGen" />
+    <bean id="excelStatestockStatusDashboard" class="com.chai.util.StatestockStatusDashboardExcelGen" /> 
+    <bean id="CommonExelGenerator" class="com.chai.util.CommonExcelGenerator" /> 
+      <bean id="hfStockSummarySheetExelView" class="com.chai.util.HFStockSummarySheetExcelGen" /> 
+    <bean id="mergedDashboard" class="com.chai.util.MergedDashboardExelGen" /> 
+    <bean id="functionalDashboard" class="com.chai.util.FunctionalDashboardExelGen" /> 
+    <bean id="capacityDashboard" class="com.chai.util.CapacityDashboardExelGen" /> 
+   
+ </beans>
