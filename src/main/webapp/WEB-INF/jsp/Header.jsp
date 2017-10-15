@@ -31,7 +31,7 @@
 </div>
 <style>
  .logout_div{ 
- 	padding-left: 10px; 
+ 	padding-left: 5px; 
  }
 .row {
     margin-bottom: 0px;

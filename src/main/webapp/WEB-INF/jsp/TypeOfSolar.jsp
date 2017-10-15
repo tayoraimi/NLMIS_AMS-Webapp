@@ -30,11 +30,11 @@
 
         <style>
             nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-                height: 44px;
-                line-height: 44px;
+                height: 33px;
+                line-height: 33px;
             }
             .dropdown-content li {
-                min-height: 25px;
+                    min-height: 25px;
             }
             .dropdown-content li > a, .dropdown-content li > span {
                 color: #26a69a;
@@ -43,52 +43,81 @@
                 line-height: 22px;
                 padding: 7px 16px;
             }
+            .preloader-wrapper.big {
+                height: 100px;
+                left: 42%;
+                top: 50%;
+                width: 100px;
+            }
             .loader_div {
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                background: #0c1520;
-                overflow: overlay;
-                opacity: 0.5;
-                z-index: 2;
-                top: 0%;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    overflow: overlay;
+                    opacity: 0.5;
+                    z-index: 1000;
+                    top: 0%;
             }
             .loader {
-                border: 16px solid #f3f3f3;
-                border-radius: 50%;
-                border-top: 16px solid blue;
-                border-bottom: 16px solid blue;
-                top: 42%;
-                left: 43%;
-                z-index: 1;
-                width: 120px;
-                height: 120px;
-                position: absolute;
-                -webkit-animation: spin 2s linear infinite;
-                animation: spin 1s linear infinite;
+                    border: 16px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 16px solid blue;
+                    border-bottom: 16px solid blue;
+                    top: 42%;
+                    left: 43%;
+                    z-index: 1;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 1s linear infinite;
+            }
+
+            .loader_div_for_iframe {
+                    height: 84%;
+                    width: 100%;
+                    position: absolute;
+                    overflow: overlay;
+                    opacity: 0.5;
+                    z-index: 1000;
+                    top: 16%;
+            }
+            .loader_circle{
+                    border: 8px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 8px solid blue;
+                    border-bottom: 8px solid blue;
+                    top: 42%;
+                    left: 43%;
+                    z-index: 1;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 1s linear infinite;
             }
             @-webkit-keyframes spin {
-                0% { -webkit-transform: rotate(0deg); }
-                100% { -webkit-transform: rotate(360deg); }
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
             }
             @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
             }
             .decres_trend_image{
-                -ms-transform: rotate(90deg); /* IE 9 */
+            -ms-transform: rotate(90deg); /* IE 9 */
                 -webkit-transform: rotate(90deg); /* Safari */
                 transform: rotate(90deg);
             }
             .incres_trend_image{
-                -ms-transform: rotate(270deg); /* IE 9 */
+            -ms-transform: rotate(270deg); /* IE 9 */
                 -webkit-transform: rotate(270deg); /* Safari */
                 transform: rotate(270deg);
             }
             #license_modal p{
-                line-height: 1;
-                font-family: arial;
-                font-stretch: expanded;
+            line-height: 1;
+            font-family: arial;
+            font-stretch: expanded;
             }
         </style>
 
@@ -105,135 +134,72 @@
                 var user = '${userdata.getX_ROLE_NAME()}';
                 $('#user').text('User: ' + user + ' ${userdata.getX_WAREHOUSE_NAME()}');
                 $('#login_time').text('${login_time}');
-                if ((user === 'SIO') || (user === 'SIFP')) {
-                    user = 'SCCO';
-                } else if (user === 'MOH') {
+                if ((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
+                    user = 'SCCO';	
+                    $('#cceListNavigationMenu').hide();
+                } else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')) {
                     user = 'LIO';
-                }
+                    $('#cceListNavigationMenu').hide();
+                }else if(user === 'NTO'){
+			user = 'NTO';
+		}
+                
+                
+                        
                 switch (user) {
                     case "SCCO":
-                        $('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');
-                        $('#cceDashboardDropdown li:gt(4)').hide();
-                        if (reloadDashboards) {
-                            /* Below ajax request will run when user log-in(By-Default screen!) */
-                            var defaultDashboardPageUrl = $("#cceDashboardTabsUL a").filter(".active").attr('name');
-                            var capacityDashboardPageUrl = $("#cceDashboardTabsUL li:eq(2) > a").attr('name'); // "capacity_dashboard_page"
+                            $('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');	
+                            $('#cceListNavigationMenu').hide();
+                            break;
 
-                            var defaultDashboardTabdivID = $("#cceDashboardTabsUL a").filter(".active").attr('href');
-                            // 					alert("defaultDashboardTabdivID: "+defaultDashboardTabdivID);
-                            var capacityDashboardTabDivId = $("#cceDashboardTabsUL li:eq(2) > a").attr('href');
-                            // 					alert("capacityDashboardTabDivId: "+capacityDashboardTabDivId);
-
-                            var functionalDashboardDataUrl = "get_functional_dashboard_data";
-
-                            var capacityDashboardDataUrl = "get_capacity_dashboard_data";
-                            //document.getElementById("loader_div").style.display = "block";
-                            $.ajax({
-                                type: "GET",
-                                //Url to the webpage
-                                url: defaultDashboardPageUrl,
-                                dataType: "html",
-                                //						    success: function(data){
-                                ////	 					    	alert("STATESTOCKPERFODASHBOARD SUCCESS : "+data);		    	
-                                //						    	$(defaultDashboardTabdivID).html(data);
-                                //						    	if('${loadCount}'==='1'){
-                                //						    		showTableData(functionalDashboardDataUrl);
-                                //						    	}else{
-                                //						    		document.getElementById("loader_div").style.display = "none";
-                                //						    	}
-                                //						    	$('#lga_combobox').combobox('setValue','null');
-                                //						    	$('#lga_combobox').combobox('setText','All');
-                                //						    	$('#year_combobox').combobox('setValue',new Date().getFullYear());
-                                //						    	$('#year_combobox').combobox('setText',new Date().getFullYear());
-                                //						    	$('#week_combobox').combobox({
-                                //									url : 'get_week_list/week?yearParam='+(new Date().getFullYear()),
-                                //									valueField : 'value',
-                                //									textField : 'label'
-                                //								});
-                                //						    	$('#week_combobox').combobox('setValue','${PREVIOUS_WEEK_OF_YEAR}');
-                                //						    	$('#week_combobox').combobox('setText','${PREVIOUS_WEEK_OF_YEAR}');
-                                //						    }
-                            });
-
-                            $.ajax({
-                                type: "GET",
-                                //Url to the webpage
-                                url: capacityDashboardPageUrl,
-                                dataType: "html",
-                                success: function (data) {
-                                    //	 					    	alert("HFSTOCKSUMMARYSHEETDASHBOARD SUCCESS : "+data);		    	
-                                    $(capacityDashboardTabDivId).html(data);
-                                    // 			    	loadHeadingTable4('${userdata.x_WAREHOUSE_ID}','${userdata.x_WAREHOUSE_NAME}');
-                                    // 			    	showTableData4(capacityDashboardDataUrl);
-                                    // 			    	$('#lga_combobox_div4').css('display','none');
-                                    // 						    	$('#year_combobox4').combobox('setValue',new Date().getFullYear());
-                                    // 						    	$('#year_combobox4').combobox('setText',new Date().getFullYear());
-                                    // 						    	$('#week_combobox4').combobox('setValue',(getWeekNumber(new Date())-1));
-                                    // 						    	$('#week_combobox4').combobox('setText',(getWeekNumber(new Date())-1));
-                                }
-                            });
-
-
-                            /* Above ajax request ends) */
-                            reloadDashboards = false;
-                        }
-                        $("#cceDashboardTabsUL .indicator").css('height', '5px');
-                        break;
-                    case "SIO":
-                        break;
-                    case "SIFP":
-                        break;
                     case "NTO":
-                        break;
+                            $('#warehouse_name').text('National: ${userdata.getX_WAREHOUSE_NAME()}');	
+
+                            break;
                     case "LIO":
-                        break;
-                    case "MOH":
-                        break;
-                }
+                            $('#warehouse_name').text('LGA: ${userdata.getX_WAREHOUSE_NAME()}');	
+                            $('#cceListNavigationMenu').hide();	
 
-                /* Below handler will run when Menu-Items(Navigation Menu-Dropdowns) clicked */
-                $("#cceDashboardDropdown a").on("click", function (e) {
-                    elementId = ('#' + this.name);
-                    cceDashboardTabsUL = '#cceDashboardTabsUL';
+                            break;
+		}
 
-                    var clickableTab = $(cceDashboardTabsUL + " a[href='" + elementId + "']").attr('id');
-                    e.preventDefault(); // cancel the link itself
-                    if ($(this).attr('href') !== '#!' || $(this).attr('href') !== '#') {
-                        if (reloadDashboards) {
-                            // 					$.get(this.href,function(data) {
-                            // //	 					alert(elementId+", response: "+data);						
-                            // 						$(elementId).html(data);
-                            // 					    $("#"+clickableTab).click();
-                            // 					    if(('${userdata.getX_ROLE_NAME()}' === 'SCCO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','none');
-
-                            // 						}else if(('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','block');
-                            // 						}else if(('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($(cceDashboardTabsUL+" .active").attr('id') === 'ntoStockDashboardLiTab2Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','block');
-                            // 						}							    
-                            // 					});	
-                        } else {
-                            $("#" + clickableTab).click();
-                            if (('${userdata.getX_ROLE_NAME()}' === 'SCCO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')) {
-                                /* When LGA STOCK SUMMARY DASHBOARD clicked */
-                                $('#state_combobox3_div').css('display', 'none');
-
-                            } else if (('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($(cceDashboardTabsUL + " .active").attr('id') === 'ntoStockDashboardLiTab2Link')) {
-                                /* When LGA STOCK SUMMARY DASHBOARD clicked */
-                                $('#state_combobox3_div').css('display', 'block');
-                            }
-                        }
-                    }
-                });
             });
-
             function showLicense() {
                 $('#license_modal').openModal();
             }
+	function showDashBoardDivAndHideIframe() {
+		$('#mainHomePageDiv').show();
+		$('#iframe').hide();
+	}
+	function showIframeAndHideDashBoardDiv(action) {
+		$('#loader_for_iframe').show();
+		$('#mainHomePageDiv').hide();
+		$('#iframe').show();
+		$('#iframe').attr('src', "");
+		$('#iframe').attr('src', action);
+
+		document.getElementById("iframe").onload = function() {
+			$('#loader_for_iframe').hide();
+		};
+
+	}
+        function goToNLMIS(){
+		var user = '${userdata.getX_ROLE_NAME()}';
+		$('#user').text('User: '+user+' ${userdata.getX_WAREHOUSE_NAME()}');
+		$('#login_time').text('${login_time}');
+		if((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
+			user = 'SCCO';
+		}else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')){
+			user = 'LIO';
+		}else if(user === 'NTO'){
+			user = 'NTO';
+		}
+	     if(user==='LIO'){
+	    	 window.location.href="homepage";
+	     }else{
+                 window.location.href="homepage";
+             }
+        }
         </script>
         <!--Script of Chart goes here-->
 
@@ -384,12 +350,12 @@
                     </li>
                     <!--Dashboards - Dropdown Trigger -->
                     <li>
-                        <a class="dropdown-button" href="#!" data-activates="productsDropdown" data-beloworigin="true" data-constrainwidth="false">
-                            Dashboards<i class="material-icons right">arrow_drop_down</i>
+                        <a href="assetManagementPage">
+                            Functional & Capacity Dashboard
                         </a>
                     </li>
                     <!--List of CCE - Dropdown Trigger -->
-                    <li id="stockManagementNavigationUL">
+                    <li id="cceListNavigationMenu">
                         <a href="listOfCCEPage">
                             List of CCE
                         </a>

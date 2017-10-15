@@ -43,6 +43,22 @@ public class FunctionalChartController {
 	@RequestMapping(value = "/functional_chart_page")
 	public ModelAndView showFunctionalChartPage(HttpServletRequest request, HttpServletResponse respones) {
 		ModelAndView model = new ModelAndView("FunctionalChart");
+                 try {
+                        HttpSession session = request.getSession();
+                        AdmUserV userBean = (AdmUserV) session.getAttribute("userBean");
+                        String login_time = (String) session.getAttribute("login_time");
+                        model.addObject("userdata", userBean);
+                        model.addObject("login_time", login_time);
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        try {
+                            respones.sendRedirect("loginPage");
+                        } catch (IOException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                    }
 		return model;
 	}
 

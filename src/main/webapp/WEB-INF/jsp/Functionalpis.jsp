@@ -31,11 +31,11 @@
 
         <style>
             nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-                height: 44px;
-                line-height: 44px;
+                height: 33px;
+                line-height: 33px;
             }
             .dropdown-content li {
-                min-height: 25px;
+                    min-height: 25px;
             }
             .dropdown-content li > a, .dropdown-content li > span {
                 color: #26a69a;
@@ -44,52 +44,81 @@
                 line-height: 22px;
                 padding: 7px 16px;
             }
+            .preloader-wrapper.big {
+                height: 100px;
+                left: 42%;
+                top: 50%;
+                width: 100px;
+            }
             .loader_div {
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                background: #0c1520;
-                overflow: overlay;
-                opacity: 0.5;
-                z-index: 2;
-                top: 0%;
+                    height: 100%;
+                    width: 100%;
+                    position: absolute;
+                    overflow: overlay;
+                    opacity: 0.5;
+                    z-index: 1000;
+                    top: 0%;
             }
             .loader {
-                border: 16px solid #f3f3f3;
-                border-radius: 50%;
-                border-top: 16px solid blue;
-                border-bottom: 16px solid blue;
-                top: 42%;
-                left: 43%;
-                z-index: 1;
-                width: 120px;
-                height: 120px;
-                position: absolute;
-                -webkit-animation: spin 2s linear infinite;
-                animation: spin 1s linear infinite;
+                    border: 16px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 16px solid blue;
+                    border-bottom: 16px solid blue;
+                    top: 42%;
+                    left: 43%;
+                    z-index: 1;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 1s linear infinite;
+            }
+
+            .loader_div_for_iframe {
+                    height: 84%;
+                    width: 100%;
+                    position: absolute;
+                    overflow: overlay;
+                    opacity: 0.5;
+                    z-index: 1000;
+                    top: 16%;
+            }
+            .loader_circle{
+                    border: 8px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 8px solid blue;
+                    border-bottom: 8px solid blue;
+                    top: 42%;
+                    left: 43%;
+                    z-index: 1;
+                    width: 120px;
+                    height: 120px;
+                    position: absolute;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 1s linear infinite;
             }
             @-webkit-keyframes spin {
-                0% { -webkit-transform: rotate(0deg); }
-                100% { -webkit-transform: rotate(360deg); }
+              0% { -webkit-transform: rotate(0deg); }
+              100% { -webkit-transform: rotate(360deg); }
             }
             @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
             }
             .decres_trend_image{
-                -ms-transform: rotate(90deg); /* IE 9 */
+            -ms-transform: rotate(90deg); /* IE 9 */
                 -webkit-transform: rotate(90deg); /* Safari */
                 transform: rotate(90deg);
             }
             .incres_trend_image{
-                -ms-transform: rotate(270deg); /* IE 9 */
+            -ms-transform: rotate(270deg); /* IE 9 */
                 -webkit-transform: rotate(270deg); /* Safari */
                 transform: rotate(270deg);
             }
             #license_modal p{
-                line-height: 1;
-                font-family: arial;
-                font-stretch: expanded;
+            line-height: 1;
+            font-family: arial;
+            font-stretch: expanded;
             }
         </style>
 
@@ -106,135 +135,70 @@
                 var user = '${userdata.getX_ROLE_NAME()}';
                 $('#user').text('User: ' + user + ' ${userdata.getX_WAREHOUSE_NAME()}');
                 $('#login_time').text('${login_time}');
-                if ((user === 'SIO') || (user === 'SIFP')) {
-                    user = 'SCCO';
-                } else if (user === 'MOH') {
+                if ((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
+                    user = 'SCCO';	
+                } else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')) {
                     user = 'LIO';
-                }
+                }else if(user === 'NTO'){
+			user = 'NTO';
+		}
+                
+                        
                 switch (user) {
-                    case "SCC        O":
-                        $('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');
-                        $('#cceDashboardDropdown li:gt(4)').hide();
-                        if (reloadDashboards) {
-                            /* Below ajax request will run when user log-in(By-Default screen!) */
-                            var defaultDashboardPageUrl = $("#cceDashboardTabsUL a").filter(".active").attr('name');
-                            var capacityDashboardPageUrl = $("#cceDashboardTabsUL li:eq(2) > a").attr('name'); // "capacity_dashboard_page"
+                    case "SCCO":
+                            $('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');	
+                            $('#cceListNavigationMenu').hide();
+                            break;
 
-                            var defaultDashboardTabdivID = $("#cceDashboardTabsUL a").filter(".active").attr('href');
-                            // 					alert("defaultDashboardTabdivID: "+defaultDashboardTabdivID);
-                            var capacityDashboardTabDivId = $("#cceDashboardTabsUL li:eq(2) > a").attr('href');
-                            // 					alert("capacityDashboardTabDivId: "+capacityDashboardTabDivId);
-
-                            var functionalDashboardDataUrl = "get_functional_dashboard_data";
-
-                            var capacityDashboardDataUrl = "get_capacity_dashboard_data";
-                            //document.getElementById("loader_div").style.display = "block";
-                            $.ajax({
-                                type: "GET",
-                                //Url to the webpage
-                                url: defaultDashboardPageUrl,
-                                dataType: "html",
-                                //						    success: function(data){
-                                ////	 					    	alert("STATESTOCKPERFODASHBOARD SUCCESS : "+data);		    	
-                                //						    	$(defaultDashboardTabdivID).html(data);
-                                //						    	if('${loadCount}'==='1'){
-                                //						    		showTableData(functionalDashboardDataUrl);
-                                //						    	}else{
-                                //						    		document.getElementById("loader_div").style.display = "none";
-                                //						    	}
-                                //						    	$('#lga_combobox').combobox('setValue','null');
-                                //						    	$('#lga_combobox').combobox('setText','All');
-                                //						    	$('#year_combobox').combobox('setValue',new Date().getFullYear());
-                                //						    	$('#year_combobox').combobox('setText',new Date().getFullYear());
-                                //						    	$('#week_combobox').combobox({
-                                //									url : 'get_week_list/week?yearParam='+(new Date().getFullYear()),
-                                //									valueField : 'value',
-                                //									textField : 'label'
-                                //								});
-                                //						    	$('#week_combobox').combobox('setValue','${PREVIOUS_WEEK_OF_YEAR}');
-                                //						    	$('#week_combobox').combobox('setText','${PREVIOUS_WEEK_OF_YEAR}');
-                                //						    }
-                            });
-
-                            $.ajax({
-                                type: "GET",
-                                //Url to the webpage
-                                url: capacityDashboardPageUrl,
-                                dataType: "html",
-                                success: function (data) {
-                                    //	 					    	alert("HFSTOCKSUMMARYSHEETDASHBOARD SUCCESS : "+data);		    	
-                                    $(capacityDashboardTabDivId).html(data);
-                                    // 			    	loadHeadingTable4('${userdata.x_WAREHOUSE_ID}','${userdata.x_WAREHOUSE_NAME}');
-                                    // 			    	showTableData4(capacityDashboardDataUrl);
-                                    // 			    	$('#lga_combobox_div4').css('display','none');
-                                    // 						    	$('#year_combobox4').combobox('setValue',new Date().getFullYear());
-                                    // 						    	$('#year_combobox4').combobox('setText',new Date().getFullYear());
-                                    // 						    	$('#week_combobox4').combobox('setValue',(getWeekNumber(new Date())-1));
-                                    // 						    	$('#week_combobox4').combobox('setText',(getWeekNumber(new Date())-1));
-                                }
-                            });
-
-
-                            /* Above ajax request ends) */
-                            reloadDashboards = false;
-                        }
-                        $("#cceDashboardTabsUL .indicator").css('height', '5px');
-                        break;
-                    case "SIO":
-                        break;
-                    case "SIFP":
-                        break;
                     case "NTO":
-                        break;
+                            $('#warehouse_name').text('National: ${userdata.getX_WAREHOUSE_NAME()}');	
+
+                            break;
                     case "LIO":
-                        break;
-                    case "MOH":
-                        break;
-                }
+                            $('#warehouse_name').text('LGA: ${userdata.getX_WAREHOUSE_NAME()}');	
+                            $('#cceListNavigationMenu').hide();	
 
-                /* Below handler will run when Menu-Items(Navigation Menu-Dropdowns) clicked */
-                $("#cceDashboardDropdown a").on("click", function (e) {
-                    elementId = ('#' + this.name);
-                    cceDashboardTabsUL = '#cceDashboardTabsUL';
+                            break;
+		}
 
-                    var clickableTab = $(cceDashboardTabsUL + " a[href='" + elementId + "']").attr('id');
-                    e.preventDefault(); // cancel the link itself
-                    if ($(this).attr('href') !== '#!' || $(this).attr('href') !== '#') {
-                        if (reloadDashboards) {
-                            // 					$.get(this.href,function(data) {
-                            // //	 					alert(elementId+", response: "+data);						
-                            // 						$(elementId).html(data);
-                            // 					    $("#"+clickableTab).click();
-                            // 					    if(('${userdata.getX_ROLE_NAME()}' === 'SCCO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','none');
-
-                            // 						}else if(('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','block');
-                            // 						}else if(('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($(cceDashboardTabsUL+" .active").attr('id') === 'ntoStockDashboardLiTab2Link')){
-                            // 							/* When LGA STOCK SUMMARY DASHBOARD clicked */
-                            // 							$('#state_combobox3_div').css('display','block');
-                            // 						}							    
-                            // 					});	
-                        } else {
-                            $("#" + clickableTab).click();
-                            if (('${userdata.getX_ROLE_NAME()}' === 'SCCO') && ($("#cceDashboardTabsUL .active").attr('id') === 'cceDashboardLiTab3Link')) {
-                                /* When LGA STOCK SUMMARY DASHBOARD clicked */
-                                $('#state_combobox3_div').css('display', 'none        ');
-
-                            } else if (('${userdata.getX_ROLE_NAME()}' === 'NTO') && ($(cceDashboardTabsUL + " .active").attr('id') === 'ntoStockDashboardLiTab2Link')) {
-                                /* When LGA STOCK SUMMARY DASHBOARD clicked */
-                                $('#state_combobox3_div').css('display', 'block');
-                            }
-                        }
-                    }
-                });
             });
 
             function showLicense() {
                 $('#license_modal').openModal();
             }
+	function showDashBoardDivAndHideIframe() {
+		$('#mainHomePageDiv').show();
+		$('#iframe').hide();
+	}
+	function showIframeAndHideDashBoardDiv(action) {
+		$('#loader_for_iframe').show();
+		$('#mainHomePageDiv').hide();
+		$('#iframe').show();
+		$('#iframe').attr('src', "");
+		$('#iframe').attr('src', action);
+
+		document.getElementById("iframe").onload = function() {
+			$('#loader_for_iframe').hide();
+		};
+
+	}
+        function goToNLMIS(){
+		var user = '${userdata.getX_ROLE_NAME()}';
+		$('#user').text('User: '+user+' ${userdata.getX_WAREHOUSE_NAME()}');
+		$('#login_time').text('${login_time}');
+		if((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
+			user = 'SCCO';
+		}else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')){
+			user = 'LIO';
+		}else if(user === 'NTO'){
+			user = 'NTO';
+		}
+	     if(user==='LIO'){
+	    	 window.location.href="homepage";
+	     }else{
+                 window.location.href="homepage";
+             }
+        }
         </script>
         <!--Script of Chart goes here-->
 
@@ -250,21 +214,21 @@
                 var url6 = "get_functional_pis_solar_refrigerator_data?filterLevel=LGA";    
                 var url7 = "get_functional_domestic_solar_refrigerator_data?filterLevel=LGA";
 
-                showChartData(url);
-                showChartData1(url1);
-                showChartData2(url2);
-                showChartData3(url3);
-                showChartData4(url4);
-                showChartData5(url5);
-                showChartData6(url6);
-                showChartData7(url7);
+                showChartData(url,"Functional Status of PIS/PQS Equipment","chartContainer");
+                showChartData(url1,"Functional Status of Domestic Equipments","chartContainer1");
+                showChartData(url2,"Functional Status of PIS/PQS Refrigerators","chartContainer2");
+                showChartData(url3,"Functional Status of Domestic Refrigerators","chartContainer3");
+                showChartData(url4,"Functional Status of PIS/PQS Freezers","chartContainer4");
+                showChartData(url5,"Functional Status of Domestic Freezers","chartContainer5");
+                showChartData(url6,"Functional Status of PIS/PQS Solar Refirgerators","chartContainer6");
+                showChartData(url7,"Functional Status of Domestic Solar Refrigerators","chartContainer7");
             });
 
             function showLicense() {
                 $('#license_modal').openModal();
             }
 
-            function showChartData(url) {
+            function showChartData(url, chartTitle, chartContainer) {
 
                 document.getElementById("loader_div").style.display = "block";
                 var xhttp = new XMLHttpRequest();
@@ -274,133 +238,14 @@
                         document.getElementById("loader_div").style.display = "none";
 
                         var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata(ss);
+                        loadchartdata(ss, chartTitle, chartContainer);
                     }
                 };
                 xhttp.open("POST", url, true);
                 xhttp.send();
             }
             
-            function showChartData1(url1) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata1(ss);
-                    }
-                };
-                xhttp.open("POST", url1, true);
-                xhttp.send();
-            }
-            
-            function showChartData2(url2) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata2(ss);
-                    }
-                };
-                xhttp.open("POST", url2, true);
-                xhttp.send();
-            }
-            
-            function showChartData3(url3) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata3(ss);
-                    }
-                };
-                xhttp.open("POST", url3, true);
-                xhttp.send();
-            }
-            
-            function showChartData4(url4) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata4(ss);
-                    }
-                };
-                xhttp.open("POST", url4, true);
-                xhttp.send();
-            }
-            
-            function showChartData5(url5) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata5(ss);
-                    }
-                };
-                xhttp.open("POST", url5, true);
-                xhttp.send();
-            }
-            
-            function showChartData6(url6) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata6(ss);
-                    }
-                };
-                xhttp.open("POST", url6, true);
-                xhttp.send();
-            }
-            
-            function showChartData7(url7) {
-
-                document.getElementById("loader_div").style.display = "block";
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-
-                    if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
-
-                        var ss = JSON.parse(xhttp.responseText);
-                        loadchartdata7(ss);
-                    }
-                };
-                xhttp.open("POST", url7, true);
-                xhttp.send();
-            }
-            
-            function loadchartdata(data) {
+            function loadchartdata(data, titleText, chartContainer) {
                 var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
                 for (var i = 0; i < data.length; i++) {
                     aVal = aVal + data[i]["functional"];
@@ -409,10 +254,10 @@
                     dVal = dVal + data[i]["repair"];
                     eVal = eVal + data[i]["not_functional_obsolete"];
                 }
-                window.chart = new CanvasJS.Chart("chartContainer",
+                window.chart = new CanvasJS.Chart(chartContainer,
                         {
                             title: {
-                                text: "Functional Status of PIS/PQS Equipment",
+                                text: titleText,
                                 fontFamily: "arial black"
                             },
                             animationEnabled: true,
@@ -420,7 +265,7 @@
                                 verticalAlign: "bottom",
                                 horizontalAlign: "center"
                             },
-                            exportFileName: "Functional PIS Charts",
+                            exportFileName: titleText,
                             exportEnabled: true,
                             theme: "theme1",
                             data: [
@@ -452,369 +297,6 @@
                 chart.render();         
             }
             
-            function loadchartdata1(data1) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data1.length; i++) {
-                    aVal = aVal + data1[i]["functional"];
-                    bVal = bVal + data1[i]["functional_obsolete"];
-                    cVal = cVal + data1[i]["not_installed"];
-                    dVal = dVal + data1[i]["repair"];
-                    eVal = eVal + data1[i]["not_functional_obsolete"];
-                }
-                window.chart1 = new CanvasJS.Chart("chartContainer1",
-                        {
-                            title: {
-                                text: "Functional Status of Domestic Equipments",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart1.render();         
-            }
-            
-            function loadchartdata2(data2) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data2.length; i++) {
-                    aVal = aVal + data2[i]["functional"];
-                    bVal = bVal + data2[i]["functional_obsolete"];
-                    cVal = cVal + data2[i]["not_installed"];
-                    dVal = dVal + data2[i]["repair"];
-                    eVal = eVal + data2[i]["not_functional_obsolete"];
-                }
-                window.chart2 = new CanvasJS.Chart("chartContainer2",
-                        {
-                            title: {
-                                text: "Functional Status of PIS/PQS Refrigerators",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart2.render();         
-            }
-            
-            function loadchartdata3(data3) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data3.length; i++) {
-                    aVal = aVal + data3[i]["functional"];
-                    bVal = bVal + data3[i]["functional_obsolete"];
-                    cVal = cVal + data3[i]["not_installed"];
-                    dVal = dVal + data3[i]["repair"];
-                    eVal = eVal + data3[i]["not_functional_obsolete"];
-                }
-                window.chart3 = new CanvasJS.Chart("chartContainer3",
-                        {
-                            title: {
-                                text: "Functional Status of Domestic Refrigerators",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart3.render();         
-            }
-            
-            function loadchartdata4(data4) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data4.length; i++) {
-                    aVal = aVal + data4[i]["functional"];
-                    bVal = bVal + data4[i]["functional_obsolete"];
-                    cVal = cVal + data4[i]["not_installed"];
-                    dVal = dVal + data4[i]["repair"];
-                    eVal = eVal + data4[i]["not_functional_obsolete"];
-                }
-                window.chart = new CanvasJS.Chart("chartContainer4",
-                        {
-                            title: {
-                                text: "Functional Status of PIS/PQS Freezers",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart4.render();         
-            }
-            
-            function loadchartdata5(data5) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data5.length; i++) {
-                    aVal = aVal + data5[i]["functional"];
-                    bVal = bVal + data5[i]["functional_obsolete"];
-                    cVal = cVal + data5[i]["not_installed"];
-                    dVal = dVal + data5[i]["repair"];
-                    eVal = eVal + data5[i]["not_functional_obsolete"];
-                }
-                window.chart5 = new CanvasJS.Chart("chartContainer5",
-                        {
-                            title: {
-                                text: "Functional Status of Domestic Freezers",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart5.render();         
-            }
-            
-            function loadchartdata6(data6) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data6.length; i++) {
-                    aVal = aVal + data6[i]["functional"];
-                    bVal = bVal + data6[i]["functional_obsolete"];
-                    cVal = cVal + data6[i]["not_installed"];
-                    dVal = dVal + data6[i]["repair"];
-                    eVal = eVal + data6[i]["not_functional_obsolete"];
-                }
-                window.chart6 = new CanvasJS.Chart("chartContainer6",
-                        {
-                            title: {
-                                text: "Functional Status of PIS/PQS Solar Refirgerators",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart6.render();         
-            }
-            
-            function loadchartdata7(data7) {
-                var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
-                for (var i = 0; i < data7.length; i++) {
-                    aVal = aVal + data7[i]["functional"];
-                    bVal = bVal + data7[i]["functional_obsolete"];
-                    cVal = cVal + data7[i]["not_installed"];
-                    dVal = dVal + data7[i]["repair"];
-                    eVal = eVal + data7[i]["not_functional_obsolete"];
-                }
-                window.chart7 = new CanvasJS.Chart("chartContainer7",
-                        {
-                            title: {
-                                text: "Functional Status of Domestic Solar Refrigerators",
-                                fontFamily: "arial black"
-                            },
-                            animationEnabled: true,
-                            legend: {
-                                verticalAlign: "bottom",
-                                horizontalAlign: "center"
-                            },
-                            exportFileName: "Functional PIS Charts",
-                            exportEnabled: true,
-                            theme: "theme1",
-                            data: [
-                                {
-                                    type: "pie",
-                                    indexLabelFontFamily: "Garamond",
-                                    indexLabelFontColor: "Green",
-                                    indexLabelFontSize: 15,
-                                    indexLabelFontWeight: "bold",
-                                    startAngle: 0,
-
-                                    indexLabelLineColor: "darkgrey",
-                                    indexLabelPlacement: "outside",
-                                    toolTipContent: "<strong>{y}</strong>",
-                                    showInLegend: true,
-                                    indexLabel: "{name} #percent%",
-                                    dataPoints: [
-                                        {y: aVal, exploded: true, name: "Functional", legendMarkerType: "triangle"},
-                                        {y: bVal, name: "Functional Obsolete", legendMarkerType: "square"},
-                                        {y: cVal, name: "Not Installed", legendMarkerType: "circle"},
-                                        {y: dVal, name: "Repair", legendMarkerType: "triangle"},
-                                        {y: eVal, name: "Not functional Obsolete", legendMarkerType: "square"}
-
-                                    ]
-                                }
-                            ]
-                        });
-                     
-                chart7.render();         
-            }
 
         </script>
         <!--Script of Chart ends here-->
@@ -889,12 +371,12 @@
                     </li>
                     <!--Dashboards - Dropdown Trigger -->
                     <li>
-                        <a class="dropdown-button" href="#!" data-activates="productsDropdown" data-beloworigin="true" data-constrainwidth="false">
-                            Dashboards<i class="material-icons right">arrow_drop_down</i>
+                        <a href="assetManagementPage">
+                            Functional & Capacity Dashboard
                         </a>
                     </li>
                     <!--List of CCE - Dropdown Trigger -->
-                    <li id="stockManagementNavigationUL">
+                    <li id="cceListNavigationMenu">
                         <a href="listOfCCEPage">
                             List of CCE
                         </a>

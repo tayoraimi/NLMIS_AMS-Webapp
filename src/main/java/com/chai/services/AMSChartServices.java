@@ -114,18 +114,18 @@ public class AMSChartServices {
 		Session session = sf.openSession();
 		try {
                         String x_query = "SELECT STATE, LGA, WARD,"
-                                        + " SUM(IF(TYPE = 'PIS/PQS electrical' OR TYPE = 'PIS/PQS Solar'"
-                                        + " OR TYPE = 'Absorption' OR TYPE = 'PIS/PQS',SUM(F)+SUM(NI)+SUM(NF)+SUM(O_F)+SUM(O_NF),0)) AS `qualified`,"
-                                        + " SUM(IF(TYPE = 'Domestic - Electrical' OR TYPE = 'Domestic - Solar'"
-                                        + " OR TYPE = 'Absorption',SUM(F)+SUM(NI)+SUM(NF)+SUM(O_F)+SUM(O_NF),0)) AS `domestic`"
-                                        + " FROM view_cce_status_chart ";
+                                + "IF(TYPE NOT LIKE '%domestic%',"
+                                + "SUM(ifnull(F,0) + ifnull(NI, 0) + ifnull(NF, 0) + ifnull(O_NF, 0)),0) AS `qualified`,"
+                                + " IF(TYPE LIKE '%domestic%',"
+                                + "SUM(ifnull(F, 0) + ifnull(NI, 0) + ifnull(NF, 0) + ifnull(O_NF, 0)),0) AS `domestic`"
+                                + " FROM view_cce_status_chart ";
                         String x_where_condition = " WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
                         +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+")";
                         x_query = x_query+x_where_condition;
 			Transaction tx = null;
 			tx = session.beginTransaction();
-                        
+                        System.out.println(x_query);
 			SQLQuery query = session.createSQLQuery(x_query);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 			List resultlist = query.list();
@@ -207,7 +207,7 @@ public class AMSChartServices {
                                 + ", SUM(F_SOLAR) as FUNCTIONAL_SR"
                                 + ", SUM(NF_SOLAR) AS REPAIRABLE_SR"
                                 + ", SUM(OTHER_CCE) AS WITHOUT_SR"
-                                + ", SUM(NO_CCE) AS WITHOUT_SR"
+                                + ", SUM(NO_CCE) AS NO_CCE"
                                 + " FROM `view_cce_ward_data` ";
                         String x_where_condition = " WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
