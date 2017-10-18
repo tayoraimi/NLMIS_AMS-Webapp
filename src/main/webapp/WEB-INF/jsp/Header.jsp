@@ -39,6 +39,6 @@
     margin-right: auto;
 }
 #logout_btn img:hover{
- width: 29%;
+ width: 23%;
 }
 </style>
