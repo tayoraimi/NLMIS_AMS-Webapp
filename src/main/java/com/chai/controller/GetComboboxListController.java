@@ -195,6 +195,40 @@ public class GetComboboxListController {
 			}
 		}
 	}
+	@RequestMapping(value = "/get_last_20_years_list")
+	public void getJson20YearList(HttpServletRequest request,HttpServletResponse respones){
+		try{
+			JSONArray data=new CalendarUtil().get20Years();
+			// System.out.println("json year_list: "+data.toString());
+			PrintWriter out=respones.getWriter();
+			out.write(data.toString());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			try {
+				respones.sendRedirect("loginPage");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+        @RequestMapping(value = "/get_month_number_list")
+	public void getJsonMonthList(HttpServletRequest request,HttpServletResponse respones){
+		try{
+			JSONArray data=new CalendarUtil().getMonthAndNumber("short_month_inyear");
+			// System.out.println("json year_list: "+data.toString());
+			PrintWriter out=respones.getWriter();
+			out.write(data.toString());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			try {
+				respones.sendRedirect("loginPage");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 
 	@RequestMapping(value = "/get_week_list/{weekOrMonth}")
 	public void getJsonWeekList(@PathVariable("weekOrMonth") String weekOrMonth,

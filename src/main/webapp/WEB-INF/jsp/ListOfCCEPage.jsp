@@ -485,11 +485,11 @@
                                     if (result.toString() == 'succsess') {
                                         // close the dialog
                                         alertBox("Operation Successful");
+                                        $('#form_dialog').dialog('close');
                                         refreshData();
                                     } else {
                                         alertBox("Operation Failed");
                                     }
-                                    $('#form_dialog').dialog('close');
                                 }
                             });
                         }

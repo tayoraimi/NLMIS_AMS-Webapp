@@ -806,7 +806,7 @@
                                                                                 queryParams: {arg0: 'SourceList', arg1: '', arg2: '', arg3: ''}
                                                                             });
                                                                             $('#cce_acquisition1_combobox_form').combobox({
-                                                                                url: 'get_year_list',
+                                                                                url: 'get_last_20_years_list',
                                                                                 valueField: 'value',
                                                                                 textField: 'label'
                                                                             });
