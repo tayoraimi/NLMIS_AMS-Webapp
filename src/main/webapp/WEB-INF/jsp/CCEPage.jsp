@@ -402,6 +402,7 @@
         <script type="text/javascript"
         src="resources/easyui/jquery.easyui.min.js"></script>
         <script src="resources/js/common.js"></script>
+	<script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
         <script type="text/javascript">
                         var submitType;
         //function doSearch(){
