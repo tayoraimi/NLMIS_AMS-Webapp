@@ -468,7 +468,7 @@ $(document).ready(function(){
 
 <body>
 
-	<jsp:include page="Header.jsp"></jsp:include>
+	<jsp:include page="HeaderNLMIS.jsp"></jsp:include>
 	<%! int loadCount=0; %>
 	<% loadCount =(int)request.getSession().getAttribute("loadCount");
 		loadCount++;

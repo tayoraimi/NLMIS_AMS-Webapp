@@ -62,7 +62,7 @@ import com.chai.services.UserService;
 					Date login_time = new Date();
 					SimpleDateFormat ft = new SimpleDateFormat("E dd MM yyyy, hh:mm:ss a ");
 					session.setAttribute("login_time", ft.format(login_time));
-					page="redirect:homepage";
+					page="redirect:landingpage";
 				} else {
 					System.out.println("userdataList.size() != 2");
 					page="redirect:loginPage";
