@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<html id="assetmanagementpageHtmlElement">
+<html id="assetmanagementpageHtmlElement" style="font-size:13px">
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +10,7 @@
 
 <script src="resources/js/jquery-2.2.3.min.js"></script>
 <script src="resources/js/materialize.min.js"></script>
+<script src="resources/js/common.js"></script>
 
 <title>Asset Management System</title>
 
@@ -105,6 +106,13 @@ font-family: arial;
 font-stretch: expanded;
 }
 </style>
+
+<script type="text/javascript">
+history.pushState(null, null, "assetManagementPage");
+window.addEventListener('popstate', function () {
+history.pushState(null, null, "assetManagementPage");
+});	
+</script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -114,6 +122,7 @@ $(document).ready(function(){
 	var reloadDashboards=true;
 	$(document).ready(function(){
 		$(".dropdown-button").dropdown({ hover: true });
+		$("#cceDashboardTabsUL .indicator").css('height','5px');
 		var user = '${userdata.getX_ROLE_NAME()}';
 		$('#user').text('User: '+user+' ${userdata.getX_WAREHOUSE_NAME()}');
 		$('#login_time').text('${login_time}');
@@ -245,7 +254,8 @@ $(document).ready(function(){
                                 break;
 		}		
 		
-		/* Below handler will run when Menu-Items(Navigation Menu-Dropdowns) clicked */		
+		/* Below handler will run when Menu-Items(Navigation Menu-Dropdowns) clicked */	
+		$('#iframe').hide();	
 	});
 	
 	function showLicense(){
@@ -337,7 +347,7 @@ $(document).ready(function(){
 
         <!--SCCO - About - Dropdown Structure -->
         <ul id="aboutDropdown" class="dropdown-content">
-            <li id="0"><a href="#" name="cceDashboardMergedView" onclick="showLicense()">License</a></li>
+            <li id="0"><a href="#" name="cceDashboardTab1View" onclick="showLicense()">License</a></li>
         </ul>
 	
 	<nav class="#1b5e20 green darken-1">
@@ -382,7 +392,7 @@ $(document).ready(function(){
 	<!-- Below div, By default display's Functional Dashboard as home-page-default-view -->
 	<div id="mainHomePageDiv" class="row">
 	    <div id="cceDashboardULTabsDiv" class="col l12">
-            <ul id="cceDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:7%">
+            <ul id="cceDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:5%">
 	        <li id="cceDashboardLiTab1" class="tab col l4"><a id="cceDashboardLiTab1Link" href="#cceDashboardTab1View" name="merged_dashboard_page">Functionality & Capacity Dashboard</a></li>
 	        <li id="cceDashboardLiTab2" class="tab col l4"><a id="cceDashboardLiTab2Link" href="#cceDashboardTab2View" name="functional_dashboard_page">Functionality Dashboard</a></li>
 	        <li id="cceDashboardLiTab4" class="tab col l4"><a id="cceDashboardLiTab4Link" href="#cceDashboardTab4View" name="capacity_dashboard_page">Capacity Dashboard</a></li>
@@ -546,6 +556,9 @@ $(document).ready(function(){
     margin: 0;
     padding: 0 0 0 0px;
     width: 50000px;
+}
+.tabs .tab {
+line-height: 35px;
 }
 .tabs {
 	/* In material-min.css */

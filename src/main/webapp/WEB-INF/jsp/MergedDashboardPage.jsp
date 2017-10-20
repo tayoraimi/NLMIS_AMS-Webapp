@@ -208,3 +208,11 @@ $('#agg_combobox').combobox({});
 $('#viewDashboardLinkBtn').linkbutton({});
 //$('#exportLinkBtn4').linkbutton({});
 </script>
+<style>
+/* VERY IMPORTANT - DON'T REMOVE BELOW CSS STYLE */
+.row .col {
+    box-sizing: border-box;
+    float: left;
+    padding: 0 0;
+}
+</style>
