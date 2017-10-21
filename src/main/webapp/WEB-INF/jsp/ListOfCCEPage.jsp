@@ -445,8 +445,8 @@
                                     if ($('#list_of_cce_designation_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Designation is Empty!";
                                         validate = false;
-                                    } else if ($('#list_of_cce_price_textbox_form').textbox('getValue') == '') {
-                                        errormessage = "Price is Empty!";
+                                    } else if ($('#list_of_cce_price_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_price_textbox_form').textbox('getValue'))) {
+                                        errormessage = "Price is Empty or not a number!";
                                         validate = false;
                                     } else if ($('#list_of_cce_company_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Company is Empty!";
@@ -454,13 +454,13 @@
                                     } else if ($('#list_of_cce_refrigerant_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Refrigerant is Empty!";
                                         validate = false;
-                                    } else if ($('#list_of_cce_vol_neg_textbox_form').textbox('getValue') == '') {
-                                        errormessage = "Vol neg is Empty!";
+                                    } else if ($('#list_of_cce_vol_neg_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_vol_neg_textbox_form').textbox('getValue'))) {
+                                        errormessage = "Vol neg is Empty or not a number!";
                                         validate = false;
-                                    } else if ($('#list_of_cce_vol_pos_textbox_form').textbox('getValue') == '') {
-                                        errormessage = "Vol pos is Empty!";
+                                    } else if ($('#list_of_cce_vol_pos_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_vol_pos_textbox_form').textbox('getValue'))) {
+                                        errormessage = "Vol pos is Empty or not a number!";
                                         validate = false;
-                                    } else if ($('#list_of_cce_expected_working_life_textbox_form').textbox('getValue') == '') {
+                                    } else if ($('#list_of_cce_expected_working_life_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_expected_working_life_textbox_form').textbox('getValue'))) {
                                         errormessage = "Expected working life is Empty!";
                                         validate = false;
                                     } else if ($('#list_of_cce_category_combobox_form').combobox('getValue') == '') {
