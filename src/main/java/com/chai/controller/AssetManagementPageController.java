@@ -16,7 +16,7 @@ import com.chai.model.views.AdmUserV;
 @Controller
 public class AssetManagementPageController {
 	@RequestMapping(value = "/assetManagementPage", method = RequestMethod.GET)
-	public ModelAndView showHomePage(HttpServletRequest request, HttpServletResponse respones) {
+	public ModelAndView showAssetManagementPage(HttpServletRequest request, HttpServletResponse respones) {
 		ModelAndView modelAndView= new ModelAndView("AssetManagementPage");
 		try {
 			HttpSession session=request.getSession();

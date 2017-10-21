@@ -65,7 +65,7 @@ public class CCEService {
                                 + "VOL_NEG, VOL_POS, DATE_FORMAT(DATE_NF, '%d-%b-%Y') DATE_NF, CATEGORY, "
                                 + "TYPE, STATUS, DECISION, ENERGY, substring_index(YEAR_OF_ACQUISITION,'/',1) AS MONTH_OF_ACQUISITION, "
                                 + "DATE_FORMAT(CONCAT('2014-',substring_index(YEAR_OF_ACQUISITION,'/',1),'-03'),'%b') AS MONTH_OF_ACQUISITION_STR, "
-                                + "substring_index(YEAR_OF_ACQUISITION,'/',-1) AS YR_OF_ACQUISITION, YEAR_OF_ACQUISITION, SOURCE_OF_CCE FROM VIEWE003  ORDER BY CCE_DATA_ID DESC";
+                                + "substring_index(YEAR_OF_ACQUISITION,'/',-1) AS YR_OF_ACQUISITION, YEAR_OF_ACQUISITION, SOURCE_OF_CCE FROM VIEW_E003  ORDER BY CCE_DATA_ID DESC";
 		}
 		JSONArray array = null;
 		try {

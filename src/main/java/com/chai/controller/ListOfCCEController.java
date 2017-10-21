@@ -78,7 +78,7 @@ public class ListOfCCEController {
 		System.out.println("warehouseId"+warehouseId);
 		try{
 			AdmUserV userBean=(AdmUserV)request.getSession().getAttribute("userBean");
-			data=listOfCCEService.getSearchListOfCCEListPageData(userTypeId,roleId,warehouseId,userBean);
+//			data=listOfCCEService.getSearchListOfCCEListPageData(userTypeId,roleId,warehouseId,userBean);
 			// System.out.println("json ======"+data.toString());
 		
 			PrintWriter out=respones.getWriter();
@@ -98,27 +98,12 @@ public class ListOfCCEController {
 		AdmUserV userBean=(AdmUserV)request.getSession().getAttribute("userBean");
 		System.out.println("in ListOfCCEController.saveAddEditListOfCCE()");
 		String action=request.getParameter("action");
-		System.out.println("aciton------"+action);
-//		System.out.println("getX_LAST_NAME"+bean.getX_ListOfCCE_DATE_NF());
-		// System.out.println("LOGIN_NAME "+bean.getX_LOGIN_NAME());
-		// System.out.println("user type name: "+bean.getX_USER_TYPE_NAME());
-		// System.out.println("USER_TYPE_ID"+bean.getX_USER_TYPE_ID());
-		// System.out.println("STATUS"+bean.getX_STATUS());
-		// System.out.println("ACTIVATED"+bean.getX_ACTIVATED());
-		// System.out.println("START_DATE"+bean.getX_START_DATE());
-		// System.out.println("END_DATE"+bean.getX_END_DATE());
-		// System.out.println("EMAIL"+bean.getX_EMAIL());
-		// System.out.println("TELEPHONE_NUMBER"+bean.getX_TELEPHONE_NUMBER());
-		// System.out.println("UPDATED_BY"+bean.getX_UPDATED_BY());
-		// System.out.println("ACTIVATED_BY"+bean.getX_ACTIVATED_BY());
-		// System.out.println("CREATED_BY"+bean.getX_CREATED_BY());
-		// System.out.println("CREATED_ON"+bean.getX_CREATED_ON());
-		// System.out.println("PASSWORD"+bean.getX_PASSWORD());
-		// System.out.println("WAREHOUSE_ID"+bean.getX_WAREHOUSE_ID());
+		System.err.println("aciton------"+action);
 		int insertUpdateListOfCCEFlag = 0;
 		try {
 			if(action.equals("add")){
 				insertUpdateListOfCCEFlag = listOfCCEService.saveListOfCCEAddEdit(bean, action, userBean);
+//                                insertUpdateListOfCCEFlag = 1;
 			}else{
 				String listOfCCEId=request.getParameter("listOfCCEId");
 				System.out.println("edit record of user"+listOfCCEId);

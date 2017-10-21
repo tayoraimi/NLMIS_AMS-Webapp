@@ -95,27 +95,7 @@ public class CCEController {
 		AdmUserV userBean=(AdmUserV)request.getSession().getAttribute("userBean");
 		System.out.println("in CCEController.saveAddEditCCE()");
 		String action=request.getParameter("action");
-//                String facId=request.getParameter("facId");
-//                String cceDataId=request.getParameter("cceId");
-//                String location=bean.getX_CCE_LOCATION().toString();
 		System.out.println("aciton------"+action);
-//		System.out.println("getX_LAST_NAME"+bean.getX_CCE_DATE_NF());
-//                if(facId.equals("")){
-//                    facId = bean.getX_CCE_LGA_ID();
-//                    
-//                    if(facId.equals("")){
-//                        facId = bean.getX_CCE_STATE_ID();
-//                        if(facId.equals("")){
-//                            facId = userBean.getX_WAREHOUSE_ID().toString();
-////                            System.out.println("Still no FacId");
-//                        }
-//                    }
-//                }
-//                bean.setX_CCE_FACILITY_ID(facId);
-//                bean.setX_CCE_LOCATION(location);
-		System.out.println("getX_FAC "+bean.getX_CCE_FACILITY_ID());
-		System.out.println("getX_LOC "+bean.getX_CCE_LOCATION());
-		System.out.println("getX_DATA_ID "+bean.getX_CCE_DATA_ID());
 		int insertUpdateCCEFlag = 0;
 		try {
 			if(action.equals("add")){

@@ -348,11 +348,11 @@
                             submitType = "add";
                             $('#form_dialog').dialog('open').dialog('center').dialog('setTitle', 'Add New CCE Info');
                             $('#add_edit_form').form('clear');
-                            $('#add_edit_form').attr('action', 'save_addedit_listOfCCE?action=add');
 
 //                            $('#list_of_cce_vol_pos_textbox_form').combobox('disable', true);
 
                             loadFormComboboxList();
+                            $('#add_edit_form').attr('action', 'save_addedit_listOfCCE?action=add');
         //    $('#list_of_ccetype_combobox_form').combobox('enable',true);
                         }
                         function loadFormComboboxList() {

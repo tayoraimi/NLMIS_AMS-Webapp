@@ -16,7 +16,7 @@ import com.chai.model.views.AdmUserV;
 @Controller
 public class LandingPageController {
 	@RequestMapping(value = "/landingpage", method = RequestMethod.GET)
-	public ModelAndView showHomePage(HttpServletRequest request, HttpServletResponse respones) {
+	public ModelAndView showLandingPage(HttpServletRequest request, HttpServletResponse respones) {
 		ModelAndView modelAndView= new ModelAndView("LandingPage");
 		try {
 			HttpSession session=request.getSession();
