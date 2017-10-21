@@ -240,10 +240,13 @@
 
             <!-- add edit form -->
 
-            <div id="form_dialog" class="easyui-dialog" style="width:430px;height:520px;padding:10px 20px"
+            <div id="form_dialog" class="easyui-dialog" style="width:430px;height:580px;padding:10px 20px"
                  closed="true" buttons="#form_buttons">
             <f:form id="add_edit_form" method="post" commandName="beanForCCE">
                 <table cellspacing="10px;">
+                    <tr>
+                        <td colspan="2" style="color:red; height:2px">-------------- Select the facility to assign CCE --------------</td>
+                    </tr>
                     <tr>
                         <td>
                             
@@ -283,13 +286,16 @@
                     <tr>
                         <td>
                             <div id="cce_location_div">
-                                <label id="cce_location_label">*Equipment Location:</label>
+                                <label id="cce_location_label">*Equipment Location/Store will be:</label>
                                 <f:input id="cce_location_textbox"  class="easyui-textbox" path="x_CCE_LOCATION"/>
                             </div>
                         </td>
                         <td>
 
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="color:red; height:2px">---------------- Select the CCE to assign ----------------</td>
                     </tr>
                     <tr>
                         <td>
