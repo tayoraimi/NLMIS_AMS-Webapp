@@ -122,12 +122,6 @@
 
         </script>
         <style type="text/css">
-            #first_name_label,#last_name_label,#cce_name_label,#cce_types_label,#password_label,
-            #confirm_password_label,#role_label,#assign_lga_label,#start_date_label{
-                font-weight: bold;
-            }
-        </style>
-        <style>
             .loader_div {
                 height: 100%;
                 width: 100%;
@@ -163,6 +157,11 @@
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
+            
+            #hf_number_label,#hf_name_label,#state_store_label,#default_ord_store_label,#country_name_label,
+#ward_label,#start_date_label{
+font-weight: bold;
+}
 
         </style>
     </head>
@@ -170,7 +169,7 @@
         <!-- to check seesoin is null or not -->
 
         <!-- headr of page -->
-        <jsp:include page="headerforamspages.jsp"></jsp:include>
+        <%-- <jsp:include page="headerforamspages.jsp"></jsp:include> --%>
 
             <!-- button bar -->
 
@@ -467,17 +466,17 @@
                 </div>
         -->
 
-        <jsp:include page="footer-for-page.jsp"></jsp:include>
+        <%-- <jsp:include page="footer-for-page.jsp"></jsp:include> --%>
             <!-- loder div -->
             <div style="display: none;" id="loader_div" class="loader_div">
                 <div class="loader" id="loader_show">
                 </div>
             </div>
         </body>
-        <script type="text/javascript" src="resources/js/jquery-2.2.3.min.js"></script>
-        <script type="text/javascript"
-        src="resources/easyui/jquery.easyui.min.js"></script>
-        <script src="resources/js/common.js"></script>
+<script type="text/javascript" src="resources/js/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="resources/easyui/jquery.easyui.min.js"></script>
+<script src="resources/js/common.js" type="text/javascript"></script>
+<script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
         <script type="text/javascript">
                 var submitType;
                 //function doSearch(){

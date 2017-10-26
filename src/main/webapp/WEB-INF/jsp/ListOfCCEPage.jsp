@@ -194,7 +194,7 @@
                     <tr>
                         <td>
                             <div class="list_of_cce_refrigerant_div">
-                                <label id="list_of_cce_refrigerant_label">*Refrigerant:</label>
+                                <label id="list_of_cce_refrigerant_label">Refrigerant:</label>
                                 <f:select id="list_of_cce_refrigerant_combobox_form"  class="easyui-combobox" cssStyle="width:150px;" path="x_ListOfCCE_REFRIGERANT" />
 <!--                                    <option value="STATE">STATE</option>
                                     <option value="LGA">LGA</option>
@@ -451,10 +451,7 @@
                                     } else if ($('#list_of_cce_company_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Company is Empty!";
                                         validate = false;
-                                    } else if ($('#list_of_cce_refrigerant_combobox_form').combobox('getValue') == '') {
-                                        errormessage = "Refrigerant is Empty!";
-                                        validate = false;
-                                    } else if ($('#list_of_cce_vol_neg_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_vol_neg_textbox_form').textbox('getValue'))) {
+                                    }else if ($('#list_of_cce_vol_neg_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_vol_neg_textbox_form').textbox('getValue'))) {
                                         errormessage = "Vol neg is Empty or not a number!";
                                         validate = false;
                                     } else if ($('#list_of_cce_vol_pos_textbox_form').textbox('getValue') == '' || isNaN($('#list_of_cce_vol_pos_textbox_form').textbox('getValue'))) {

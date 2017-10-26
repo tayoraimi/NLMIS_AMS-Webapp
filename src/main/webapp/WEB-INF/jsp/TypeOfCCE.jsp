@@ -28,98 +28,53 @@
         <script src="resources/js/materialize.min.js"></script>
 
         <title>Type of CCE Chart</title>
+        <link rel=" stylesheet" href="resources/css/w3css.css" type="text/css">
+        <link rel="stylesheet" href="resources/css/table.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="resources/easyui/themes/icon.css">
+        <link rel="stylesheet" type="text/css" href="resources/easyui/demo/demo.css">
 
         <style>
-            nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-                height: 33px;
-                line-height: 33px;
-            }
-            .dropdown-content li {
-                    min-height: 25px;
-            }
-            .dropdown-content li > a, .dropdown-content li > span {
-                color: #26a69a;
-                display: block;
-                font-size: 16px;
-                line-height: 22px;
-                padding: 7px 16px;
-            }
-            .preloader-wrapper.big {
-                height: 100px;
-                left: 42%;
-                top: 50%;
-                width: 100px;
-            }
             .loader_div {
-                    height: 100%;
-                    width: 100%;
-                    position: absolute;
-                    overflow: overlay;
-                    opacity: 0.5;
-                    z-index: 1000;
-                    top: 0%;
-            }
-            .loader {
-                    border: 16px solid #f3f3f3;
-                    border-radius: 50%;
-                    border-top: 16px solid blue;
-                    border-bottom: 16px solid blue;
-                    top: 42%;
-                    left: 43%;
-                    z-index: 1;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    -webkit-animation: spin 2s linear infinite;
-                    animation: spin 1s linear infinite;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                background: #0c1520;
+                overflow: overlay;
+                opacity: 0.5;
+                z-index: 2;
+                top: 0%;
             }
 
-            .loader_div_for_iframe {
-                    height: 84%;
-                    width: 100%;
-                    position: absolute;
-                    overflow: overlay;
-                    opacity: 0.5;
-                    z-index: 1000;
-                    top: 16%;
+            .loader {
+                border: 16px solid #f3f3f3;
+                border-radius: 50%;
+                border-top: 16px solid blue;
+                border-bottom: 16px solid blue;
+                top: 42%;
+                left: 43%;
+                z-index: 1;
+                width: 120px;
+                height: 120px;
+                position: absolute;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 1s linear infinite;
             }
-            .loader_circle{
-                    border: 8px solid #f3f3f3;
-                    border-radius: 50%;
-                    border-top: 8px solid blue;
-                    border-bottom: 8px solid blue;
-                    top: 42%;
-                    left: 43%;
-                    z-index: 1;
-                    width: 120px;
-                    height: 120px;
-                    position: absolute;
-                    -webkit-animation: spin 2s linear infinite;
-                    animation: spin 1s linear infinite;
-            }
+
             @-webkit-keyframes spin {
-              0% { -webkit-transform: rotate(0deg); }
-              100% { -webkit-transform: rotate(360deg); }
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
             }
+
             @keyframes spin {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
             }
-            .decres_trend_image{
-            -ms-transform: rotate(90deg); /* IE 9 */
-                -webkit-transform: rotate(90deg); /* Safari */
-                transform: rotate(90deg);
-            }
-            .incres_trend_image{
-            -ms-transform: rotate(270deg); /* IE 9 */
-                -webkit-transform: rotate(270deg); /* Safari */
-                transform: rotate(270deg);
-            }
-            #license_modal p{
-            line-height: 1;
-            font-family: arial;
-            font-stretch: expanded;
-            }
+            
+            #hf_number_label,#hf_name_label,#state_store_label,#default_ord_store_label,#country_name_label,
+#ward_label,#start_date_label{
+font-weight: bold;
+}
         </style>
 
         <script type="text/javascript">
@@ -218,10 +173,10 @@
                 xhttp.onreadystatechange = function () {
 
                     if (xhttp.readyState == 4 && xhttp.status == 200) {
-                        document.getElementById("loader_div").style.display = "none";
 
                         var ss = JSON.parse(xhttp.responseText);
                         loadchartdata(ss);
+                        document.getElementById("loader_div").style.display = "none";
                     }
                 };
                 xhttp.open("POST", url, true);
@@ -280,96 +235,6 @@
             </head>
 
     <body>
-        <jsp:include page="HeaderAms.jsp"></jsp:include>
-        <%! int loadCount = 0;%>
-        <% loadCount = (int) request.getSession().getAttribute("loadCount");
-            loadCount++;
-            request.getSession().setAttribute("loadCount", loadCount);
-        %>
-        <!--Assets - Dropdown Structure -->
-        <ul id="administrationDropdown" class="dropdown-content" style="">
-            <li><a href="repage">Related Equipments</a></li>
-            <li class="divider"></li>
-            <li><a href="ccepage">Cold Chain Equipment</a></li>
-            <li class="divider"></li>
-            <li><a href="transportpage">Transport</a></li>
-            <li class="divider"></li>
-            <li><a href="tmcpage">TMC</a></li>
-        </ul>
-
-        <!--Reports - Dropdown Structure -->
-        <ul id="reportDropdown" class="dropdown-content" style="">
-            <li><a href="functional_chart_page">Functional Status Chart</a></li>
-            <li class="divider"></li>
-            <li><a href="functionalpis">Func-stat-PQS-Domestic Graph</a></li>
-            <li class="divider"></li>
-            <li><a href="typeofcce">Type of CCE</a></li>
-            <li class="divider"></li>
-          <!--  <li><a href="typeofsolar">Type of Solar Graph</a></li>-->
-            <li class="divider"></li>
-            <li><a href="statecapacity">State Capacity</a></li>
-            <li class="divider"></li>
-            <li><a href="lgacapacity">LGA Capacity</a></li>
-            <li class="divider"></li>
-            <li><a href="wardswithsolar">Wards with Solar</a></li>
-            <li class="divider"></li>
-            <li><a href="wardswithothercce">Wards with Other CCE</a></li>               
-        </ul>
-
-        <!--Dashboards - Dropdown Structure -->
-	<ul id="productsDropdown" class="dropdown-content" style="">
-		<li><a href="assetManagementPage">Functional Dashboard</a></li>
-		 <li class="divider"></li>
-		<li id="4"><a href="assetManagementPage" name="cceDashboardTab4View">Capacity Dashboard</a></li>
-		<li class="divider"></li>
-		<li><a href="#!">Cap Antigens Dashboard</a></li> 
-	</ul>
-
-        <!--SCCO - About - Dropdown Structure -->
-        <ul id="aboutDropdown" class="dropdown-content">
-            <li id="0"><a href="#" name="cceDashboardTab1View" onclick="showLicense()">License</a></li>
-        </ul>
-
-        <nav class="#1b5e20 green darken-1">
-            <div class="nav-wrapper">
-                <!-- <a href="#!" class="brand-logo">Logo</a> -->
-                <ul class="right hide-on-med-and-down">
-                    <!--Administration - Dropdown Trigger -->
-                    <li>
-                        <a class="dropdown-button" href="#!" data-activates="administrationDropdown" data-beloworigin="true" data-constrainwidth="false">
-                            Assets<i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                    <!--Reports Dropdown -->
-                    <li>
-                        <a class="dropdown-button" href="#!" data-activates="reportDropdown" data-beloworigin="true" data-constrainwidth="false">
-                            Data Analysis Charts<i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                    <!--Dashboards - Dropdown Trigger -->
-                    <li>
-                        <a class="dropdown-button" href="#!" data-activates="productsDropdown" data-beloworigin="true" data-constrainwidth="false">
-                            Dashboards<i class="material-icons right">arrow_drop_down</i>
-                        </a>
-                    </li>
-                    <!--List of CCE - Dropdown Trigger -->
-                    <li id="cceListNavigationMenu">
-                        <a href="listOfCCEPage">
-                            List of CCE
-                        </a>
-                    </li>
-                    <!--Stock Dashboard - Dropdown Trigger -->
-                    <!--				<li>
-                                                            <a class="dropdown-button" href="#!" data-activates="cceDashboardDropdown" data-beloworigin="true" data-constrainwidth="false">
-                                                                    Stock Dashboard<i class="material-icons right">arrow_drop_down</i>
-                                                            </a>
-                                                    </li>-->
-
-                </ul>
-            </div>
-        </nav>
-
-
         <!-- loader div -->
         <div style="display: none;" id="loader_div" class="loader_div">
             <div class="loader" id="loader_show"></div>
@@ -405,30 +270,8 @@
 
         </div>
     </body>
-
-    <style>
-        .tabs {
-            /* In easy-ui.css */
-            border-style: solid;
-            border-width: 0 0 1px;
-            height: 26px;
-            list-style-type: none;
-            margin: 0;
-            padding: 0 0 0 0px;
-            width: 50000px;
-        }
-        .tabs {
-            /* In material-min.css */
-            background-color: #fff;
-            display: flex;
-            height: 48px;
-            margin: 0 auto;
-            /* overflow-x: auto; */
-            /* overflow-y: hidden; */
-            position: relative;
-            white-space: nowrap;
-            width: 100%;
-        }
-    </style>
+<script type="text/javascript" src="resources/easyui/jquery.easyui.min.js"></script>
+<script src="resources/js/common.js" type="text/javascript"></script>
+<script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
     <script src="<%=request.getContextPath()%>resources/js/amsdashboards.js"></script>
 </html>

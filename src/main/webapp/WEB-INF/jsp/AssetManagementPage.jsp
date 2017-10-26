@@ -306,32 +306,32 @@ $(document).ready(function(){
 	%>
 	<!--Assets - Dropdown Structure -->
         <ul id="administrationDropdown" class="dropdown-content" style="">
-            <li><a href="repage">Related Equipments</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('repage')">Related Equipments</a></li>
             <li class="divider"></li>
-            <li><a href="ccepage">Cold Chain Equipment</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('ccepage')">Cold Chain Equipment</a></li>
             <li class="divider"></li>
-            <li><a href="transportpage">Transport</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('transportpage')">Transport</a></li>
             <li class="divider"></li>
-            <li><a href="tmcpage">TMC</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('tmcpage')">TMC</a></li>
         </ul>
 
         <!--Reports - Dropdown Structure -->
         <ul id="reportDropdown" class="dropdown-content" style="">
-            <li><a href="functional_chart_page">Functional Status Chart</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('functional_chart_page')">Functional Status Chart</a></li>
             <li class="divider"></li>
-            <li><a href="functionalpis">Func-stat-PQS-Domestic Graph</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('functionalpis')">Func-stat-PQS-Domestic Graph</a></li>
             <li class="divider"></li>
-            <li><a href="typeofcce">Type of CCE</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('typeofcce')">Type of CCE</a></li>
             <li class="divider"></li>
-            <li><a href="typeofsolar">Type of Solar Graph</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('typeofsolar')">Type of Solar Graph</a></li>
             <li class="divider"></li>
-            <li><a href="statecapacity">State Capacity</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('statecapacity')">State Capacity</a></li>
             <li class="divider"></li>
-            <li><a href="lgacapacity">LGA Capacity</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('lgacapacity')">LGA Capacity</a></li>
             <li class="divider"></li>
-            <li><a href="wardswithsolar">Wards with Solar</a></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('wardswithsolar')">Wards with Solar</a></li>
             <li class="divider"></li>
-            <li><a href="wardswithothercce">Wards with Other CCE</a></li>               
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('wardswithothercce')">Wards with Other CCE</a></li>               
         </ul>
 
         <!--Dashboards - Dropdown Structure -->

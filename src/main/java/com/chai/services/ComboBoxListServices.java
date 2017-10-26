@@ -96,8 +96,8 @@ public class ComboBoxListServices {
 					+ "   FROM CCE_DECISION WHERE STATUS = '"
                                         + args[1]+"' GROUP BY DECISION ASC ";
 			}else if(args[0].equals("StatusList")){
-				x_QUERY = " SELECT CCE_DATA_ID, STATUS "
-					+ "   FROM E003 GROUP BY STATUS ASC ";
+				x_QUERY = " SELECT DECISION_ID, STATUS "
+					+ "   FROM CCE_DECISION GROUP BY STATUS ASC ";
 			}else if(args[0].equals("SourceList")){
 				x_QUERY = " SELECT CCE_DATA_ID, SOURCE_OF_CCE "
 					+ "   FROM E003 GROUP BY SOURCE_OF_CCE ASC ";
