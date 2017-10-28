@@ -7,13 +7,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <title>Cold Rooms & Freezer Rooms, Refrigerators & Freezers</title>
-        <link rel="stylesheet" href="resources/css/buttontoolbar.css"
-              type="text/css">
-        <link rel="stylesheet" href="resources/css/table.css" type="text/css">
-        <link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
-        <link rel="stylesheet" type="text/css" href="resources/easyui/themes/icon.css">
-        <link rel="stylesheet" type="text/css" href="resources/easyui/demo/demo.css">
+        <title>List of CCE Details</title>
+            <link rel="stylesheet" href="resources/css/buttontoolbar.css"
+                    type="text/css">
+            <link rel=" stylesheet" href="resources/css/w3css.css" type="text/css">
+            <link rel="stylesheet" href="resources/css/table.css" type="text/css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/themes/icon.css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/demo/demo.css">
         <script type="text/javascript">
     function setRole() {
         var user = '${userBean.getX_ROLE_NAME()}';
@@ -39,17 +40,17 @@
                 $('#addBtn').hide();
                 break;
         }
-        document.getElementById("common_lable").innerHTML = "Details of all CCE";
-        if (user == "NTO") {
-            document.getElementById("user").innerHTML = "User: National Admin";
-            document.getElementById("warehouse_name").innerHTML = "National: " + '${userBean.getX_WAREHOUSE_NAME()}';
-        } else if (user == "SIO" || user == "SCCO" || user == "SIFP") {
-            document.getElementById("user").innerHTML = "User: " + user + '${userBean.getX_WAREHOUSE_NAME()}';
-            document.getElementById("warehouse_name").innerHTML = "State :" + '${userBean.getX_WAREHOUSE_NAME()}';
-        } else if (user == "LIO" || user == "MOH") {
-            document.getElementById("user").innerHTML = "User: " + user + '${userBean.getX_WAREHOUSE_NAME()}';
-            document.getElementById("warehouse_name").innerHTML = "LGA :" + '${userBean.getX_WAREHOUSE_NAME()}';
-        }
+//        document.getElementById("common_lable").innerHTML = "Details of all CCE";
+//        if (user == "NTO") {
+//            document.getElementById("user").innerHTML = "User: National Admin";
+//            document.getElementById("warehouse_name").innerHTML = "National: " + '${userBean.getX_WAREHOUSE_NAME()}';
+//        } else if (user == "SIO" || user == "SCCO" || user == "SIFP") {
+//            document.getElementById("user").innerHTML = "User: " + user + '${userBean.getX_WAREHOUSE_NAME()}';
+//            document.getElementById("warehouse_name").innerHTML = "State :" + '${userBean.getX_WAREHOUSE_NAME()}';
+//        } else if (user == "LIO" || user == "MOH") {
+//            document.getElementById("user").innerHTML = "User: " + user + '${userBean.getX_WAREHOUSE_NAME()}';
+//            document.getElementById("warehouse_name").innerHTML = "LGA :" + '${userBean.getX_WAREHOUSE_NAME()}';
+//        }
 
     }
         </script>
@@ -95,14 +96,18 @@
                 0% { transform: rotate(0deg); }
                 100% { transform: rotate(360deg); }
             }
-
+            
+            #hf_number_label,#hf_name_label,#state_store_label,#default_ord_store_label,#country_name_label,
+#ward_label,#start_date_label{
+font-weight: bold;
+}
         </style>
     </head>
     <body style="margin: 0px;" onload="setRole()">
         <!-- to check seesoin is null or not -->
 
         <!-- headr of page -->
-        <jsp:include page="headerforamspages.jsp"></jsp:include>
+        <%-- <jsp:include page="headerforamspages.jsp"></jsp:include> --%>
 
             <!-- button bar -->
 
@@ -326,7 +331,7 @@
                 </div>
         -->
 
-        <jsp:include page="footer-for-page.jsp"></jsp:include>
+       <%-- <jsp:include page="footer-for-page.jsp"></jsp:include> --%>
             <!-- loder div -->
             <div style="display: none;" id="loader_div" class="loader_div">
                 <div class="loader" id="loader_show">
@@ -334,10 +339,9 @@
             </div>
         </body>
         <script type="text/javascript" src="resources/js/jquery-2.2.3.min.js"></script>
-        <script type="text/javascript"
-        src="resources/easyui/jquery.easyui.min.js"></script>
-        <script src="resources/js/common.js"></script>
-	<script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
+        <script type="text/javascript" src="resources/easyui/jquery.easyui.min.js"></script>
+        <script src="resources/js/common.js" type="text/javascript"></script>
+        <script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
         <script type="text/javascript">
                         var submitType;
        

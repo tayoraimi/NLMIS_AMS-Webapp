@@ -137,28 +137,28 @@ public class ComboBoxListServices {
 						+ "   FROM VIEW_COUNTRIES  WHERE COUNTRY_NAME IS NOT NULL   "
 						+ " AND COUNTRY_NAME <> '' AND STATUS='A'  ORDER BY COUNTRY_NAME  ";
 			}else if(args[0].equals("ModelInfoList")){
-				x_QUERY = " SELECT CCE_ID, MODEL "
+				x_QUERY = " SELECT MODEL, MODEL "
 					+ "   FROM CCE_LIST GROUP BY MODEL ASC ";
 			}else if(args[0].equals("DesignationInfoList")){
-				x_QUERY = " SELECT CCE_ID, DESIGNATION "
+				x_QUERY = " SELECT DESIGNATION, DESIGNATION "
 					+ "   FROM CCE_LIST GROUP BY DESIGNATION ASC ";
 			}else if(args[0].equals("CategoryInfoList")){
-				x_QUERY = " SELECT CCE_ID, CATEGORY "
+				x_QUERY = " SELECT CATEGORY, CATEGORY "
 					+ "   FROM CCE_LIST GROUP BY CATEGORY ASC ";
 			}else if(args[0].equals("CompanyInfoList")){
-				x_QUERY = " SELECT CCE_ID, COMPANY "
+				x_QUERY = " SELECT COMPANY, COMPANY "
 					+ "   FROM CCE_LIST GROUP BY COMPANY ASC ";
 			}else if(args[0].equals("RefrigerantInfoList")){
-				x_QUERY = " SELECT CCE_ID, REFRIGERANT "
+				x_QUERY = " SELECT REFRIGERANT, REFRIGERANT "
 					+ "   FROM CCE_LIST GROUP BY REFRIGERANT ASC ";
 			}else if(args[0].equals("PriceInfoList")){
-				x_QUERY = " SELECT CCE_ID, PRICE "
+				x_QUERY = " SELECT PRICE, PRICE "
 					+ "   FROM CCE_LIST GROUP BY PRICE ASC ";
 			}else if(args[0].equals("TypeInfoList")){
-				x_QUERY = " SELECT CCE_ID, TYPE "
+				x_QUERY = " SELECT TYPE, TYPE "
 					+ "   FROM CCE_LIST GROUP BY TYPE ASC ";
 			}else if(args[0].equals("EnergySourceInfoList")){
-				x_QUERY = " SELECT CCE_ID, ENERGY_SOURCE "
+				x_QUERY = " SELECT ENERGY_SOURCE, ENERGY_SOURCE "
 					+ "   FROM CCE_LIST GROUP BY ENERGY_SOURCE ASC ";
 			}
 			

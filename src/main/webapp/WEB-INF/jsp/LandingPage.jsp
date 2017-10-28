@@ -48,6 +48,7 @@
   padding: 20px;
   border: 2px solid green;
   color: green;
+  font-size: 20;
   text-align: center;
   text-transform: uppercase;
   position: relative;
@@ -224,6 +225,7 @@ $(document).ready(function(){
 
 	<!-- Below div, By default display's Stock Dashboard as home-page-default-view -->
 	<div id="container" class="row">
+            <div class="col l8 center">
 					
 <!--			<a id="ams_btn" href="assetManagementPage" title="Asset Management">
 				<img src="resources/images/AMS.png" alt="">
@@ -235,8 +237,10 @@ $(document).ready(function(){
                             <div class="button">N-Logistics Management Information System</div>
                         </a>
                         <a id="ams_btn" href="assetManagementPage" title="Asset Management">
-                            <div class="button">Asset Management System</div>
+<!--                        <a id="ams_btn" href="#" title="Asset Management">-->
+                            <div class="button">Asset Management <br />System</div>
                         </a>
+            </div>
 
 
                         

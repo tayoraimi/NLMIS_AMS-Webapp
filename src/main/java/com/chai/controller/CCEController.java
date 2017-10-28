@@ -35,6 +35,7 @@ public class CCEController {
 				AdmUserV userBean=(AdmUserV)session.getAttribute("userBean");
 				modelAndView.setViewName("CCEPage");
 				modelAndView.addObject("userBean",userBean);
+				modelAndView.addObject("bean",bean);
 				System.out.println("name............"+userBean.getX_WAREHOUSE_NAME());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

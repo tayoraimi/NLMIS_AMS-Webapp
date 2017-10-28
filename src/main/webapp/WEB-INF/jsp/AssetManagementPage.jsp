@@ -374,7 +374,7 @@ $(document).ready(function(){
                     </li>
                     <!--List of CCE - Dropdown Trigger -->
                     <li id="cceListNavigationMenu">
-                        <a href="listOfCCEPage">
+                        <a href="#" onclick="showIframeAndHideDashBoardDiv('listOfCCEPage')">
                             List of CCE
                         </a>
                     </li>

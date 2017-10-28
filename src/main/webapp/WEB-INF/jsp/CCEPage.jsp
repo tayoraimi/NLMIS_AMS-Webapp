@@ -8,13 +8,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Cold Rooms & Freezer Rooms, Refrigerators & Freezers</title>
-<link rel="stylesheet" href="resources/css/buttontoolbar.css"
-	type="text/css">
-<link rel=" stylesheet" href="resources/css/w3css.css" type="text/css">
-<link rel="stylesheet" href="resources/css/table.css" type="text/css">
-<link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="resources/easyui/themes/icon.css">
-<link rel="stylesheet" type="text/css" href="resources/easyui/demo/demo.css">
+            <link rel="stylesheet" href="resources/css/buttontoolbar.css"
+                    type="text/css">
+            <link rel=" stylesheet" href="resources/css/w3css.css" type="text/css">
+            <link rel="stylesheet" href="resources/css/table.css" type="text/css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/themes/icon.css">
+            <link rel="stylesheet" type="text/css" href="resources/easyui/demo/demo.css">
         <script type="text/javascript">
     function streamlineUser(){
         var user = '${userBean.getX_ROLE_NAME()}';
@@ -58,25 +58,23 @@
                 $('#addBtn').hide();
                 break;
         }
-        document.getElementById("common_lable").innerHTML = "Cold Rooms & Freezer Rooms\nRefrigerators & Freezers";
-        if (user == "NTO") {
-            document.getElementById("user").innerHTML = "User: National Admin";
-            document.getElementById("warehouse_name").innerHTML = "National: " + '${userBean.getX_WAREHOUSE_NAME()}';
-        } else if (user == "SIO" || user == "SCCO" || user == "SIFP") {
-            document.getElementById("user").innerHTML = "User: State Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
-            document.getElementById("warehouse_name").innerHTML = "State :" + '${userBean.getX_WAREHOUSE_NAME()}';
-        } else if (user == "LIO" || user == "MOH") {
-            document.getElementById("user").innerHTML = "User: LGA Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
-            document.getElementById("warehouse_name").innerHTML = "LGA :" + '${userBean.getX_WAREHOUSE_NAME()}';
-        }
+//        document.getElementById("common_lable").innerHTML = "Cold Rooms & Freezer Rooms\nRefrigerators & Freezers";
+//        if (user == "NTO") {
+//            document.getElementById("user").innerHTML = "User: National Admin";
+//            document.getElementById("warehouse_name").innerHTML = "National: " + '${userBean.getX_WAREHOUSE_NAME()}';
+//        } else if (user == "SIO" || user == "SCCO" || user == "SIFP") {
+//            document.getElementById("user").innerHTML = "User: State Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
+//            document.getElementById("warehouse_name").innerHTML = "State :" + '${userBean.getX_WAREHOUSE_NAME()}';
+//        } else if (user == "LIO" || user == "MOH") {
+//            document.getElementById("user").innerHTML = "User: LGA Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
+//            document.getElementById("warehouse_name").innerHTML = "LGA :" + '${userBean.getX_WAREHOUSE_NAME()}';
+//        }
 
     }
         $(document).ready(function () {
         
 //                alertBox('user');
                 var user = streamlineUser();
-                $('#cce_data_id_div').hide();
-                $('#cce_facility_id_div').hide();
                 if (user == "NTO") {
                     
                 } else if (user == "SCCO") {
@@ -242,18 +240,13 @@ font-weight: bold;
                  closed="true" buttons="#form_buttons">
             <f:form id="add_edit_form" method="post" commandName="beanForCCE">
                 <table cellspacing="10px;">
-                    <tr>
-                        <td colspan="2" style="color:red; height:2px">-------------- Select the facility to assign CCE --------------</td>
-                    </tr>
+                    <div class="row" style="color: red;">
+				<span id="info_label"></span>
+			</div>
                     <tr>
                         <td>
-                            
-                        <div id="cce_data_id_div">
-                            <f:input id="cce_data_id_field"   class="easyui-textbox" readonly="true"  path="x_CCE_DATA_ID"/>
-                        </div>
-                        <div id="cce_facility_id_div">
-                            <f:input id="cce_facility_id_field"   class="easyui-textbox" readonly="true"  path="x_CCE_FACILITY_ID"/>
-                        </div>
+                            <f:hidden id="cce_facility_id_form" path="x_CCE_FACILITY_ID"/>
+                            <f:hidden id="cce_data_id_form" path="x_CCE_DATA_ID"/>
                             <div id="cce_state_div">
                                 <label id="cce_state_label">*State:</label>
                                 <f:select id="cce_state_combobox_form"  class="easyui-combobox" cssStyle="width:150px;" path="x_CCE_STATE_ID"/>
@@ -291,9 +284,6 @@ font-weight: bold;
                         <td>
 
                         </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="color:red; height:2px">---------------- Select the CCE to assign ----------------</td>
                     </tr>
                     <tr>
                         <td>
@@ -402,10 +392,10 @@ font-weight: bold;
                 </div>
             </div>
         </body>
-<script type="text/javascript" src="resources/js/jquery-2.2.3.min.js"></script>
-<script type="text/javascript" src="resources/easyui/jquery.easyui.min.js"></script>
-<script src="resources/js/common.js" type="text/javascript"></script>
-<script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
+        <script type="text/javascript" src="resources/js/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="resources/easyui/jquery.easyui.min.js"></script>
+        <script src="resources/js/common.js" type="text/javascript"></script>
+        <script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
         <script type="text/javascript">
                         var submitType;
         //function doSearch(){
@@ -458,9 +448,9 @@ font-weight: bold;
                             }
                             $('#cce_location_div').show();
                         }
-                        function setFacilityId(value){
+//                        function setFacilityId(value){
                             
-                            $('#cce_facility_id_field').textbox('setValue',value);
+//                            $('#cce_facility_id_field').textbox('setValue',value);
 //                            if($('#cce_state_combobox_form').combobox('getValue')==''){
 //                                $('#cce_facility_id_field').textbox('setValue','101');
 //                            }
@@ -472,7 +462,7 @@ font-weight: bold;
 //                                 
 //                                $('#cce_facility_id_field').textbox('setValue',$('#cce_state_combobox_form').combobox('getText'));
 //                            }
-                        }
+//                        }
                         function AddCCE() {
                             submitType = "add";
                             $('#form_dialog').dialog('open').dialog('center').dialog('setTitle', 'Add CCE');
@@ -490,18 +480,23 @@ font-weight: bold;
                              var user = streamlineUser();
                              if(user=='NTO'){
                              $('#cce_location_textbox').textbox('setValue','National');
-                             setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+//                             setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+                             $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
+                             $('#info_label').text('If State or LGA or HF is not selected, equipment will be located at the National Store');
+//                             alertBox($('#cce_facility_id_form').val());
                              $('#cce_state_combobox_form').combobox({
                                 url: 'get_state_store_list',
                                 valueField: 'value',
                                 textField: 'label',
                                 queryParams: {option: 'notAll'},
                                 onSelect: function (cceSTATE) {
+                                $('#info_label').text('');
                                     $('#cce_facility_name_combobox_form').combobox('clear');
                                     $('#cce_ward_combobox_form').combobox('clear');
                                     $('#cce_location_textbox').textbox('setValue','STATE');
-                                    setFacilityId(cceSTATE.value);
-                                    $('#cce_lga_combobox_form').combobox({
+//                                    setFacilityId(cceSTATE.value);
+                                    $('#cce_facility_id_form').val(cceSTATE.value);
+                                        $('#cce_lga_combobox_form').combobox({
                                         url: 'getlgalistBasedOnStateId',
                                         valueField: 'value',
                                         textField: 'label',
@@ -510,8 +505,9 @@ font-weight: bold;
                                     $('#cce_facility_name_combobox_form').combobox('clear');
                                     $('#cce_ward_combobox_form').combobox('clear');
                                     $('#cce_location_textbox').textbox('setValue','LGA');
-                                    setFacilityId(cceLGA.value);
-                                    $('#cce_ward_combobox_form').combobox({
+//                                    setFacilityId(cceLGA.value);
+                                    $('#cce_facility_id_form').val(cceLGA.value);
+                                        $('#cce_ward_combobox_form').combobox({
                                         url: 'getWardList',
                                         valueField: 'value',
                                         textField: 'label',
@@ -525,7 +521,8 @@ font-weight: bold;
                                                 queryParams: {wardid: cceWard.value, option: 'notAll'},
                                                 onSelect: function (cceHF) {
                                             $('#cce_location_textbox').textbox('setValue', 'HF');
-                                            setFacilityId(cceHF.value);
+//                                            setFacilityId(cceHF.value);
+                                            $('#cce_facility_id_form').val(cceHF.value);
                                                     }
                                                         });
                                                     }
@@ -538,15 +535,19 @@ font-weight: bold;
                              else if(user=='SCCO'){
 //                                alertBox(${userBean.getX_WAREHOUSE_ID()});
                              $('#cce_location_textbox').textbox('setValue','STATE');
-                                    setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+//                                    setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+                                    $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
+                             $('#info_label').text('If LGA or HF is not selected, equipment will be located at the STATE Store');
                                     $('#cce_lga_combobox_form').combobox({
                                         url: 'getlgalistBasedOnStateId',
                                         valueField: 'value',
                                         textField: 'label',
                                         queryParams: {stateId: ${userBean.getX_WAREHOUSE_ID()}, option: 'notAll'},
                                 onSelect: function (cceLGA) {
+                                    $('#info_label').text('');
                                     $('#cce_location_textbox').textbox('setValue','LGA');
-                                    setFacilityId(cceLGA.value);
+//                                    setFacilityId(cceLGA.value);
+                                    $('#cce_facility_id_form').val(cceLGA.value);
                                     $('#cce_facility_name_combobox_form').combobox('clear');
                                     $('#cce_ward_combobox_form').combobox('clear');
                                     $('#cce_ward_combobox_form').combobox({
@@ -563,7 +564,8 @@ font-weight: bold;
                                                 queryParams: {wardid: cceWard.value, option: 'notAll'},
                                                 onSelect: function (cceHF) {
                                             $('#cce_location_textbox').textbox('setValue', 'HF');
-                                            setFacilityId(cceHF.value);
+//                                            setFacilityId(cceHF.value);
+                                        $('#cce_facility_id_form').val(cceHF.value);
                                                     }
                                                         });
                                                     }
@@ -573,7 +575,9 @@ font-weight: bold;
                                 }
                                 else if(user=='LIO'){
                                 $('#cce_location_textbox').textbox('setValue','LGA');
-                                setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+                                $('#info_label').text('If HF is not selected, equipment will be located at the LGA Store');
+//                                setFacilityId(${userBean.getX_WAREHOUSE_ID()});
+                                    $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
 //                                $('#cce_location_textbox').textbox('setText','LGA');
 //                                alertBox($('#cce_location_textbox').textbox('getValue'));
                                 $('#cce_ward_combobox_form').combobox({
@@ -583,6 +587,7 @@ font-weight: bold;
                                     queryParams: {lgaid: ${userBean.getX_WAREHOUSE_ID()}, option: 'notAll'},
                                         onSelect: function (cceWard) {
                                             $('#cce_location_textbox').textbox('setValue','LGA');
+                                            $('#info_label').text('');
                                             $('#cce_facility_name_combobox_form').combobox({
                                                 url: 'getHfListWardBased',
                                                 valueField: 'value',
@@ -590,7 +595,8 @@ font-weight: bold;
                                                 queryParams: {wardid: cceWard.value, option: 'notAll'},
                                                 onSelect: function (cceHF) {
                                             $('#cce_location_textbox').textbox('setValue', 'HF');
-                                            setFacilityId(cceHF.value);
+//                                            setFacilityId(cceHF.value);
+                                        $('#cce_facility_id_form').val(cceHF.value);
                                                     }
                                                         });
                                                     }
@@ -735,11 +741,11 @@ font-weight: bold;
                                     if (result.toString() == 'succsess') {
                                         // close the dialog
                                         alertBox("Operation Successfull");
+                                    $('#form_dialog').dialog('close');
                                         refreshData();
                                     } else {
                                         alertBox("Operation Failed ");
                                     }
-                                    $('#form_dialog').dialog('close');
                                 }
                             });
                         }
@@ -788,8 +794,6 @@ font-weight: bold;
                                 
 //                                $('#cce_location_textbox').textbox('setValue', row.LOCATION);
                                 $('#cce_location_textbox').textbox('setValue', row.LOCATION);
-                                $('#cce_data_id_field').textbox('setValue',row.CCE_DATA_ID);
-                                $('#cce_facility_id_field').textbox('setValue',row.FACILITY_ID);
                                 
                                 $('#cce_make_combobox_form').combobox('setValue', row.MAKE);
                                 $('#cce_make_combobox_form').combobox('setText', row.MAKE);
