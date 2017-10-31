@@ -41,22 +41,39 @@
         switch (user) {
             case "SCCO":
                 $('#overViewBtn').hide();
+                $('#cce_state_div').hide();
+//                document.getElementById("cce_location_textbox").setAttribute('value','STATE');
+                $('#info_label').text('If LGA or HF is not selected, equipment will be located at the STATE Store');
+                loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
                 break;
-            case "SIO":
-                $('#addBtn').hide();
-                break;
-            case "SIFP":
-                $('#addBtn').hide();
-                break;
+//            case "SIO":
+//                $('#addBtn').hide();
+//                $('#cce_state_div').hide();
+//                loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
+//                break;
+//            case "SIFP":
+//                $('#addBtn').hide();
+//                $('#cce_state_div').hide();
+//                loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
+//                break;
             case "NTO":
                 $('#overViewBtn').hide();
+                $('#info_label').text('If State or LGA or HF is not selected, equipment will be located at the National Store');
+                loadStateList();
                 break;
             case "LIO":
+                $('#cce_state_div').hide();
+                $('#cce_lga_div').hide();
+                $('#info_label').text('If HF is not selected, equipment will be located at the LGA Store');
+                loadWardBadesdOnLga({value:'${userBean.getX_WAREHOUSE_ID()}'});
                 break;
-            case "MOH":
-                $('#editBtn').hide();
-                $('#addBtn').hide();
-                break;
+//            case "MOH":
+//                $('#cce_state_div').hide();
+//                $('#cce_lga_div').hide();
+//                $('#editBtn').hide();
+//                $('#addBtn').hide();
+//                loadWardBadesdOnLga({value:'${userBean.getX_WAREHOUSE_ID()}'});
+//                break;
         }
 //        document.getElementById("common_lable").innerHTML = "Cold Rooms & Freezer Rooms\nRefrigerators & Freezers";
 //        if (user == "NTO") {
@@ -71,65 +88,6 @@
 //        }
 
     }
-        $(document).ready(function () {
-        
-//                alertBox('user');
-                var user = streamlineUser();
-                if (user == "NTO") {
-                    
-                } else if (user == "SCCO") {
-                 $('#cce_state_div').hide();
-                    
-                } else if (user == "LIO") {
-                 $('#cce_state_div').hide();
-                 $('#cce_lga_div').hide();
-                }
-                $('#cce_status_combobox_form').combobox({
-                    onChange: function (newValue) {
-                        
-                        if (newValue == "Not Functional") {
-                            $('#cce_nf_date').datebox({
-                                disabled: false
-                            });
-
-                            $('#hiddenStatus').val("Not Functional");
-                        } else if (newValue == "Functional") {
-                            $('#cce_nf_date').datebox({
-                                disabled: true
-                            });
-                            $('#cce_acquisition1_combobox_form').combobox({
-                                disabled: false
-                            });
-                            $('#cce_acquisition2_combobox_form').combobox({
-                                disabled: false
-                            });
-
-                            $('#hiddenStatus').val("Functional");
-
-                        } else if (newValue == "Not Installed") {
-                            $('#cce_acquisition1_combobox_form').combobox({
-                                disabled: true
-                            });
-                            $('#cce_acquisition2_combobox_form').combobox({
-                                disabled: true
-                            });
-                            
-                            $('#hiddenStatus').val("Not Installed");
-                        }
-                        
-                        $('#cce_decision_combobox_form').combobox({
-                            url: 'get_cce_specification_list',
-                            valueField: 'label',
-                            textField: 'label',
-                            queryParams: {arg0: 'DecisionList', arg1: $('#cce_status_combobox_form').combobox('getValue'), arg2: '', arg3: ''}
-                        });
-                    }
-                    
-                });
-                
-
-            }
-                );
         </script>
         
         <style>
@@ -228,7 +186,7 @@ font-weight: bold;
 
             <div id="cce_table_div" style="margin-left: 5px;">
                 <table id="cceListTable" class="easyui-datagrid"
-                       style="width: 100%; height: 430px;padding-left: 5px;" title="CCE"
+                       style="width: 100%; height: 630px;padding-left: 5px;" title="CCE"
                        data-options="toolbar:'#table_toolbar', rownumbers:'true',  singleSelect:'true',
                        striped:'true', remoteSort:'false',pagination:'true',pageSize:20">	
                 </table>
@@ -278,7 +236,7 @@ font-weight: bold;
                         <td>
                             <div id="cce_location_div">
                                 <label id="cce_location_label">*Equipment Location/Store will be:</label>
-                                <f:input id="cce_location_textbox"  class="easyui-textbox" path="x_CCE_LOCATION"/>
+                                <f:input id="cce_location_textbox" readonly="true"  class="easyui-textbox" path="x_CCE_LOCATION"/>
                             </div>
                         </td>
                         <td>
@@ -417,7 +375,7 @@ font-weight: bold;
                             $('#cce_lga_combobox_form').combobox({editable:false});
                             $('#cce_ward_combobox_form').combobox({editable:false});
                             $('#cce_facility_name_combobox_form').combobox({editable:false});
-                            $('#cce_location_textbox').textbox({editable:false});
+//                            $('#cce_location_textbox').textbox({editable:false});
 //                            $('#cce_location_textbox').textbox('disable',true);
                             $('#cce_make_combobox_form').combobox({editable:false});
                             $('#cce_model_combobox_form').combobox({editable:false});
@@ -432,21 +390,15 @@ font-weight: bold;
                         function showLocations(){
                             var user = streamlineUser();
                             if(user == 'NTO'){
-                                $('#cce_state_div').show();
-                                $('#cce_lga_div').show();
-                                $('#cce_ward_div').show();
-                                $('#cce_facility_name_div').show();
+                                $('#cce_location_textbox').textbox('setValue','National');
                             }
                             if(user == 'SCCO'){
-                                $('#cce_lga_div').show();
-                                $('#cce_ward_div').show();
-                                $('#cce_facility_name_div').show();
+                                $('#cce_location_textbox').textbox('setValue','STATE');
                             }
                             if(user == 'LIO'){
-                                $('#cce_ward_div').show();
-                                $('#cce_facility_name_div').show();
+                                $('#cce_location_textbox').textbox('setValue','LGA');
                             }
-                            $('#cce_location_div').show();
+//                            $('#cce_location_div').show();
                         }
 //                        function setFacilityId(value){
                             
@@ -471,138 +423,15 @@ font-weight: bold;
                             
                             $('#add_edit_form').form('clear');
                             showLocations();
-                            loadAddFormComboboxList();
+                            $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
+                            loadCCEDetailsDropdown();
                             $('#add_edit_form').attr('action', 'save_addedit_cce?action=add');
                         }
-                        function loadAddFormComboboxList() {
+                        function loadCCEDetailsDropdown() {
 //                            $('#cce_state_combobox_form').combobox('setValue', '${userBean.getX_WAREHOUSE_ID()}');
 //                            $('#cce_state_combobox_form').combobox('setText', '${userBean.getX_WAREHOUSE_NAME()}');
                              var user = streamlineUser();
-                             if(user=='NTO'){
-                             $('#cce_location_textbox').textbox('setValue','National');
-//                             setFacilityId(${userBean.getX_WAREHOUSE_ID()});
-                             $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
-                             $('#info_label').text('If State or LGA or HF is not selected, equipment will be located at the National Store');
-//                             alertBox($('#cce_facility_id_form').val());
-                             $('#cce_state_combobox_form').combobox({
-                                url: 'get_state_store_list',
-                                valueField: 'value',
-                                textField: 'label',
-                                queryParams: {option: 'notAll'},
-                                onSelect: function (cceSTATE) {
-                                $('#info_label').text('');
-                                    $('#cce_facility_name_combobox_form').combobox('clear');
-                                    $('#cce_ward_combobox_form').combobox('clear');
-                                    $('#cce_location_textbox').textbox('setValue','STATE');
-//                                    setFacilityId(cceSTATE.value);
-                                    $('#cce_facility_id_form').val(cceSTATE.value);
-                                        $('#cce_lga_combobox_form').combobox({
-                                        url: 'getlgalistBasedOnStateId',
-                                        valueField: 'value',
-                                        textField: 'label',
-                                        queryParams: {stateId: cceSTATE.value, option: 'notAll'},
-                                onSelect: function (cceLGA) {
-                                    $('#cce_facility_name_combobox_form').combobox('clear');
-                                    $('#cce_ward_combobox_form').combobox('clear');
-                                    $('#cce_location_textbox').textbox('setValue','LGA');
-//                                    setFacilityId(cceLGA.value);
-                                    $('#cce_facility_id_form').val(cceLGA.value);
-                                        $('#cce_ward_combobox_form').combobox({
-                                        url: 'getWardList',
-                                        valueField: 'value',
-                                        textField: 'label',
-                                        queryParams: {lgaid: cceLGA.value, option: 'notAll'},
-                                        onSelect: function (cceWard) {
-                                            $('#cce_location_textbox').textbox('setValue','LGA');
-                                            $('#cce_facility_name_combobox_form').combobox({
-                                                url: 'getHfListWardBased',
-                                                valueField: 'value',
-                                                textField: 'label',
-                                                queryParams: {wardid: cceWard.value, option: 'notAll'},
-                                                onSelect: function (cceHF) {
-                                            $('#cce_location_textbox').textbox('setValue', 'HF');
-//                                            setFacilityId(cceHF.value);
-                                            $('#cce_facility_id_form').val(cceHF.value);
-                                                    }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
-                             }
-                             else if(user=='SCCO'){
-//                                alertBox(${userBean.getX_WAREHOUSE_ID()});
-                             $('#cce_location_textbox').textbox('setValue','STATE');
-//                                    setFacilityId(${userBean.getX_WAREHOUSE_ID()});
-                                    $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
-                             $('#info_label').text('If LGA or HF is not selected, equipment will be located at the STATE Store');
-                                    $('#cce_lga_combobox_form').combobox({
-                                        url: 'getlgalistBasedOnStateId',
-                                        valueField: 'value',
-                                        textField: 'label',
-                                        queryParams: {stateId: ${userBean.getX_WAREHOUSE_ID()}, option: 'notAll'},
-                                onSelect: function (cceLGA) {
-                                    $('#info_label').text('');
-                                    $('#cce_location_textbox').textbox('setValue','LGA');
-//                                    setFacilityId(cceLGA.value);
-                                    $('#cce_facility_id_form').val(cceLGA.value);
-                                    $('#cce_facility_name_combobox_form').combobox('clear');
-                                    $('#cce_ward_combobox_form').combobox('clear');
-                                    $('#cce_ward_combobox_form').combobox({
-                                        url: 'getWardList',
-                                        valueField: 'value',
-                                        textField: 'label',
-                                        queryParams: {lgaid: cceLGA.value, option: 'notAll'},
-                                        onSelect: function (cceWard) {
-                                            $('#cce_location_textbox').textbox('setValue','LGA');
-                                            $('#cce_facility_name_combobox_form').combobox({
-                                                url: 'getHfListWardBased',
-                                                valueField: 'value',
-                                                textField: 'label',
-                                                queryParams: {wardid: cceWard.value, option: 'notAll'},
-                                                onSelect: function (cceHF) {
-                                            $('#cce_location_textbox').textbox('setValue', 'HF');
-//                                            setFacilityId(cceHF.value);
-                                        $('#cce_facility_id_form').val(cceHF.value);
-                                                    }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                }
-                                else if(user=='LIO'){
-                                $('#cce_location_textbox').textbox('setValue','LGA');
-                                $('#info_label').text('If HF is not selected, equipment will be located at the LGA Store');
-//                                setFacilityId(${userBean.getX_WAREHOUSE_ID()});
-                                    $('#cce_facility_id_form').val(${userBean.getX_WAREHOUSE_ID()});
-//                                $('#cce_location_textbox').textbox('setText','LGA');
-//                                alertBox($('#cce_location_textbox').textbox('getValue'));
-                                $('#cce_ward_combobox_form').combobox({
-                                    url: 'getWardList',
-                                    valueField: 'value',
-                                    textField: 'label',
-                                    queryParams: {lgaid: ${userBean.getX_WAREHOUSE_ID()}, option: 'notAll'},
-                                        onSelect: function (cceWard) {
-                                            $('#cce_location_textbox').textbox('setValue','LGA');
-                                            $('#info_label').text('');
-                                            $('#cce_facility_name_combobox_form').combobox({
-                                                url: 'getHfListWardBased',
-                                                valueField: 'value',
-                                                textField: 'label',
-                                                queryParams: {wardid: cceWard.value, option: 'notAll'},
-                                                onSelect: function (cceHF) {
-                                            $('#cce_location_textbox').textbox('setValue', 'HF');
-//                                            setFacilityId(cceHF.value);
-                                        $('#cce_facility_id_form').val(cceHF.value);
-                                                    }
-                                                        });
-                                                    }
-                                    });
-                                    }//end user combobox load
-                                $('#cce_make_combobox_form').combobox({
+                             $('#cce_make_combobox_form').combobox({
                                                 url: 'get_cce_specification_list',
                                                 valueField: 'value',
                                                 textField: 'label',
@@ -668,6 +497,49 @@ font-weight: bold;
                                                     });
                                                 }
                                             });//make
+                                            
+                $('#cce_status_combobox_form').combobox({
+                    onChange: function (newValue) {
+                        
+                        if (newValue == "Not Functional") {
+                            $('#cce_nf_date').datebox({
+                                disabled: false
+                            });
+
+                            $('#hiddenStatus').val("Not Functional");
+                        } else if (newValue == "Functional") {
+                            $('#cce_nf_date').datebox({
+                                disabled: true
+                            });
+                            $('#cce_acquisition1_combobox_form').combobox({
+                                disabled: false
+                            });
+                            $('#cce_acquisition2_combobox_form').combobox({
+                                disabled: false
+                            });
+
+                            $('#hiddenStatus').val("Functional");
+
+                        } else if (newValue == "Not Installed") {
+                            $('#cce_acquisition1_combobox_form').combobox({
+                                disabled: true
+                            });
+                            $('#cce_acquisition2_combobox_form').combobox({
+                                disabled: true
+                            });
+                            
+                            $('#hiddenStatus').val("Not Installed");
+                        }
+                        
+                        $('#cce_decision_combobox_form').combobox({
+                            url: 'get_cce_specification_list',
+                            valueField: 'label',
+                            textField: 'label',
+                            queryParams: {arg0: 'DecisionList', arg1: $('#cce_status_combobox_form').combobox('getValue'), arg2: '', arg3: ''}
+                        });
+                    }
+                    
+                });
 
 
 
@@ -776,7 +648,7 @@ font-weight: bold;
                                 
                                 makeNonEditableCombos();
                                 
-                                loadAddFormComboboxList();
+                                loadCCEDetailsDropdown();
                                 
                                 
                                 
@@ -832,7 +704,7 @@ font-weight: bold;
                                 
 
                                 $('#add_edit_form').attr('action', 'save_addedit_cce?action=edit');
-//                                loadAddFormComboboxList();
+//                                loadCCEDetailsDropdown();
                                 
 
                             } else {
@@ -935,8 +807,76 @@ font-weight: bold;
             parser: myparser
         });
 
-    </script>
-    <script type="text/javascript">
+function loadStateList(){
+	$('#cce_state_combobox_form').combobox('clear');
+        $('#cce_state_combobox_form').combobox({
+               url: 'get_state_store_list',
+               valueField: 'value',
+               textField: 'label',
+               queryParams: {option: 'notAll'},
+               onSelect: function(state) {
+                $('#info_label').text('');
+                $('#cce_location_textbox').textbox('setValue', 'STATE');
+                $('#cce_facility_id_form').val(state.value);
+                    loadlgaList(state);
+                }
+           });
+}
+function loadlgaList(stateId){
+	$('#cce_lga_combobox_form').combobox('clear');
+        $('#cce_lga_combobox_form').combobox({
+                url: 'getlgalistBasedOnStateId',
+                valueField: 'value',
+                textField: 'label',
+                queryParams: {stateId: stateId.value, option: 'notAll'},
+                onSelect: function(lga) {
+                $('#info_label').text('');
+                $('#cce_location_textbox').textbox('setValue', 'LGA');
+                $('#cce_facility_id_form').val(lga.value);
+                    loadWardBadesdOnLga(lga);
+                }
+        });
+}
+//$('#country_name_combobox_form').combobox({
+//	url : 'getCountrylist',
+//	valueField : 'value',
+//	textField : 'label'
+//});
+function loadWardBadesdOnLga(lgaId){
+	$('#cce_ward_combobox_form').combobox('clear');
+        $('#cce_ward_combobox_form').combobox({
+                url: 'getWardList',
+                valueField: 'value',
+                textField: 'label',
+                queryParams: {lgaid: lgaId.value, option: 'notAll'},
+		onLoadSuccess:function(){
+			$('#cce_facility_name_combobox_form').combobox('select','');	
+		},
+                onSelect:  function(ward) {
+			 $('#ward_combobox_form_field').val(ward.value);
+                         $('#ward_combobox_form_field').text(ward.label);
+                         $('#info_label').text('');
+                     loadHfDrpdn(ward);
+                 }
+        });
+}
+function loadHfDrpdn(cceWard){
+	$('#cce_facility_name_combobox_form').combobox('clear');
+        $('#cce_facility_name_combobox_form').combobox({
+                url: 'getHfListWardBased',
+                valueField: 'value',
+                textField: 'label',
+                queryParams: {wardid: cceWard.value, option: 'notAll'},
+		onLoadSuccess:function(){
+			$('#cce_facility_name_combobox_form').combobox('select','');	
+		},
+                onSelect: function (cceHF) {
+                $('#info_label').text('');
+                $('#cce_location_textbox').textbox('setValue', 'HF');
+                $('#cce_facility_id_form').val(cceHF.value);
+                }
+        });
+}
         loadPaginationForTable(cceListTable);
     </script>
 

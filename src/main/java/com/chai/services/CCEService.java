@@ -253,6 +253,7 @@ public class CCEService {
 			}else{
 				query.setParameter(10, bean.getX_CCE_DATA_ID());	
 			}
+                        System.out.println(x_QUERY);
 			insertupdateadmCCEFlag = query.executeUpdate();
 //			insertupdateRolemapingFlag = saveSetRoleIDMapping(bean, action, userBean, session);
 //			insertupdateWarehouseAssimgmentFlag = setWarehouseIdAssingment(bean, action, userBean, session);

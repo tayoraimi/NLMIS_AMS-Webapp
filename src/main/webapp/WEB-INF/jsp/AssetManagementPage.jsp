@@ -161,14 +161,14 @@ $(document).ready(function(){
 	 					    			    	
 						    	$(defaultDashboardTabdivID).html(data);
 						    	
-						    	if('${loadCount}'==='1'){
-//                                                            alert("FUNCTIONALDASHBOARD SUCCESS : "+functionalDashboardDataUrl);
-//						    		showMergedTableData(mergedDashboardDataUrl+''+"&aggLevel="+'');
-                                                                filterGridData(true);
-						    	}else{
+//						    	if('${loadCount}'==='1'){
+////                                                            alert("FUNCTIONALDASHBOARD SUCCESS : "+functionalDashboardDataUrl);
+////						    		showMergedTableData(mergedDashboardDataUrl+''+"&aggLevel="+'');
+////                                                                filterGridData(true);
+//						    	}else{
                                                             
-//						    		document.getElementById("loader_div").style.display = "none";
-						    	}
+						    		document.getElementById("loader_div").style.display = "none";
+//						    	}
 //                                                        $('#lga_combobox').combobox('setValue','STATE');
 //                                                        $('#lga_combobox').append("<option value='LGA'>LGA</option>");
 //					alert("here "+'${userdata.getX_ROLE_NAME()}');
@@ -190,7 +190,7 @@ $(document).ready(function(){
 //                                                        $('#lga_combobox').combobox({});
 						    }
 						});
-						document.getElementById("loader_div").style.display = "none";
+//						document.getElementById("loader_div").style.display = "none";
                                                 $.ajax({
 						    type: "GET",
 						    //Url to the webpage
@@ -198,18 +198,7 @@ $(document).ready(function(){
 						    dataType: "html",
 						    success: function(data){	
 						    	$(functionalDashboardTabDivId).html(data);
-                                                        $('#lga_combobox2').combobox({
-                                                                            url : 'get_sclevel_list?userType='+user,
-                                                                            valueField : 'value',
-                                                                            textField : 'label',
-                                                                            onSelect : function(rec) {
-                                                                                    $('#agg_combobox2').combobox({
-                                                                                            url : 'get_aggby_list?levelSelected='+rec.value,
-                                                                                            valueField : 'value',
-                                                                                            textField : 'label'
-                                                                                    });
-                                                                            }
-                                                        });
+                                                        
                                                     }
                                                 });
 						
@@ -220,18 +209,7 @@ $(document).ready(function(){
 						    dataType: "html",
 						    success: function(data){	    	
                                                             $(capacityDashboardTabDivId).html(data);
-                                                            $('#lga_combobox4').combobox({
-                                                                                url : 'get_sclevel_list?userType='+user,
-                                                                                valueField : 'value',
-                                                                                textField : 'label',
-                                                                                onSelect : function(rec) {
-                                                                                        $('#agg_combobox4').combobox({
-                                                                                                url : 'get_aggby_list?levelSelected='+rec.value,
-                                                                                                valueField : 'value',
-                                                                                                textField : 'label'
-                                                                                        });
-                                                                                }
-                                                            });
+                                                            
                                                         }
                                                 });
 					/* Above ajax request ends) */
@@ -406,7 +384,7 @@ $(document).ready(function(){
 		
 		
     </div>
-	<iframe id="iframe" src=""  height="75%" width="100%"></iframe> 
+	<iframe id="iframe" src=""  height="100%" width="100%"></iframe> 
 	<!-- loader div -->
 <!-- 	<div style="display: none;" id="loader_div" class="loader_div"> -->
 <!-- 		<div class="loader" id="loader_show"></div> -->

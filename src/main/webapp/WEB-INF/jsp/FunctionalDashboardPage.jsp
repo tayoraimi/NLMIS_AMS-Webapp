@@ -184,29 +184,22 @@ function filterGridData2(isloadHeader) {
 	}
 }
 
-
-//$('#lga_combobox2').combobox({
-//	url : 'getlgalist?option=notAll',
-//	valueField : 'value',
-//	textField : 'label'
-//});
-//$('#year_combobox').combobox({
-//	url : 'get_year_list',
-//	valueField : 'value',
-//	textField : 'label',
-//	onSelect : function(rec) {
-//		$('#week_combobox').combobox({
-//			url : 'get_week_list/week?yearParam=' + rec.value,
-//			valueField : 'value',
-//			textField : 'label'
-//		});
-//
-//	}
-//});
+$('#lga_combobox2').combobox({
+    url : 'get_sclevel_list?userType='+'${userBean.x_ROLE_NAME}',
+    valueField : 'value',
+    textField : 'label',
+    onSelect : function(rec) {
+            $('#agg_combobox2').combobox({
+                    url : 'get_aggby_list?levelSelected='+rec.value,
+                    valueField : 'value',
+                    textField : 'label'
+            });
+    }
+});
 /* Do not delete below code - IMPORTANT */
 $('#lga_combobox2').combobox({});
 $('#agg_combobox2').combobox({});
 //$('#week_combobox').combobox({});
 $('#viewDashboardLinkBtn2').linkbutton({});
-//$('#exportLinkBtn4').linkbutton({});
+$('#exportLinkBtn2').linkbutton({});
 </script>

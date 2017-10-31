@@ -154,27 +154,21 @@ function filterGridData4(isloadHeader) {
 		showTableData4(url);
 	}
 }
-//$('#lga_combobox4').combobox({
-//	url : 'getlgalist?option=notAll',
-//	valueField : 'value',
-//	textField : 'label'
-//});
-//$('#year_combobox4').combobox({
-//	url : 'get_year_list',
-//	valueField : 'value',
-//	textField : 'label',
-//	onSelect : function(rec) {
-//		$('#week_combobox4').combobox({
-//			url : 'get_week_list/week?yearParam=' + rec.value,
-//			valueField : 'value',
-//			textField : 'label'
-//		});
-//
-//	}
-//});
+$('#lga_combobox4').combobox({
+    url : 'get_sclevel_list?userType='+'${userBean.x_ROLE_NAME}',
+    valueField : 'value',
+    textField : 'label',
+    onSelect : function(rec) {
+            $('#agg_combobox4').combobox({
+                    url : 'get_aggby_list?levelSelected='+rec.value,
+                    valueField : 'value',
+                    textField : 'label'
+            });
+    }
+});
 /* Do not delete below code - IMPORTANT */
-//$('#lga_combobox4').combobox({});
-//$('#year_combobox4').combobox({});
+$('#lga_combobox4').combobox({});
+$('#agg_combobox4').combobox({});
 //$('#week_combobox4').combobox({});
 $('#viewDashboardLinkBtn4').linkbutton({});
 //$('#exportLinkBtn4').linkbutton({});
