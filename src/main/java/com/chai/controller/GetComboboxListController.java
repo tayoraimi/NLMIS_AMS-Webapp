@@ -362,7 +362,7 @@ public class GetComboboxListController {
 			}
 			
 			
-			// System.out.println("hflist: "+data.toString());
+			 System.out.println("detail list: "+data.toString());
 			PrintWriter out=respones.getWriter();
 			out.write(data.toString());
 			out.close();

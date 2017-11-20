@@ -132,7 +132,7 @@ public class CapacityDashController {
                                                                 colObject.put("LEGEND_COLOR", "orange");
                                                             } else if(doubleItem>=100.0){
                                                                 colObject.put("FACIITY_CAPACITY", "");
-                                                                colObject.put("LEGEND_COLOR", "green");
+                                                                colObject.put("LEGEND_COLOR", "green; color:white");
                                                             }
                                             }
                                                             break;

@@ -78,8 +78,7 @@ public class ComboBoxListServices {
 					+ "   FROM CCE_LIST GROUP BY COMPANY ASC ";
 			}else if(args[0].equals("ModelList")){
 				x_QUERY = " SELECT CCE_ID, MODEL "
-					+ "   FROM CCE_LIST WHERE COMPANY = '"
-                                        + args[1]+"' GROUP BY MODEL ASC ";
+					+ "    FROM CCE_LIST ORDER BY CCE_ID ASC ";
 			}else if(args[0].equals("TypeList")){
 				x_QUERY = " SELECT CCE_ID, TYPE "
 					+ "   FROM CCE_LIST WHERE COMPANY = '"

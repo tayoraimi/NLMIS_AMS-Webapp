@@ -66,6 +66,25 @@ public class CCEController {
 		
 	}
 	
+        @RequestMapping(value = "/get_cce_detail")
+	public JSONArray getDetailOfCCE(HttpServletRequest request,HttpServletResponse respones,
+			@RequestParam("model") String model){
+		System.out.println("model"+model);
+		try{
+			data=cceService.getCCEDetail(model);
+//			 System.out.println("json ======"+data.toString());
+		
+			PrintWriter out=respones.getWriter();
+			out.write(data.toString());
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+        
 	@RequestMapping(value = "/search_cce_list")
 	public JSONArray getSearchCCEList(HttpServletRequest request,HttpServletResponse respones,
 			@RequestParam("userTypeId") String userTypeId,

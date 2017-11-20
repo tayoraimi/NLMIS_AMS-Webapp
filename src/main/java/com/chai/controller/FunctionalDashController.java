@@ -150,7 +150,7 @@ public class FunctionalDashController {
             //                                                                System.out.println("col value" + df.format(doubleItem)+"%");
                                                                             colObject.put("LEGEND_COLOR", "orange");
                                                                         } else if(doubleItem>90.0){
-                                                                            colObject.put("LEGEND_COLOR", "green");
+                                                                            colObject.put("LEGEND_COLOR", "green; color:white");
                                                                         }
                                                                     } else if(bean.getValue().equals("tNF")){
                                                                         value = dataobjectresult.get(bean.getValue()).toString();

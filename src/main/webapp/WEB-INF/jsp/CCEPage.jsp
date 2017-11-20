@@ -245,18 +245,18 @@ font-weight: bold;
                     </tr>
                     <tr>
                         <td>
-                            <div id="cce_make_div">
-                                <label id="cce_make_label">*Company/Make:</label>
-                                <f:select id="cce_make_combobox_form"  
-                                          class="easyui-combobox" cssStyle="width:150px;" path="x_CCE_MAKE"/>
-                            </div>
-                        </td>
-                        <td>
 
                             <div id="cce_model_div">
                                 <label id="cce_model_label">*Model:</label>
                                 <f:select id="cce_model_combobox_form"  
                                           class="easyui-combobox " cssStyle="width:150px;" path="x_CCE_MODEL"/>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="cce_make_div">
+                                <label id="cce_make_label">*Company/Make:</label>
+                                <f:select id="cce_make_combobox_form"  
+                                          class="easyui-combobox" cssStyle="width:150px;" path="x_CCE_MAKE"/>
                             </div>
                         </td>
                     </tr>
@@ -356,17 +356,9 @@ font-weight: bold;
         <script src="resources/js/datagrid_agination.js" type="text/javascript"></script>
         <script type="text/javascript">
                         var submitType;
-        //function doSearch(){
-        //	if($('#ccetype_combobox').combobox('getValue')==''){
-        //		alertBox("Please Select CCE Type:");
-        //	}else{
-        //		var cceTypeId=$('#ccetype_combobox').combobox('getValue')==''?null:$('#ccetype_combobox').combobox('getValue');
-        //		var roleId=$('#rolename_combobox').combobox('getValue')==''?null:$('#rolename_combobox').combobox('getValue');
-        //		var warehouseId=$('#assign_lga_combobox').combobox('getValue')==''?null:$('#assign_lga_combobox').combobox('getValue');
-        //		var searchUrl="search_cce_list?cceTypeId="+cceTypeId+"&roleId="+roleId+"&warehouseId="+warehouseId;
-        //		$('#cceListTable').datagrid('reload',searchUrl);
-        //	} 
-        //}
+                        var expectedWorkingLife;
+                        var yearsInstalled;
+        
                         function alertBox(message) {
                             $.messager.alert('Warning!', message, 'warning');
                         }
@@ -377,10 +369,10 @@ font-weight: bold;
                             $('#cce_facility_name_combobox_form').combobox({editable:false});
 //                            $('#cce_location_textbox').textbox({editable:false});
 //                            $('#cce_location_textbox').textbox('disable',true);
-                            $('#cce_make_combobox_form').combobox({editable:false});
+                            $('#cce_make_combobox_form').combobox({ disabled: true });
                             $('#cce_model_combobox_form').combobox({editable:false});
-                            $('#cce_type_combobox_form').combobox({editable:false});
-                            $('#cce_category_combobox_form').combobox({editable:false});
+                            $('#cce_type_combobox_form').combobox({ disabled: true });
+                            $('#cce_category_combobox_form').combobox({ disabled: true });
                             $('#cce_status_combobox_form').combobox({editable:false});
                             $('#cce_decision_combobox_form').combobox({editable:false});
                             $('#cce_acquisition1_combobox_form').combobox({editable:false});
@@ -431,73 +423,42 @@ font-weight: bold;
 //                            $('#cce_state_combobox_form').combobox('setValue', '${userBean.getX_WAREHOUSE_ID()}');
 //                            $('#cce_state_combobox_form').combobox('setText', '${userBean.getX_WAREHOUSE_NAME()}');
                              var user = streamlineUser();
-                             $('#cce_make_combobox_form').combobox({
-                                                url: 'get_cce_specification_list',
-                                                valueField: 'value',
-                                                textField: 'label',
-                                                queryParams: {arg0: 'MakeList', arg1: '', arg2: '', arg3: ''},
-                                                onSelect: function (make) {
-                                                    $('#cce_type_combobox_form').combobox('clear');
-                                                    $('#cce_model_combobox_form').combobox({
-                                                        url: 'get_cce_specification_list',
-                                                        valueField: 'label',
-                                                        textField: 'label',
-                                                        queryParams: {arg0: 'ModelList', arg1: make.label, arg2: '', arg3: ''},
-                                                        onSelect: function (model) {
-                                                            $('#cce_category_combobox_form').combobox('clear');
-                                                            $('#cce_type_combobox_form').combobox({
-                                                                url: 'get_cce_specification_list',
-                                                                valueField: 'value',
-                                                                textField: 'label',
-                                                                queryParams: {arg0: 'TypeList', arg1: make.label, arg2: model.label, arg3: ''},
-                                                                onSelect: function (type) {
-                                                                    $('#cce_category_combobox_form').combobox({
-                                                                        url: 'get_cce_specification_list',
-                                                                        valueField: 'value',
-                                                                        textField: 'label',
-                                                                        queryParams: {arg0: 'CategoryList', arg1: make.label, arg2: model.label, arg3: type.label},
-                                                                        onSelect: function () {
-                                                                            $('#cce_status_combobox_form').combobox({
-//                                                                                url: 'get_cce_specification_list',
-//                                                                                valueField: 'label',
-//                                                                                textField: 'label',
-//                                                                                queryParams: {arg0: 'StatusList', arg1: '', arg2: '', arg3: ''},
-                                                                                onSelect: function (status) {
-                                                                                    $('#cce_decision_combobox_form').combobox({
-                                                                                        url: 'get_cce_specification_list',
-                                                                                        valueField: 'label',
-                                                                                        textField: 'label',
-                                                                                        queryParams: {arg0: 'DecisionList', arg1: $('#cce_status_combobox_form').combobox('getValue'), arg2: '', arg3: ''}
-                                                                                    });
-                                                                                    $('#cce_src_combobox_form').combobox({
-                                                                                        url: 'get_cce_specification_list',
-                                                                                        valueField: 'label',
-                                                                                        textField: 'label',
-                                                                                        queryParams: {arg0: 'SourceList', arg1: '', arg2: '', arg3: ''}
-                                                                                    });
-                                                                                    $('#cce_acquisition1_combobox_form').combobox({
-                                                                                        url: 'get_last_20_years_list',
-                                                                                        valueField: 'label',
-                                                                                        textField: 'label'
-                                                                                    });
-                                                                                    $('#cce_acquisition2_combobox_form').combobox({
-                                                                                        url: 'get_month_number_list',
-                                                                                        valueField: 'value',
-                                                                                        textField: 'label'
-                                                                                    });
-                                                                                }
-                                                                            })
-                                                                        }
-                                                                    });
-
-                                                                }
-                                                            });
-
-                                                        }
-                                                    });
-                                                }
-                                            });//make
-                                            
+                             $('#cce_model_combobox_form').combobox({
+                                url: 'get_cce_specification_list',
+                                valueField: 'label',
+                                textField: 'label',
+                                queryParams: {arg0: 'ModelList', arg1: '', arg2: '', arg3: ''},
+                                onSelect: function (model) {
+                                    loadCCEDetailFields(model.label);
+                                
+                                }
+                            });
+                $('#cce_status_combobox_form').combobox({
+                    onSelect: function (status) {
+                        $('#cce_decision_combobox_form').combobox({
+                            url: 'get_cce_specification_list',
+                            valueField: 'label',
+                            textField: 'label',
+                            queryParams: {arg0: 'DecisionList', arg1: $('#cce_status_combobox_form').combobox('getValue'), arg2: '', arg3: ''}
+                        });
+                        $('#cce_src_combobox_form').combobox({
+                            url: 'get_cce_specification_list',
+                            valueField: 'label',
+                            textField: 'label',
+                            queryParams: {arg0: 'SourceList', arg1: '', arg2: '', arg3: ''}
+                        });
+                        $('#cce_acquisition1_combobox_form').combobox({
+                            url: 'get_last_20_years_list',
+                            valueField: 'label',
+                            textField: 'label'
+                        });
+                        $('#cce_acquisition2_combobox_form').combobox({
+                            url: 'get_month_number_list',
+                            valueField: 'value',
+                            textField: 'label'
+                        });
+                    }
+                })                            
                 $('#cce_status_combobox_form').combobox({
                     onChange: function (newValue) {
                         
@@ -549,9 +510,12 @@ font-weight: bold;
                             $('#add_edit_form').form('submit', {
                                 url: $('#add_edit_form').attr('action'),
                                 onSubmit: function () {
+                                    $('#saveBtn').linkbutton('disable', true);
                                     var errormessage = "";
                                     var validate = true;
                                     var user = streamlineUser();
+                                    yearsInstalled = (new Date()).getFullYear() - $('#cce_acquisition1_combobox_form').combobox('getValue')
+//                                    alertBox('yearsInstalled '+yearsInstalled);
 
                                     if ($('#cce_state_combobox_form').combobox('getValue') == '' && user=='NTO' && $('#cce_location_textbox').textbox('getValue') != 'National') {
                                         errormessage = "State is Empty!";
@@ -597,6 +561,10 @@ font-weight: bold;
                                     } else if ($('#cce_acquisition1_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Year of Installation is Empty!";
                                         validate = false;
+                                    } else if ((yearsInstalled>expectedWorkingLife && !($('#cce_decision_combobox_form').combobox('getValue')=="Obsolete"))
+                                            ||(yearsInstalled<expectedWorkingLife && $('#cce_decision_combobox_form').combobox('getValue')=="Obsolete")) {
+                                        errormessage = "Decision and Year of Installation does not agree!!";
+                                        validate = false;
                                     } else if ($('#cce_acquisition2_combobox_form').combobox('getValue') == '') {
                                         errormessage = "Month of Installation is Empty!";
                                         validate = false;
@@ -606,6 +574,7 @@ font-weight: bold;
                                     }
                                     if (errormessage != '') {
                                         alertBox(errormessage);
+                                    $('#saveBtn').linkbutton('enable', true);
                                     }
                                     return validate;
                                 },
@@ -613,11 +582,12 @@ font-weight: bold;
                                     if (result.toString() == 'succsess') {
                                         // close the dialog
                                         alertBox("Operation Successfull");
-                                    $('#form_dialog').dialog('close');
                                         refreshData();
                                     } else {
                                         alertBox("Operation Failed ");
                                     }
+                                    $('#saveBtn').linkbutton('enable', true);
+                                    $('#form_dialog').dialog('close');
                                 }
                             });
                         }
@@ -731,21 +701,21 @@ font-weight: bold;
                     {field: 'LGA', title: 'LGA', sortable: true, hidden: true},
                     {field: 'FACILITY_ID', title: 'FACILITY ID', sortable: true, hidden: true},
     //            {field:'WARD_ID',title:'WARD ID',sortable:true,hidden:true},
-                    {field: 'WARD', title: 'WARD', sortable: true},
+                    {field: 'WARD', title: '<span style="color:white;"> WARD </span>', sortable: true},
                     {field: 'WAREHOUSE_TYPE_ID', title: 'WAREHOUSE TYPE ID', sortable: true, hidden: true},
-                    {field: 'LOCATION', title: 'EQUIPMENT LOCATION', sortable: true},
-                    {field: 'FACILITY_NAME', title: 'NAME OF FACILITY', sortable: true},
+                    {field: 'LOCATION', title: '<span style="color:white;"> EQUIPMENT LOCATION</span>', sortable: true},
+                    {field: 'FACILITY_NAME', title: '<span style="color:white;"> NAME OF FACILITY </span>', sortable: true},
                     {field: 'DEFAULT_ORDERING_WAREHOUSE_ID', title: 'DEFAULT ORDERING WAREHOUSE ID', sortable: true, hidden: true},
                     {field: 'CCE_ID', title: 'CCE ID', sortable: true, hidden: true},
                     {field: 'CCE_DATA_ID', title: 'CCE DATA ID', sortable: true, hidden: true},
-                    {field: 'DESIGNATION', title: 'DESIGNATION', sortable: true},
-                    {field: 'MAKE', title: 'MAKE', sortable: true},
-                    {field: 'MODEL', title: 'MODEL', sortable: true},
-                    {field: 'DEVICE_SERIAL_NO', title: 'DEVICE SERIAL NO', sortable: true},
+                    {field: 'DESIGNATION', title: '<span style="color:white;"> DESIGNATION </span>', sortable: true},
+                    {field: 'MAKE', title: '<span style="color:white;"> MAKE </span>', sortable: true},
+                    {field: 'MODEL', title: '<span style="color:white;"> MODEL </span>', sortable: true},
+                    {field: 'DEVICE_SERIAL_NO', title: '<span style="color:white;"> DEVICE SERIAL NO </span>', sortable: true},
                     {field: 'REFRIGERANT', title: 'REFRIGERANT', sortable: true, hidden: true},
-                    {field: 'VOL_NEG', title: 'VOL -', sortable: true},
-                    {field: 'VOL_POS', title: 'VOL +', sortable: true},
-                    {field: 'SUMMARY', title: 'SUMMARY', sortable: true,
+                    {field: 'VOL_NEG', title: '<span style="color:white;"> VOL - </span>', sortable: true},
+                    {field: 'VOL_POS', title: '<span style="color:white;"> VOL + </span>', sortable: true},
+                    {field: 'SUMMARY', title: '<span style="color:white;"> SUMMARY </span>', sortable: true,
                         formatter: function (val) {
 
                             if (val.endsWith("Functional-Obsolete") || val.endsWith("Not Functional-Obsolete")) {
@@ -758,7 +728,7 @@ font-weight: bold;
 
                         }
                     },
-                    {field: 'DATE_NF', title: 'DATE NOT FUNCTIONAL', sortable: true},
+                    {field: 'DATE_NF', title: '<span style="color:white;"> DATE NOT FUNCTIONAL </span>', sortable: true},
                     {field: 'CATEGORY', title: 'CATEGORY', sortable: true, hidden: true},
                     {field: 'TYPE', title: 'TYPE', sortable: true, hidden: true},
                     {field: 'STATUS', title: 'STATUS', sortable: true, hidden: true},
@@ -767,8 +737,8 @@ font-weight: bold;
                     {field: 'MONTH_OF_ACQUISITION', title: 'MONTH OF ACQUISITION', sortable: true, hidden: true},
                     {field: 'MONTH_OF_ACQUISITION_STR', title: 'MONTH OF ACQUISITION STR', sortable: true, hidden: true},
                     {field: 'YR_OF_ACQUISITION', title: 'YR  OF ACQUISITION', sortable: true, hidden: true},
-                    {field: 'YEAR_OF_ACQUISITION', title: 'YEAR  OF ACQUISITION', sortable: true},
-                    {field: 'SOURCE_OF_CCE', title: 'SOURCE OF CCE', sortable: true
+                    {field: 'YEAR_OF_ACQUISITION', title: '<span style="color:white;"> YEAR  OF ACQUISITION </span>', sortable: true},
+                    {field: 'SOURCE_OF_CCE', title: '<span style="color:white;"> SOURCE OF CCE </span>', sortable: true
                     }]],
         onClickRow: function (index, row)     {
                 if ('${userBean.getX_ROLE_NAME()}' == 'NTO') {
@@ -860,6 +830,26 @@ function loadWardBadesdOnLga(lgaId){
                  }
         });
 }
+
+function loadCCEDetailFields(model){
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			var ss = JSON.parse(xhttp.responseText);
+//                        alertBox(ss[0].EXPECTED_WORKING_LIFE);
+			expectedWorkingLife = ss[0].EXPECTED_WORKING_LIFE;
+                        $('#cce_make_combobox_form').combobox('setValue', ss[0].COMPANY);
+                        $('#cce_make_combobox_form').combobox('setText', ss[0].COMPANY);
+                        $('#cce_type_combobox_form').combobox('setValue', ss[0].TYPE);
+                        $('#cce_type_combobox_form').combobox('setText', ss[0].TYPE);
+                        $('#cce_category_combobox_form').combobox('setValue', ss[0].CATEGORY);
+                        $('#cce_category_combobox_form').combobox('setText', ss[0].CATEGORY);
+		}
+	};
+	xhttp.open("GET", 'get_cce_detail?model='+model, true);
+	xhttp.send();
+}
+
 function loadHfDrpdn(cceWard){
 	$('#cce_facility_name_combobox_form').combobox('clear');
         $('#cce_facility_name_combobox_form').combobox({

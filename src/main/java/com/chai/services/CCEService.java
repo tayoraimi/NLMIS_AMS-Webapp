@@ -148,52 +148,26 @@ public class CCEService {
 		}
 	
 	
-//	public JSONArray getCCEHistory(String user_id) {
-//		System.out.println("-- CCEService.getCCEHistory() mehtod called: -- ");
-//		Session session = sf1.openSession();
-//		String x_query="";
-//		x_query="SELECT (SELECT CONCAT(IFNULL(CUSR.FIRST_NAME,'not available'),' ',IFNULL(CUSR.LAST_NAME,'')) "
-//				+"FROM ADM_USERS CUSR WHERE CUSR.USER_ID = (SELECT C.CREATED_BY  "
-//				+"  FROM ADM_USERS C WHERE C.USER_ID = "+user_id+")) CREATED_BY,  "
-//				+"  (SELECT CONCAT(IFNULL(UUSR.FIRST_NAME,'not available'),' ', "
-//				+"   IFNULL(UUSR.LAST_NAME,''))  "
-//				+"     FROM ADM_USERS UUSR WHERE UUSR.USER_ID = (SELECT U.UPDATED_BY "
-//				+"       FROM ADM_USERS U WHERE U.USER_ID = "+user_id+")) UPDATED_BY,"
-//				+"        DATE_FORMAT(MNTB.CREATED_ON,'%b %d %Y %h:%i %p') CREATED_ON, "
-//				+"         DATE_FORMAT(MNTB.LAST_UPDATED_ON,'%b %d %Y %h:%i %p') LAST_UPDATED_ON  "
-//				+"FROM ADM_USERS MNTB  WHERE MNTB.USER_ID =" +user_id;
-//		JSONArray array = null;
-//		try {
-//			SQLQuery query = session.createSQLQuery(x_query);
-//			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-//			List resultlist = query.list();
-//			array = GetJsonResultSet.getjson(resultlist);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			session.close();
-//		}
-//		return array;
-//		}
-//	public int passwordChange(String user_id, String newPassword,String oldPassword) {
-//		Session session = sf1.openSession();
-//		session.beginTransaction();
-//		String x_query="";
-//		int result=0;
-//		try {
-//			x_query="UPDATE ADM_USERS "
-//					+ "SET PASSWORD='"+newPassword+"', SYNC_FLAG='N' "
-//					+ "WHERE USER_ID="+user_id+" AND PASSWORD='"+oldPassword+"'";
-//			SQLQuery query = session.createSQLQuery(x_query);
-//			 result=query.executeUpdate();
-//			 session.getTransaction().commit();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		} finally {
-//			session.close();
-//		}
-//		return result;
-//	}
+	public JSONArray getCCEDetail(String model) {
+		System.out.println("-- CCEService.getCCEDetail() method called: -- ");
+		Session session = sf1.openSession();
+		String x_query="";
+		x_query="SELECT CATEGORY, COMPANY, EXPECTED_WORKING_LIFE, TYPE FROM CCE_LIST WHERE MODEL = '"
+                        +model+"' ORDER BY CCE_ID ASC";
+		JSONArray array = null;
+		try {
+			SQLQuery query = session.createSQLQuery(x_query);
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+			List resultlist = query.list();
+			array = GetJsonResultSet.getjson(resultlist);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return array;
+		}
+
 	public int saveCCEAddEdit(CCEBeanForCCEForm bean, String action,AdmUserV userBean) {
 		int insertupdateadmCCEFlag = 0;
 //		int insertupdateRolemapingFlag = 0;
@@ -253,7 +227,7 @@ public class CCEService {
 			}else{
 				query.setParameter(10, bean.getX_CCE_DATA_ID());	
 			}
-                        System.out.println(x_QUERY);
+                        System.out.println("Any value for model "+bean.getX_CCE_MODEL());
 			insertupdateadmCCEFlag = query.executeUpdate();
 //			insertupdateRolemapingFlag = saveSetRoleIDMapping(bean, action, userBean, session);
 //			insertupdateWarehouseAssimgmentFlag = setWarehouseIdAssingment(bean, action, userBean, session);
@@ -273,105 +247,7 @@ public class CCEService {
 		return insetUpdateCCEFlag;
 	}
 	
-//	public int saveSetRoleIDMapping(CCEBeanForCCEForm bean, String action, AdmUserV userBean, Session session) {
-//		int result=0;
-//		String x_QUERY="";
-//		try {
-//			if (action.equals("add")) {
-//				x_QUERY="INSERT INTO ADM_USER_ROLE_MAPPINGS "
-//						+ "	(  	  STATUS, "
-//						+ "		 START_DATE, " //0
-//						+ "		 END_DATE," //1
-//						+ "		 SYNC_FLAG,"  
-//						+ "        WAREHOUSE_ID,"//2
-//						+ "        USER_ID,"//3
-//						+ " ROLE_ID,"//4
-//						+ "		COMPANY_ID) "
-//						+ "		VALUES ('A',?,?,'N',?,?,?,21000)";
-//			}else{
-//				x_QUERY="UPDATE ADM_USER_ROLE_MAPPINGS SET "
-//						+ "	STATUS='A', "
-//						+ "	START_DATE=?, "//0
-//						+ "	END_DATE=?,"//1
-//						+ "	SYNC_FLAG='N' "
-//						+ " WHERE USER_ID=?";//2
-//			}
-//			SQLQuery query = session.createSQLQuery(x_QUERY);
-//			query.setParameter(0, CalendarUtil.getDateStringInMySqlInsertFormat(bean.getX_START_DATE())+ " " + CalendarUtil.getCurrentTime());
-//			if (bean.getX_END_DATE() == null || bean.getX_END_DATE().equals("")) {
-//				query.setParameter(1, null);
-//			} else {
-//				query.setParameter(1, CalendarUtil.getDateStringInMySqlInsertFormat(bean.getX_END_DATE())+ " " + CalendarUtil.getCurrentTime());
-//			}
-//			if(action.equals("add")){
-//				query.setParameter(2, bean.getX_ASSIGN_LGA_ID());
-//				lastInsertCCEId=getLastInsertCCEID(bean.getX_LOGIN_NAME(),bean.getX_ASSIGN_LGA_ID());
-//				query.setParameter(3,lastInsertCCEId );
-//				query.setParameter(4, bean.getX_USER_ROLE_ID());
-//				
-//			}else{
-//				query.setParameter(2, bean.getX_USER_ID());
-//			}
-//			 result=query.executeUpdate();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-//	
-//	public int setWarehouseIdAssingment(CCEBeanForCCEForm bean, String action, AdmUserV userBean, Session session) {
-//		int result=0;
-//		String x_QUERY="";
-//		try {
-//			if (action.equals("add")) {
-//				x_QUERY="INSERT INTO ADM_USER_WAREHOUSE_ASSIGNMENTS "
-//						+ "		 (COMPANY_ID, "
-//						+ "		 START_DATE, "// 0
-//						+ "		 END_DATE,"// 1
-//						+ "        STATUS,"// 
-//						+ "       CREATED_ON,"
-//						+ "       UPDATED_BY,"// 2
-//						+ "       LAST_UPDATED_ON,"
-//						+ "		SYNC_FLAG,"
-//						+ "		  WAREHOUSE_ID, "// 3
-//						+ "		  USER_ID,	"// 4
-//						+ "		 CREATED_BY)"// 5) "
-//						+ "		VALUES (21000,?,?,'A',now(),?,now(),'N',?,?,?) ";
-//			}else{
-//				x_QUERY="UPDATE ADM_USER_WAREHOUSE_ASSIGNMENTS SET "
-//						+ "		 COMPANY_ID=21000, "
-//						+ "		 START_DATE=?, "// 0
-//						+ "		 END_DATE=?,"// 1
-//						+ "        STATUS='A',"// 
-//						+ "       UPDATED_BY=?,"// 2
-//						+ "       LAST_UPDATED_ON=now(),"
-//						+ "		SYNC_FLAG='N' " + " WHERE USER_ID=?";// 3
-//			}
-//			SQLQuery query = session.createSQLQuery(x_QUERY);
-//			if (action.equals("add")) {
-//				query.setParameter(3, bean.getX_ASSIGN_LGA_ID());
-//				query.setParameter(4, lastInsertCCEId);
-//				query.setParameter(5, userBean.getX_USER_ID());
-//			}else{
-//				query.setParameter(3, bean.getX_USER_ID());
-//			}
-//			query.setParameter(0, CalendarUtil.getDateStringInMySqlInsertFormat(bean.getX_START_DATE()) + " "
-//					+ CalendarUtil.getCurrentTime());
-//			if (bean.getX_END_DATE() == null || bean.getX_END_DATE().equals("")) {
-//				query.setParameter(1, null);
-//			} else {
-//				query.setParameter(1, CalendarUtil.getDateStringInMySqlInsertFormat(bean.getX_END_DATE()) + " "
-//						+ CalendarUtil.getCurrentTime());
-//				
-//			}
-//			query.setParameter(2, userBean.getX_USER_ID());
-//			 result=query.executeUpdate();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return result;
-//	}
-//	
+
 	public String getLastInsertCCEID(String user_name,String warehouse_id) {
 		Session session = sf1.openSession();
 		try {
