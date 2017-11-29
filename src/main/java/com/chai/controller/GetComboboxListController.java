@@ -420,11 +420,19 @@ public class GetComboboxListController {
                             obj1.put("value","LGA");
                             obj1.put("label","LGA");
                             data.put(obj1);
+                            JSONObject obj2=new JSONObject();
+                            obj2.put("value","WARD");
+                            obj2.put("label","WARD");
+                            data.put(obj2);
                         }else if(userType.equals("LIO")){
                             JSONObject obj=new JSONObject();
                             obj.put("value","LGA");
                             obj.put("label","LGA");
                             data.put(obj);
+                            JSONObject obj1=new JSONObject();
+                            obj1.put("value","WARD");
+                            obj1.put("label","WARD");
+                            data.put(obj1);
                         }else{
                             JSONObject obj=new JSONObject();
                             obj.put("value","");
@@ -475,9 +483,18 @@ public class GetComboboxListController {
                             obj.put("value","LGA");
                             obj.put("label","LGA Store");
                             data.put(obj);
+                            JSONObject obj1=new JSONObject();
+                            obj1.put("value","WARD");
+                            obj1.put("label","WARD");
+                            data.put(obj1);
+                        }else if(levelSelected.equals("WARD")){
+                            JSONObject obj=new JSONObject();
+                            obj.put("value","WARD");
+                            obj.put("label","WARD");
+                            data.put(obj);
 //                            JSONObject obj1=new JSONObject();
 //                            obj1.put("value","HF");
-//                            obj1.put("label","WARD");
+//                            obj1.put("label","HF");
 //                            data.put(obj1);
                         }else{
                             JSONObject obj=new JSONObject();

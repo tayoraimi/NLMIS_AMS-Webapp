@@ -38,7 +38,7 @@ public class AMSDashboardServices {
                         + " SUM(fv.F) AS tF, SUM(fv.NF) AS tNF, SUM(fv.NI) AS tNI, SUM(fv.O_F) AS tO_F, SUM(fv.O_NF) AS tO_NF, SUM(fv.F)+SUM(fv.NI) AS TOTAL"
                         + " FROM view_cce_status_dashboard fv JOIN view_cce_capacity_dashboard cv"
                         + " ON fv.FACILITY_ID = cv.FACILITY_ID";
-                        String x_where_condition = " WHERE cv.SUPPLY_CHAIN_LEVEL= '"+aggLevel+"'"+ ((filterLevel.equals(""))?"":" AND cv."+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (cv.DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
+                        String x_where_condition = " WHERE cv.SUPPLY_CHAIN_LEVEL= '"+((aggLevel.equals("WARD"))?"HF":aggLevel)+"'"+ ((filterLevel.equals(""))?"":" AND cv."+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (cv.DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR cv.FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
                         +" OR cv.DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+"))";
                         x_query = x_query+x_where_condition+" GROUP BY"+((filterLevel.equalsIgnoreCase("National"))?" DEFAULT_ORDERING_WAREHOUSE_ID":" "+filterLevel);
@@ -75,7 +75,7 @@ public class AMSDashboardServices {
                         + " CAST(CONCAT(SUM(MR_A),'/',SUM(MR_R)) AS CHAR) AS MR,"
                         + " CAST(CONCAT(SUM(HPV_A),'/',SUM(HPV_R)) AS CHAR) AS HPV"
                         + " FROM view_cce_capacity_dashboard";
-                        String x_where_condition = " WHERE SUPPLY_CHAIN_LEVEL= '"+aggLevel+"'"+ ((filterLevel.equals(""))?"":" AND "+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
+                        String x_where_condition = " WHERE SUPPLY_CHAIN_LEVEL= '"+((aggLevel.equals("WARD"))?"HF":aggLevel)+"'"+ ((filterLevel.equals(""))?"":" AND "+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
                         +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+"))";
                         x_query = x_query+x_where_condition+((filterLevel.equalsIgnoreCase("National"))?" GROUP BY STATE":" GROUP BY "+filterLevel);
@@ -137,10 +137,11 @@ public class AMSDashboardServices {
                         String x_query = "SELECT STATE, LGA, WARD,"
                                         + " SUM(F) AS tF, SUM(NF) AS tNF, SUM(NI) AS tNI, SUM(O_F) AS tO_F, SUM(O_NF) AS tO_NF, SUM(F)+SUM(NI) AS TOTAL"
                                         + " FROM view_cce_status_dashboard ";
-                        String x_where_condition = " WHERE LOCATION= '"+aggLevel+"'"+ ((filterLevel.equals(""))?"":" AND "+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
+                        String x_where_condition = " WHERE LOCATION= '"+((aggLevel.equals("WARD"))?"HF":aggLevel)+"'"+ ((filterLevel.equals(""))?"":" AND "+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
                         +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+"))";
                         x_query = x_query+x_where_condition+" GROUP BY"+((filterLevel.equalsIgnoreCase("National"))?" DEFAULT_ORDERING_WAREHOUSE_ID":" "+filterLevel);
+                        System.out.println("QUERY: "+x_query);
 		
 //			if (userBean.getX_ROLE_NAME().toUpperCase().equals("NTO")) {
 //                            

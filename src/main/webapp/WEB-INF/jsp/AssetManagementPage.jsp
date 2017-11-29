@@ -551,5 +551,5 @@ line-height: 35px;
     width: 100%;
 }
 </style>
-<script src="<%=request.getContextPath()%>/resources/js/amsdashboards.js"></script>
+<script src="resources/js/amsdashboards.js"></script>
 </html>

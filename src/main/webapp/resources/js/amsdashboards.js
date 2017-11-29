@@ -58,7 +58,7 @@ function loaddata(data) {
 	var headingrow = document.getElementById("heading_table2").rows[0].cells;
         var agg = $('#agg_combobox2').combobox('getValue');
         var fac = $('#lga_combobox2').combobox('getValue');
-        var singlerow = ((fac!=agg)&&(data.length==1))?'SUM OF ALL '+agg+' STORES':'no';
+        var singlerow = (fac!=agg)?'SUM OF ALL CCEs IN '+agg+'S':'no';
         fac = (fac==='National')?'STATE':fac;
 	var datacard = "";
 	for (var i = 0; i < data.length; i++) {
@@ -115,7 +115,7 @@ function loadmergeddata(data) {
 	var headingrow = document.getElementById("heading_merged_table").rows[0].cells;
         var agg = $('#agg_combobox').combobox('getValue');
         var fac = $('#lga_combobox').combobox('getValue');
-        var singlerow = ((fac!=agg)&&(data.length==1))?'SUM OF ALL '+agg+' STORES':'no';
+        var singlerow = ((fac!=agg)&&(data.length==1))?'SUM OF ALL CCEs IN '+agg+'S':'no';
         fac = (fac==='National')?'STATE':fac;
 	var datacard = "";
 	for (var i = 0; i < data.length; i++) {
@@ -192,7 +192,7 @@ function loaddata4(data) {
 	var headingrow = document.getElementById("heading_table4").rows[0].cells;
         var agg = $('#agg_combobox4').combobox('getValue');
         var fac = $('#lga_combobox4').combobox('getValue');
-        var singlerow = ((fac!=agg)&&(data.length==1))?'SUM OF ALL '+agg+' STORES':'no';
+        var singlerow = ((fac!=agg)&&(data.length==1))?'SUM OF ALL CCEs IN '+agg+'S':'no';
         fac = (fac==='National')?'STATE':fac;
 	var datacard = "";
 	for (var i = 0; i < data.length; i++) {
