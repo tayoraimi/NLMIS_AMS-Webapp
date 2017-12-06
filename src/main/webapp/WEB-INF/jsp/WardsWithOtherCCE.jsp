@@ -196,17 +196,17 @@ font-weight: bold;
 
                 for (var i = 0; i < data.length; i++) {
                     dps1.push({
-                        y: data[i]["FUNCTIONAL_SOLAR"],
+                        y: data[i]["FUNCTIONAL_SR"],
                         label: data[i]["LG_NAME"]
                     });
                     
                     dps2.push({
-                        y: data[i]["REPAIRABLE_SOLAR"],
+                        y: data[i]["REPAIRABLE_SR"],
                         label: data[i]["LG_NAME"]
                     });
                     
                     dps3.push({
-                        y: data[i]["OTHER_CCE"],
+                        y: data[i]["WITHOUT_SR"],
                         label: data[i]["LG_NAME"]
                     });
                     
@@ -221,11 +221,13 @@ font-weight: bold;
             window.chart = new CanvasJS.Chart("chartContainer",
             {
             title: {
-            text: "Wards With Other CCE",
+            text: "# of Wards With Other CCE In Each LGA",
                     fontFamily: "arial black"
             },
                     axisY: {
-                    title: "Number of Wards"
+                    title: "Number of Wards",
+                    minimum: 0,
+                    maximum: 100
                     },
                     animationEnabled: true,
                     legend: {

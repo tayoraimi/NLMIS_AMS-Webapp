@@ -69,16 +69,18 @@ public class AMSDashboardServices {
                     System.out.println("Filter for Capacity "+filterLevel);
                     String x_query = "SELECT STATE, LGA, WARD,"
 //                        + " SUM(RI_A) AS RI,"
-                        + " CAST(CONCAT(SUM(RI_A),'/',SUM(RI_R)) AS CHAR)AS RI,"
-                        + " CAST(CONCAT(SUM(MEN_A_A),'/',SUM(MEN_A_R)) AS CHAR) AS MEN_A,"
-                        + " CAST(CONCAT(SUM(ROTA_A),'/',SUM(ROTA_R)) AS CHAR) AS ROTA,"
-                        + " CAST(CONCAT(SUM(MR_A),'/',SUM(MR_R)) AS CHAR) AS MR,"
-                        + " CAST(CONCAT(SUM(HPV_A),'/',SUM(HPV_R)) AS CHAR) AS HPV"
+                        + " CAST(CONCAT(SUM(RI_A)/COUNT(RI_A),'/',SUM(RI_R)/COUNT(RI_R)) AS CHAR)AS RI,"
+                        + " CAST(CONCAT(SUM(MEN_A_A)/COUNT(MEN_A_A),'/',SUM(MEN_A_R)/COUNT(MEN_A_R)) AS CHAR) AS MEN_A,"
+                        + " CAST(CONCAT(SUM(ROTA_A)/COUNT(ROTA_A),'/',SUM(ROTA_R)/COUNT(ROTA_R)) AS CHAR) AS ROTA,"
+                        + " CAST(CONCAT(SUM(MR_A)/COUNT(MR_A),'/',SUM(MR_R)/COUNT(MR_R)) AS CHAR) AS MR,"
+                        + " CAST(CONCAT(SUM(HPV_A)/COUNT(HPV_A),'/',SUM(HPV_R)/COUNT(HPV_R)) AS CHAR) AS HPV"
                         + " FROM view_cce_capacity_dashboard";
                         String x_where_condition = " WHERE SUPPLY_CHAIN_LEVEL= '"+((aggLevel.equals("WARD"))?"HF":aggLevel)+"'"+ ((filterLevel.equals(""))?"":" AND "+((filterLevel.equalsIgnoreCase("National"))?"STATE":filterLevel)+" IS NOT NULL")+" AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
                         +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+"))";
                         x_query = x_query+x_where_condition+((filterLevel.equalsIgnoreCase("National"))?" GROUP BY STATE":" GROUP BY "+filterLevel);
+                        
+                                System.out.println("Capacity Dashboard Query : "+ x_query);
 		
 //			if (userBean.getX_ROLE_NAME().toUpperCase().equals("NTO")) {
 //                            

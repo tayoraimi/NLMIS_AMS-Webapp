@@ -21,9 +21,12 @@
         switch (user) {
             case "SCCO":
                 $('#overViewBtn').hide();
+                $('#addBtn').hide();
+                $('#editBtn').hide();
                 break;
             case "SIO":
                 $('#addBtn').hide();
+                $('#editBtn').hide();
                 break;
             case "SIFP":
                 $('#addBtn').hide();
@@ -126,9 +129,9 @@ font-weight: bold;
                     <!--			<li><a class="w3-btn w3-ripple" onclick="handleHistory()"> <img alt="history"
                                                             src="resources/images/file_history.png">History
                                             </a></li>
-                                            <li><a class="w3-btn w3-ripple" href="user_list_export"> <img alt="export"
+-->                                            <li><a class="w3-btn w3-ripple" href="country_cce_details_export.xls"> <img alt="export"
                                                             src="resources/images/Export_load_upload.png">Export
-                                            </a></li>
+                                            </a></li><!--
                                             <li><a class="w3-btn w3-ripple" onclick="handleChangePassword()"> <img alt="change password"
                                                             src="resources/images/change_password.png">Change Password
                                             </a></li>-->

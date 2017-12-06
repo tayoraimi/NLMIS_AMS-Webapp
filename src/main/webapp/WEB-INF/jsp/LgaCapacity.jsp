@@ -237,14 +237,14 @@ font-weight: bold;
                     data: [
                     {
                     type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y} Litres",
                             name: "Current RI Capacity",
                             showInLegend: "true",
                             indexLabelFontSize: 5,
                             dataPoints: dps1
                     }, {
                     type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y} Litres",
                             name: "With Men_A",
                             showInLegend: "true",
                             indexLabelFontSize: 5,
@@ -252,7 +252,7 @@ font-weight: bold;
                     },
                     {
                     type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y} Litres",
                             name: "With Rota",
                             showInLegend: "true",
                             indexLabelFontSize: 5,
@@ -260,7 +260,7 @@ font-weight: bold;
                     },
                     {
                     type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y} Litres",
                             name: "With MR",
                             showInLegend: "true",
                             indexLabelFontSize: 5,
@@ -268,7 +268,7 @@ font-weight: bold;
                     },
                     {
                     type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y} Litres",
                             name: "With HPV",
                             showInLegend: "true",
                             indexLabelFontSize: 5,

@@ -122,6 +122,33 @@ public class ListOfCCEController {
 			// TODO: handle exception
 		}
 	}
+        
+        
+		@RequestMapping(value = "/country_cce_details_export")
+	public ModelAndView getListOfCCEExport(HttpServletRequest request,HttpServletResponse respones){
+		System.out.println("in ListOfCCEController.getListOfCCEExport()");
+		ModelAndView model=new ModelAndView("CommonExelGenerator");
+		ArrayList<LabelValueBean> headerOfTableList=new ArrayList<>();
+		headerOfTableList.add(new LabelValueBean("MODEL", "MODEL"));
+		headerOfTableList.add(new LabelValueBean("DESIGNATION", "DESIGNATION"));
+		headerOfTableList.add(new LabelValueBean("CATEGORY", "CATEGORY"));
+		headerOfTableList.add(new LabelValueBean("COMPANY", "COMPANY"));
+		headerOfTableList.add(new LabelValueBean("DESIGNATION", "DESIGNATION"));
+		headerOfTableList.add(new LabelValueBean("REFRIGERANT", "REFRIGERANT"));
+		headerOfTableList.add(new LabelValueBean("VOL_NEG", "VOL - "));
+		headerOfTableList.add(new LabelValueBean("VOL_POS", "VOL + "));
+		headerOfTableList.add(new LabelValueBean("EXPECTED_WORKING_LIFE", "EXPECTED WORKING LIFE"));
+		headerOfTableList.add(new LabelValueBean("PRICE", "PRICE"));
+		headerOfTableList.add(new LabelValueBean("TYPE", "TYPE"));
+		headerOfTableList.add(new LabelValueBean("ENERGY_SOURCE", "ENERGY_SOURCE"));
+		try{
+			model.addObject("export_data",data);
+			model.addObject("headerOfTable", headerOfTableList);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		return model;
+	}
 		
 	
 }

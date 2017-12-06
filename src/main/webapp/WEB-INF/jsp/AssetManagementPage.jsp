@@ -218,7 +218,7 @@ $(document).ready(function(){
 		switch (user) {
 			case "SCCO":
 				$('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');	
-				$('#cceListNavigationMenu').hide();
+//				$('#cceListNavigationMenu').hide();
 				break;
 			
                         case "NTO":

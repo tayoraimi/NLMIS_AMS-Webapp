@@ -29,7 +29,7 @@ public class ListOfCCEService {
 		Session session = sf1.openSession();
 		String warehoseRole=userBean.getX_ROLE_NAME();
 		String x_query="";
-		if(warehoseRole.equals("NTO")){
+//		if(warehoseRole.equals("NTO")){
 		 x_query="SELECT `CCE_ID`,"
                          + " `MODEL`,"
                          + " `DESIGNATION`,"
@@ -49,7 +49,7 @@ public class ListOfCCEService {
                          + " FROM `cce_list` WHERE 1"
                          + " ORDER BY CCE_ID DESC";
                                 
-		}
+//		}
 		JSONArray array = null;
 		try {
 			SQLQuery query = session.createSQLQuery(x_query);

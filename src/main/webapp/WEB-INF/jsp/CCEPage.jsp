@@ -29,33 +29,13 @@
     }
     function setRole() {
         var user = streamlineUser();
-//        var user = '${userBean.getX_ROLE_NAME()}';
-//        alertBox(user);
-//        if((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
-//			user = 'SCCO';
-//		}else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')){
-//			user = 'LIO';
-//		}else if(user === 'NTO'){
-//			user = 'NTO';
-//		}
         switch (user) {
             case "SCCO":
                 $('#overViewBtn').hide();
                 $('#cce_state_div').hide();
-//                document.getElementById("cce_location_textbox").setAttribute('value','STATE');
                 $('#info_label').text('If LGA or HF is not selected, equipment will be located at the STATE Store');
                 loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
                 break;
-//            case "SIO":
-//                $('#addBtn').hide();
-//                $('#cce_state_div').hide();
-//                loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
-//                break;
-//            case "SIFP":
-//                $('#addBtn').hide();
-//                $('#cce_state_div').hide();
-//                loadlgaList({value:'${userBean.getX_WAREHOUSE_ID()}'});
-//                break;
             case "NTO":
                 $('#overViewBtn').hide();
                 $('#info_label').text('If State or LGA or HF is not selected, equipment will be located at the National Store');
@@ -67,25 +47,7 @@
                 $('#info_label').text('If HF is not selected, equipment will be located at the LGA Store');
                 loadWardBadesdOnLga({value:'${userBean.getX_WAREHOUSE_ID()}'});
                 break;
-//            case "MOH":
-//                $('#cce_state_div').hide();
-//                $('#cce_lga_div').hide();
-//                $('#editBtn').hide();
-//                $('#addBtn').hide();
-//                loadWardBadesdOnLga({value:'${userBean.getX_WAREHOUSE_ID()}'});
-//                break;
         }
-//        document.getElementById("common_lable").innerHTML = "Cold Rooms & Freezer Rooms\nRefrigerators & Freezers";
-//        if (user == "NTO") {
-//            document.getElementById("user").innerHTML = "User: National Admin";
-//            document.getElementById("warehouse_name").innerHTML = "National: " + '${userBean.getX_WAREHOUSE_NAME()}';
-//        } else if (user == "SIO" || user == "SCCO" || user == "SIFP") {
-//            document.getElementById("user").innerHTML = "User: State Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
-//            document.getElementById("warehouse_name").innerHTML = "State :" + '${userBean.getX_WAREHOUSE_NAME()}';
-//        } else if (user == "LIO" || user == "MOH") {
-//            document.getElementById("user").innerHTML = "User: LGA Officer "+ ' ${userBean.getX_WAREHOUSE_NAME()}';
-//            document.getElementById("warehouse_name").innerHTML = "LGA :" + '${userBean.getX_WAREHOUSE_NAME()}';
-//        }
 
     }
         </script>
@@ -381,11 +343,17 @@ font-weight: bold;
                         }
                         function showLocations(){
                             var user = streamlineUser();
+                                $('#cce_ward_div').show();
+                                $('#cce_facility_name_div').show();
+                                $('#cce_location_div').show();
                             if(user == 'NTO'){
                                 $('#cce_location_textbox').textbox('setValue','National');
+                                $('#cce_state_div').show();
+                                $('#cce_lga_div').show();
                             }
                             if(user == 'SCCO'){
                                 $('#cce_location_textbox').textbox('setValue','STATE');
+                                $('#cce_lga_div').show();
                             }
                             if(user == 'LIO'){
                                 $('#cce_location_textbox').textbox('setValue','LGA');
@@ -634,6 +602,8 @@ font-weight: bold;
                                 $('#cce_facility_name_combobox_form').combobox('setText', row.FACILITY_ID);
                                 $('#cce_facility_name_combobox_form').combobox('setValue', row.FACILITY_NAME);
                                 
+                                $('#cce_facility_id_form').val(row.FACILITY_ID);
+                                $('#cce_data_id_form').val(row.CCE_DATA_ID);
 //                                $('#cce_location_textbox').textbox('setValue', row.LOCATION);
                                 $('#cce_location_textbox').textbox('setValue', row.LOCATION);
                                 

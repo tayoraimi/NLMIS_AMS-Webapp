@@ -180,7 +180,7 @@ public class AMSChartServices {
                                 + " FROM `view_cce_ward_data` ";
                         String x_where_condition = " WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
-                        +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+")";
+                        +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+")  GROUP BY LG_NAME";
                         x_query = x_query+x_where_condition;
 			Transaction tx = null;
 			tx = session.beginTransaction();
@@ -211,9 +211,10 @@ public class AMSChartServices {
                                 + " FROM `view_cce_ward_data` ";
                         String x_where_condition = " WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
-                        +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+")";
+                        +" OR DEFAULT_ORDERING_WAREHOUSE_ID IN ( SELECT FACILITY_ID FROM view_all_facilities WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()+")  GROUP BY LG_NAME";
                         x_query = x_query+x_where_condition;
-			Transaction tx = null;
+			System.out.println("Query for WardWithOtherCCE : "+x_query);
+                        Transaction tx = null;
 			tx = session.beginTransaction();
                         
 			SQLQuery query = session.createSQLQuery(x_query);
@@ -240,7 +241,8 @@ public class AMSChartServices {
                                 + " AND DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID();
                         x_query = x_query+x_where_condition;
                      //   x_query = "SELECT `id`, `lga`, `year`, `ICAR`, `AC`, `CRIC`, `WMEN_A`, `WROTA`, `WMR`, `WHPV` FROM `lga_capacity` WHERE 1";
-			Transaction tx = null;
+			System.out.println("Query for LGA Capacity Chart : "+x_query);
+                        Transaction tx = null;
 			tx = session.beginTransaction();
                         
 			SQLQuery query = session.createSQLQuery(x_query);
@@ -261,7 +263,7 @@ public class AMSChartServices {
 		JSONArray array = new JSONArray();
 		Session session = sf.openSession();
 		try {
-                        String x_query = "SELECT `LGA_ID` AS `id`, year(NOW())-1 AS `year`,"
+                        String x_query = "SELECT `LGA_ID` AS `id`, year(NOW()) AS `year`,"
                                 + " `ICAR`, `AC`, `CRIC` AS `CRI`, `WMEN_A` AS `MEN_A`,"
                                 + " `WROTA` AS `ROTA`, `WMR` AS `MR`,"
                                 + " `WHPV` AS `HPV` FROM `view_cce_state_lga_capacity_chart`";
@@ -269,7 +271,8 @@ public class AMSChartServices {
                                 + " AND FACILITY_ID = "+userBean.getX_WAREHOUSE_ID();
                         x_query = x_query+x_where_condition;
                        // x_query = "SELECT `id`, `year`, `ICAR`, `AC`, `CRI`, `MEN_A`, `ROTA`, `MR`, `HPV` FROM `state_capacity_` WHERE 1";
-			Transaction tx = null;
+			System.out.println("Query for State Capacity Chart : "+x_query);
+                        Transaction tx = null;
 			tx = session.beginTransaction();
                         
 			SQLQuery query = session.createSQLQuery(x_query);
