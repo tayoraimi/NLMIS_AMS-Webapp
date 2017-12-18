@@ -4,14 +4,20 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+                <!--OLD SERVERS-->
  		<!--<property name="connection.url">jdbc:mysql://69.64.71.204:3306/vertical?autoReconnect=true</property>--> 
  		<!--<property name="connection.url">jdbc:mysql://73.160.140.87:3306/vertical?autoReconnect=true</property>--> 
-		<property name="connection.url">jdbc:mysql://206.225.80.54:3306/vertical?autoReconnect=true</property>
- 		<!--<property name="connection.url">jdbc:mysql://169.255.59.148:3306/vertical?autoReconnect=true</property>--> 
+		<!--<property name="connection.url">jdbc:mysql://206.225.80.54:3306/vertical?autoReconnect=true</property>--> 
+<!--		<property name="connection.username">root</property>
+		<property name="connection.password">Chai@2016</property>-->
+                <!--NEW SERVERS-->
+                <!--Prod-->
+		<!--<property name="connection.url">jdbc:mysql://169.255.57.42:3306/vertical?autoReconnect=true</property>-->
+                <!--Demo-->
+ 		<property name="connection.url">jdbc:mysql://169.255.59.148:3306/vertical?autoReconnect=true</property>
  		<!--<property name="connection.url">jdbc:mysql://localhost:3306/vertical?autoReconnect=true</property>--> 
 		<property name="connection.username">root</property>
-		<property name="connection.password">Chai@2016</property>
-		<!--<property name="connection.password">nlmisams123</property>-->
+		<property name="connection.password">nlmisams123</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
