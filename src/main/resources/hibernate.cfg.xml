@@ -12,7 +12,7 @@
 		<property name="connection.password">Chai@2016</property>-->
                 <!--NEW SERVERS-->
                 <!--Prod-->
-		<!--<property name="connection.url">jdbc:mysql://169.255.57.42:3306/vertical?autoReconnect=true</property>-->
+<!--		<property name="connection.url">jdbc:mysql://169.255.57.42:3306/vertical?autoReconnect=true</property>-->
                 <!--Demo-->
  		<property name="connection.url">jdbc:mysql://169.255.59.148:3306/vertical?autoReconnect=true</property>
  		<!--<property name="connection.url">jdbc:mysql://localhost:3306/vertical?autoReconnect=true</property>--> 
