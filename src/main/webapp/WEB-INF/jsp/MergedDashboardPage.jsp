@@ -84,14 +84,14 @@
 		<!-- filters -->
 		<div id="filters" style="padding: 3px;box-shadow: 1px 1px 1px 0px;">
 			<div id="lga_combobox_div" style="display: inline;">
-				<label>Filter By:</label> 
+				<label>Select Level:</label> 
 				<select id="lga_combobox" class="easyui-combobox" name="lga_combobox" style="width:200px;">
 <!--                                    <option value="LGA">LGA</option>
                                     <option value="WARD">WARD</option>
 -->                                </select> 	
 			</div>
                     
-			<span>Select Level:</span> 
+			<span>Select Store:</span> 
 			<select id="agg_combobox" class="easyui-combobox" name="agg_combobox" style="width: 100px;">
 <!--                            <option value="LGA">LGA</option>
                             <option value="WARD">WARD</option>-->

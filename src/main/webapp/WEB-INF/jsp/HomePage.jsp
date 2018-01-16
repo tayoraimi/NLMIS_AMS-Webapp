@@ -533,7 +533,7 @@ $(document).ready(function(){
 		<li><a id="2" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Summary</a></li>
 <!-- 		<li id="2"><a href="lga_stock_summary_grid" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">LGA Stock Summary</a></li> -->
 		<li id="3" class="divider"></li>
-		<li id="4"><a href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab4View">HF Stock Summary Sheet</a></li>
+		<li id="4"><a href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab4View">Facility stock dashboard</a></li>
 		<li id="5" class="divider"></li>
 <!-- 		<li><a id="6" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Balance Dashboard</a></li> -->
 		<li><a id="7" href="state_Stock_Status_DashboardPage" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">State Stock Status Dashboard</a></li>
@@ -543,7 +543,7 @@ $(document).ready(function(){
 		<li id="10" class="divider"></li>
 		<li><a id="11" href="state_stock_perfo_dashboard" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">LGA Stock Performance Dashboard</a></li>
 		<li id="12" class="divider"></li>
-		<li><a id="13" href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">HF Stock Summary Sheet</a></li>
+		<li><a id="13" href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">Facility stock dashboard</a></li>
 		
 	</ul>
 	
@@ -596,31 +596,31 @@ $(document).ready(function(){
 	    <div id="stockDashboardULTabsDiv" class="col l12">
 	      <ul id="stockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:5%">
 	        <li id="stockDashboardLiTab1" class="tab col l4"><a id="stockDashboardLiTab1Link"  href="#stockDashboardTab1View" name="state_stock_perfo_dashboard" >State Stock Performance Dashboard</a></li>
-	        <li id="stockDashboardLiTab5" class="tab col l4"><a id="stockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA Stock Summary Sheet</a></li> <!-- Actual: Lga Stock Balance Dashboard -->
-	        <li id="stockDashboardLiTab4" class="tab col l4"><a id="stockDashboardLiTab4Link" href="#stockDashboardTab4View" name="hf_stock_summary_sheet_page">HF Stock Summary Sheet</a></li> 
-<!-- 		    <li id="stockDashboardLiTab3" class="tab col l4"><a id="stockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">Lga Stock Balance Dashboard</a></li> Actual: LGA Stock Summary Sheet -->
+	        <li id="stockDashboardLiTab5" class="tab col l4"><a id="stockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock dashboard</a></li> <!-- Actual: Lga Stock Balance Dashboard -->
+	        <li id="stockDashboardLiTab4" class="tab col l4"><a id="stockDashboardLiTab4Link" href="#stockDashboardTab4View" name="hf_stock_summary_sheet_page">Facility stock dashboard</a></li> 
+<!-- 		    <li id="stockDashboardLiTab3" class="tab col l4"><a id="stockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">Lga Stock Balance Dashboard</a></li> Actual: LGA stock dashboard -->
 	      </ul>
 	      <ul id="ntoStockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:7%">
 <!-- 	      	default dashboard data action - get_lga_agg_stock_dashboard_data -->
 	        <li id="ntoStockDashboardLiTab1" class="tab col l6"><a id="ntoStockDashboardLiTab1Link" href="#stockDashboardTab1View" name="state_Stock_Status_DashboardPage">State Stock Status Dashboard</a></li>
-<!-- 	        <li id="ntoStockDashboardLiTab3" class="tab col l6"><a id="ntoStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">LGA Stock Summary Sheet</a></li> -->
-	         <li id="stockDashboardLiTab5" class="tab col l4"><a id="ntoStockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA Stock Summary Sheet</a></li>
+<!-- 	        <li id="ntoStockDashboardLiTab3" class="tab col l6"><a id="ntoStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">LGA stock dashboard</a></li> -->
+	         <li id="stockDashboardLiTab5" class="tab col l4"><a id="ntoStockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock dashboard</a></li>
 	      </ul>
 	      <ul id="lioMohStockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:7%">
 <!-- 	      	default dashboard data action - state_stock_perfo_dashboard : LGA dropdown hidden | default warehouse id passed is logged in LGA's ID -->
 	        <li id="lioMohStockDashboardLiTab1" class="tab col l6"><a id="lioMohStockDashboardLiTab1Link" href="#stockDashboardTab1View" name="state_stock_perfo_dashboard">LGA Stock Performance Dashboard</a></li>
-	        <li id="lioMohStockDashboardLiTab3" class="tab col l6"><a id="lioMohStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="hf_stock_summary_sheet_page">HF Stock Summary Sheet</a></li>
+	        <li id="lioMohStockDashboardLiTab3" class="tab col l6"><a id="lioMohStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="hf_stock_summary_sheet_page">Facility stock dashboard</a></li>
 	      </ul>
 	    </div>
 	    <!-- For NTO/SCCO/SIO/SIFP -->
 		<div id="stockDashboardTab1View" class="col l12">State Stock Performance Dashboard</div> <!-- action = state_stock_perfo_dashboard -->
 <!-- 		<div id="stockDashboardTab2View" class="col l12">LGA Stock Performance Dashboard</div> action = N/A -->
-		<div id="stockDashboardTab5View" class="col l12">LGA Stock Summary Sheet</div> <!-- action = N/A -->
-		<div id="stockDashboardTab4View" class="col l12">HF Stock Summary Sheet</div> <!-- action = N/A -->
-<!-- 	<div id="stockDashboardTab3View" class="col l12">LGA Stock Summary Sheet  </div> action = lga_stock_summary_grid --> <!-- LGA Stock Balance Dashboard -->
+		<div id="stockDashboardTab5View" class="col l12">LGA stock dashboard</div> <!-- action = N/A -->
+		<div id="stockDashboardTab4View" class="col l12">Facility stock dashboard</div> <!-- action = N/A -->
+<!-- 	<div id="stockDashboardTab3View" class="col l12">LGA stock dashboard  </div> action = lga_stock_summary_grid --> <!-- LGA Stock Balance Dashboard -->
 		<!-- For LIO/MOH
 		<div id="stockDashboardTab3View" class="col s12">LGA Stock Summary</div>
-		<div id="stockDashboardTab4View" class="col s12">HF Stock Summary Sheet</div> -->
+		<div id="stockDashboardTab4View" class="col s12">Facility stock dashboard</div> -->
 		
 	   <!-- For NTO 
 		<div id="stockDashboardTab3View" class="col s12">LGA Stock Summary</div> action = lga_stock_summary_grid
