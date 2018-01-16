@@ -185,7 +185,7 @@ function filterGridData2(isloadHeader) {
 }
 
 $('#lga_combobox2').combobox({
-    url : 'get_sclevel_list?userType='+'${userBean.x_ROLE_NAME}',
+    url : 'get_scfnclevel_list',
     valueField : 'value',
     textField : 'label',
     onSelect : function(rec) {

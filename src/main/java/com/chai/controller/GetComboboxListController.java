@@ -392,6 +392,26 @@ public class GetComboboxListController {
 		}
 	}
         
+        
+        @RequestMapping(value = "/get_scfnclevel_list")
+	public void getSclevelFncList(HttpServletRequest request,HttpServletResponse respones){
+		System.out.println("in GetComboboxListController.getRoleNameList()");
+		try{
+			AdmUserV userBean=(AdmUserV)request.getSession().getAttribute("userBean");
+                        PrintWriter out = respones.getWriter();
+			JSONArray data=new JSONArray();
+                            JSONObject obj=new JSONObject();
+                            obj.put("value","WARD");
+                            obj.put("label","WARD");
+                            data.put(obj);
+			out.write(data.toString());
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
+        
+        
         @RequestMapping(value = "/get_sclevel_list")
 	public void getSclevelList(HttpServletRequest request,HttpServletResponse respones){
 		System.out.println("in GetComboboxListController.getRoleNameList()");
@@ -420,10 +440,10 @@ public class GetComboboxListController {
                             obj1.put("value","LGA");
                             obj1.put("label","LGA");
                             data.put(obj1);
-                            JSONObject obj2=new JSONObject();
-                            obj2.put("value","WARD");
-                            obj2.put("label","WARD");
-                            data.put(obj2);
+//                            JSONObject obj2=new JSONObject();
+//                            obj2.put("value","WARD");
+//                            obj2.put("label","WARD");
+//                            data.put(obj2);
                         }else if(userType.equals("LIO")){
                             JSONObject obj=new JSONObject();
                             obj.put("value","LGA");
@@ -465,28 +485,28 @@ public class GetComboboxListController {
                             obj.put("value","National");
                             obj.put("label","National Store");
                             data.put(obj);
-                            JSONObject obj1=new JSONObject();
-                            obj1.put("value","STATE");
-                            obj1.put("label","State Store");
-                            data.put(obj1);
+//                            JSONObject obj1=new JSONObject();
+//                            obj1.put("value","STATE");
+//                            obj1.put("label","State Store");
+//                            data.put(obj1);
                         }else if(levelSelected.equals("STATE")){
                             JSONObject obj=new JSONObject();
                             obj.put("value","STATE");
                             obj.put("label","State Store");
                             data.put(obj);
-                            JSONObject obj1=new JSONObject();
-                            obj1.put("value","LGA");
-                            obj1.put("label","LGA Store");
-                            data.put(obj1);
+//                            JSONObject obj1=new JSONObject();
+//                            obj1.put("value","LGA");
+//                            obj1.put("label","LGA Store");
+//                            data.put(obj1);
                         }else if(levelSelected.equals("LGA")){
                             JSONObject obj=new JSONObject();
                             obj.put("value","LGA");
                             obj.put("label","LGA Store");
                             data.put(obj);
-                            JSONObject obj1=new JSONObject();
-                            obj1.put("value","WARD");
-                            obj1.put("label","WARD");
-                            data.put(obj1);
+//                            JSONObject obj1=new JSONObject();
+//                            obj1.put("value","WARD");
+//                            obj1.put("label","WARD");
+//                            data.put(obj1);
                         }else if(levelSelected.equals("WARD")){
                             JSONObject obj=new JSONObject();
                             obj.put("value","WARD");
