@@ -223,6 +223,9 @@ font-weight: bold;
             text: "Wards With at least One Solar Refrigerator",
                     fontFamily: "arial black"
             },
+                    axisX:{
+                        labelAngle: 10,
+                      },
                     axisY: {
                     title: "Number of Wards"
                     },

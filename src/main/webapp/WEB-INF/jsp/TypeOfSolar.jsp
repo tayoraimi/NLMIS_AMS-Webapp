@@ -188,8 +188,8 @@ font-weight: bold;
             function loadchartdata(data) {
                 var aVal = 0, bVal = 0, cVal = 0, dVal = 0, eVal = 0;
                 for (var i = 0; i < data.length; i++) {
-                    aVal = aVal + data[i]["domestic_solar"];
-                    bVal = bVal + data[i]["qualified_solar"];
+                    aVal = aVal + data[i]["domestic"];
+                    bVal = bVal + data[i]["qualified"];
 
                 }
                 window.chart = new CanvasJS.Chart("chartContainer",

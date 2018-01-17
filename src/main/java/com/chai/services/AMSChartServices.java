@@ -58,7 +58,7 @@ public class AMSChartServices {
 		Session session = sf.openSession();
 		try {
                         String x_query = "SELECT STATE, LGA, WARD,"
-                                        + " SUM(F) AS `functional`, SUM(R) AS `repair`, SUM(NI) AS `not_installed`, SUM(O_F) AS `functional_obsolete`, SUM(O_NF) AS `not_functional_obsolete`, SUM(F)+SUM(NI) AS TOTAL, TYPE"
+                                        + " ifnull(SUM(F),0) AS `functional`, ifnull(SUM(R),0) AS `repair`, ifnull(SUM(NI),0) AS `not_installed`, ifnull(SUM(O_F),0) AS `functional_obsolete`, ifnull(SUM(O_NF),0) AS `not_functional_obsolete`, ifnull(SUM(F),0)+ifnull(SUM(NI),0) AS TOTAL, TYPE "
                                         + " FROM view_cce_status_chart ";
                         String x_where_condition = " WHERE (TYPE = 'PIS/PQS electrical' OR TYPE = 'PIS/PQS Solar' OR TYPE = 'Absorption')  AND (DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()
@@ -66,6 +66,7 @@ public class AMSChartServices {
                         x_query = x_query+x_where_condition;
 			Transaction tx = null;
 			tx = session.beginTransaction();
+                        System.out.println("Type of solar chart "+x_query);
                         
 			SQLQuery query = session.createSQLQuery(x_query);
 			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
@@ -145,8 +146,8 @@ public class AMSChartServices {
 		Session session = sf.openSession();
 		try {
                         String x_query = "SELECT STATE, LGA, WARD,"
-                                        + " SUM(IF(TYPE = 'PIS/PQS Solar',SUM(F)+SUM(NI)+SUM(NF)+SUM(O_F)+SUM(O_NF),0)) AS `qualified`,"
-                                        + " SUM(IF(TYPE = 'Domestic - Solar',SUM(F)+SUM(NI)+SUM(NF)+SUM(O_F)+SUM(O_NF),0)) AS `domestic`"
+                                        + "  IF(TYPE = 'PIS/PQS Solar',SUM(ifnull(F,0) + ifnull(NI, 0) + ifnull(NF, 0) + ifnull(O_F, 0) + ifnull(O_NF, 0)),0) AS `qualified`,"
+                                        + " IF(TYPE = 'Domestic - Solar',SUM(ifnull(F,0) + ifnull(NI, 0) + ifnull(NF, 0) + ifnull(O_F, 0) + ifnull(O_NF, 0)),0) AS `domestic` "
                                         + " FROM view_cce_status_chart ";
                         String x_where_condition = " WHERE DEFAULT_ORDERING_WAREHOUSE_ID = "+userBean.getX_WAREHOUSE_ID()
                         + " OR FACILITY_ID = "+userBean.getX_WAREHOUSE_ID()

@@ -224,6 +224,9 @@ font-weight: bold;
             text: "# of Wards With Other CCE In Each LGA",
                     fontFamily: "arial black"
             },
+                     axisX:{
+                        labelAngle: 10,
+                      },
                     axisY: {
                     title: "Number of Wards",
                     minimum: 0,
