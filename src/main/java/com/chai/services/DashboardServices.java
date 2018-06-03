@@ -3,6 +3,7 @@ package com.chai.services;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -57,6 +58,67 @@ public class DashboardServices {
 		System.out.println("-- DashboardServices.getHFStockSummaryGridData() mehtod called: lgaID=-- "+lgaID);
 		JSONArray array = new JSONArray();
 		Session session = sf.openSession();
+                //String x_WHERE_CONDITION = "+week ;
+                StringBuilder queryBuilder = new StringBuilder("SELECT WAREHOUSE_ID AS LGA_ID,"
+                        + " WAREHOUSE_NAME AS LGA_NAME,"
+                        + "'.' AS CUSTOMER_ID,"
+                        + " CONCAT(':','LGA Cold Store',':') AS CUSTOMER_NAME,"
+                        + " ITEM_ID,"
+                        + " ITEM_NUMBER,"
+                        + " LAST_UPDATED_ON AS STOCK_RECEIVED_DATE,"
+                        + " ONHAND_QUANTITY AS STOCK_BALANCE, 0 AS MIN_STOCK, 0 AS MAX_STOCK, '.' AS LEGEND_FLAG,"
+                        + " '.' AS LEGEND_COLOR"
+                        + " FROM item_onhand_quantities_vw WHERE WAREHOUSE_ID=IFNULL("+lgaID+",WAREHOUSE_ID) "
+                        +" union "+"SELECT  LGA_ID,	"
+                        + " LGA_NAME, "
+                        +"  '.' AS CUSTOMER_ID,"
+                        + " CONCAT(':','Total Facility Stock',':') AS CUSTOMER_NAME,"
+                        + " ITEM_ID, "
+                        + " ITEM_NUMBER, "
+                        + " ENTRY_DATE AS STOCK_RECEIVED_DATE, "
+                        +"  SUM(STOCK_BALANCE) AS STOCK_BALANCE, 0 AS MIN_STOCK, 0 AS MAX_STOCK, '.' AS LEGEND_FLAG,"
+                        + " '.' AS LEGEND_COLOR"
+                        + " FROM view_manual_hf_stock_entry  WHERE DATE_FORMAT(ENTRY_DATE,'%v') = '"+week+"'  AND DATE_FORMAT(ENTRY_DATE,'%Y') = '"+year+"' AND  LGA_ID=IFNULL("+lgaID+",LGA_ID) GROUP BY ITEM_ID"
+                        +" union "
+                        +"SELECT LGA_ID,	"
+                        + " LGA_NAME, "
+                        +"  CUSTOMER_ID,"
+                        + " CUSTOMER_NAME,"
+                        + " ITEM_ID, "
+                        + " ITEM_NUMBER, "
+                        + " ENTRY_DATE AS STOCK_RECEIVED_DATE, "
+                        +"  STOCK_BALANCE, 0 AS MIN_STOCK, 0 AS MAX_STOCK, '.' AS LEGEND_FLAG,"
+                        + " '.' AS LEGEND_COLOR"
+                        +" FROM view_manual_hf_stock_entry  WHERE DATE_FORMAT(ENTRY_DATE,'%v') = '"+week+"'  AND DATE_FORMAT(ENTRY_DATE,'%Y') = '"+year+"' AND DEFAULT_STORE_ID=IFNULL("+lgaID+",DEFAULT_STORE_ID) ");
+                
+//		StringBuilder queryBuilder = new StringBuilder("SELECT LGA_ID, LGA_NAME, CUSTOMER_ID, CUSTOMER_NAME, ITEM_ID, ITEM_NUMBER, STOCK_RECEIVED_DATE, STOCK_BALANCE, MIN_STOCK, MAX_STOCK, LEGEND_FLAG, LEGEND_COLOR FROM HF_STOCK_PERFORMANCE_DASHBORD_V WHERE DATE_FORMAT(STOCK_RECEIVED_DATE,'%Y-%v')='");
+//		  queryBuilder.append(year)
+//					  .append("-")
+//					  .append(week)
+//					  .append("' AND LGA_ID=")
+//					  .append(lgaID);	
+		System.out.println("-- DashboardServices.getHFStockSummaryGridData()"+queryBuilder.toString());
+                try {					
+			SQLQuery query = session.createSQLQuery(queryBuilder.toString());
+			query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+//			logger.info(queryBuilder.toString());
+			List resultlist = query.list();
+                        Iterator it = resultlist.iterator();
+                        
+                        
+			array = GetJsonResultSet.getjson(resultlist);			
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		} finally {
+			session.close();			
+		}		
+		return array;
+	}
+	
+	public JSONArray getHFStockIssueGridData(String year, String week, String lgaID) {
+		System.out.println("-- DashboardServices.getHFStockIssueGridData() mehtod called: lgaID=-- "+lgaID);
+		JSONArray array = new JSONArray();
+		Session session = sf.openSession();
 		StringBuilder queryBuilder = new StringBuilder("SELECT LGA_ID, LGA_NAME, CUSTOMER_ID, CUSTOMER_NAME, ITEM_ID, ITEM_NUMBER, STOCK_RECEIVED_DATE, STOCK_BALANCE, MIN_STOCK, MAX_STOCK, LEGEND_FLAG, LEGEND_COLOR FROM HF_STOCK_PERFORMANCE_DASHBORD_V WHERE DATE_FORMAT(STOCK_RECEIVED_DATE,'%Y-%v')='");
 		  queryBuilder.append(year)
 					  .append("-")
@@ -76,7 +138,6 @@ public class DashboardServices {
 		}		
 		return array;
 	}
-	
 	public List activeHFWithZeroData(String year, String week, String lgaID) throws Exception{
 //		StringBuilder queryBuilder = new StringBuilder("SELECT CUSTOMER_NAME FROM CUSTOMERS WHERE CUSTOMER_ID NOT IN (");
 //		queryBuilder.append("SELECT DISTINCT CUST.CUSTOMER_ID AS CUSTOMER_ID FROM ((((((VERTICAL.CUSTOMER_PRODUCT_CONSUMPTION CONS LEFT JOIN VERTICAL.ORDER_LINES LINE ON(((CONS.CONSUMPTION_ID = LINE.CONSUMPTION_ID) AND (CONS.WAREHOUSE_ID = LINE.ORDER_FROM_ID) AND (CONS.CUSTOMER_ID = LINE.ORDER_TO_ID) AND (CONS.ITEM_ID = LINE.ITEM_ID) AND (WEEK(CONS.DATE,0) = WEEK(LINE.CREATED_DATE,0)) AND (YEAR(CONS.DATE) = YEAR(LINE.CREATED_DATE))))) LEFT JOIN VERTICAL.ORDER_HEADERS HDR ON(((LINE.ORDER_HEADER_ID = HDR.ORDER_HEADER_ID) AND (HDR.ORDER_STATUS_ID = 10)))) JOIN VERTICAL.CUSTOMERS CUST ON(((CONS.CUSTOMER_ID = CUST.CUSTOMER_ID) AND (CUST.STATUS = 'A')))) JOIN VERTICAL.ITEM_MASTERS ITM ON(((CONS.ITEM_ID = ITM.ITEM_ID) AND (CUST.DEFAULT_STORE_ID = ITM.WAREHOUSE_ID)))) JOIN VERTICAL.INVENTORY_WAREHOUSES INV ON((CONS.WAREHOUSE_ID = INV.WAREHOUSE_ID))) JOIN VERTICAL.INVENTORY_WAREHOUSES INV2 ON((INV.DEFAULT_ORDERING_WAREHOUSE_ID = INV2.WAREHOUSE_ID))) WHERE (CONS.VALID = 'Y') AND DATE_FORMAT(CONS.DATE,'%Y-%v')='")

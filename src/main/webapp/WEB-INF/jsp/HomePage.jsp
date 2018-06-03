@@ -137,26 +137,30 @@ $(document).ready(function(){
 				$('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');	
 				$('#ntoStockDashboardTabsUL').hide();
 				$('#lioMohStockDashboardTabsUL').hide();
-				$('#stockDashboardDropdown li:gt(5)').hide();
+				$('#stockDashboardDropdown li:gt(4)').hide();
 				$('#reportsDropdown li:gt(10)').hide();
 				if(reloadDashboards){
 					/* Below ajax request will run when user log-in(By-Default screen!) */
 					var defaultDashboardPageUrl = $("#stockDashboardTabsUL a").filter(".active").attr('name');
 // 					var lgaStockSummaryDashboardPageUrl = $("#stockDashboardTabsUL li:eq(1) > a").attr('name');
+					var hfStockIssueDashboardPageUrl = $("#stockDashboardTabsUL li:eq(5) > a").attr('name'); // "hf_stock_issue_dashboard"
 					var hfStockSummarySheetDashboardPageUrl = $("#stockDashboardTabsUL li:eq(2) > a").attr('name'); // "hf_stock_summary_sheet_page"
 					var lgaStockBalanceDashboardPageUrl = $("#stockDashboardTabsUL li:eq(1) > a").attr('name'); // "hf_stock_summary_sheet_page"
 					
 					var defaultDashboardTabdivID = $("#stockDashboardTabsUL a").filter(".active").attr('href');
 // 					var lgaStockSummaryDashboardTabDivId = $("#stockDashboardTabsUL li:eq(1) > a").attr('href');
+					var hfStockIssueDashboardTabDivId = $("#stockDashboardTabsUL li:eq(5) > a").attr('href');
 					var hfStockSummaryDashboardTabDivId = $("#stockDashboardTabsUL li:eq(2) > a").attr('href');
 					var lgaStockbalenceDashboardTabDivId = $("#stockDashboardTabsUL li:eq(1) > a").attr('href');
 					
 					var stateStockPerfoDashboardDataUrl = "get_state_stock_perfo_dashboard_data?year="+new Date().getFullYear()+"&week="+${PREVIOUS_WEEK_OF_YEAR}+"&lga_id=null";
 // 					var lgaStockSummaryDashboardDataUrl = "get_lga_stock_summary_grid_data?year="+new Date().getFullYear()+"&week="+${PREVIOUS_WEEK_OF_YEAR}+"&stateId=${userdata.x_WAREHOUSE_ID}";
+					var hfStockIssueDashboardDataUrl = "get_hf_stock_issue_dashboard_data?year="+new Date().getFullYear()+"&week="+${PREVIOUS_WEEK_OF_YEAR}+"&lgaId=null&lgaName=null";
 					var hfStockSummarySheetDashboardDataUrl = "get_hf_stock_summary_grid_data?year="+new Date().getFullYear()+"&week="+${PREVIOUS_WEEK_OF_YEAR}+"&lgaId=null&lgaName=null";
 					var lgaStockBalanceDashboardDataUrl = "get_lga_stock_summary_grid_data?year="+new Date().getFullYear()+"&week="+${PREVIOUS_WEEK_OF_YEAR}+"&stateId=${userdata.x_WAREHOUSE_ID}";
 					document.getElementById("loader_div").style.display = "block";
-					$('ul.stockDashboardTabsUL').tabs('select_tab', 'stockDashboardLiTab1');
+//					$('ul.stockDashboardTabsUL').tabs('select_tab', 'stockDashboardLiTab1');
+					$('ul.stockDashboardTabsUL').tabs('select_tab', 'stockDashboardLiTab6');
 					ajaxGetRequest(defaultDashboardPageUrl, function(data){
 						$(defaultDashboardTabdivID).html(data);
 				    /* 	if('${loadCount}'==='1'){
@@ -187,7 +191,10 @@ $(document).ready(function(){
 // //						    	$('#week_combobox3').combobox('setValue',(getWeekNumber(new Date())-1));
 // //						    	$('#week_combobox3').combobox('setText',(getWeekNumber(new Date())-1));
 // 						});
-						
+//						ajaxGetRequest(hfStockIssueDashboardPageUrl, function(data){
+//							$(hfStockIssueDashboardTabDivId).html(data);
+//		
+//						});
 						ajaxGetRequest(hfStockSummarySheetDashboardPageUrl, function(data){
 							$(hfStockSummaryDashboardTabDivId).html(data);
 		// 			    	loadHeadingTable4('${userdata.x_WAREHOUSE_ID}','${userdata.x_WAREHOUSE_NAME}');
@@ -262,7 +269,7 @@ $(document).ready(function(){
 // 	 				alert("NTO LGA Aggregated-defaultDashboardPageUrl: "+defaultDashboardPageUrl);
 // 	 				console.log("NTO LGA Aggregated-defaultDashboardPageUrl: ", defaultDashboardPageUrl);
 // 					var lgaStockSummaryDashboardPageUrl = $("#ntoStockDashboardTabsUL li:eq(1) > a").attr('name');
-//	 				alert("NTO LGA Stock Summary- lgaStockSummaryDashboardPageUrl: "+lgaStockSummaryDashboardPageUrl);
+//	 				alert("NTO LGA Stock Balance- lgaStockSummaryDashboardPageUrl: "+lgaStockSummaryDashboardPageUrl);
 					var lgaStockBalanceDashboardPageUrl = $("#ntoStockDashboardTabsUL li:eq(1) > a").attr('name'); // "hf_stock_summary_sheet_page"
 					
 					var defaultDashboardTabdivID = $("#ntoStockDashboardTabsUL a").filter(".active").attr('href');
@@ -345,6 +352,7 @@ $(document).ready(function(){
 					var defaultDashboardPageUrl = $("#lioMohStockDashboardTabsUL a").filter(".active").attr('name');
 					var hfStockSummarySheetDashboardPageUrl = $("#lioMohStockDashboardTabsUL li:eq(1) > a").attr('name'); // "hf_stock_summary_sheet_page"
 					var defaultDashboardTabdivID = $("#lioMohStockDashboardTabsUL a").filter(".active").attr('href');
+					var hfStockIssueDashboardTabDivId = $("#lioMohStockDashboardTabsUL li:eq(5) > a").attr('href');
 					var hfStockSummaryDashboardTabDivId = $("#lioMohStockDashboardTabsUL li:eq(1) > a").attr('href');
 					var stateStockPerfoDashboardDataUrl = "get_state_stock_perfo_dashboard_data?year="+ new Date().getFullYear()+ "&week="+ ${PREVIOUS_WEEK_OF_YEAR}
 					+"&lga_id=${userdata.x_WAREHOUSE_ID}";
@@ -375,6 +383,11 @@ $(document).ready(function(){
 								});
 								$('#week_combobox').combobox('setValue','${PREVIOUS_WEEK_OF_YEAR}');
 								$('#week_combobox').combobox('setText','${PREVIOUS_WEEK_OF_YEAR}');
+							});
+                                                        ajaxGetRequest(hfStockIssueDashboardPageUrl,function(data) {
+								$(hfStockIssueDashboardTabDivId).html(data);
+	//					    	loadHeadingTable4('${userdata.x_WAREHOUSE_ID}','${userdata.x_WAREHOUSE_NAME}');
+								$('#lga_combobox_div6').css('display', 'none');
 							});
 					ajaxGetRequest(hfStockSummarySheetDashboardPageUrl,function(data) {
 								$(hfStockSummaryDashboardTabDivId).html(data);
@@ -528,28 +541,35 @@ $(document).ready(function(){
 	
 	<!--SCCO - Stock Dashboard - Dropdown Structure -->
 	<ul id="stockDashboardDropdown" class="dropdown-content">
-		<li id="0"><a href="state_stock_perfo_dashboard" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">State Stock Performance Dashboard</a></li>
-		<li id="1" class="divider"></li>
-		<li><a id="2" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Summary</a></li>
-<!-- 		<li id="2"><a href="lga_stock_summary_grid" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">LGA Stock Summary</a></li> -->
+                <!--<li id="1" class="divider"></li>-->
+		<li><a id="2" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Balance</a></li>
+<!-- 		<li id="2"><a href="lga_stock_summary_grid" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">LGA Stock Balance</a></li> -->
 		<li id="3" class="divider"></li>
-		<li id="4"><a href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab4View">Facility stock dashboard</a></li>
+		<li id="4"><a href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab4View">Stock balance dashboard</a></li>
 		<li id="5" class="divider"></li>
-<!-- 		<li><a id="6" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Balance Dashboard</a></li> -->
+ 		<li><a id="6" href="hf_stock_issue_dashboard" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab6View">Stock issue Dashboard</a></li> 
 		<li><a id="7" href="state_Stock_Status_DashboardPage" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">State Stock Status Dashboard</a></li>
 		<li id="8" class="divider"></li>
-		<li><a id="9" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Summary</a></li>
-<!-- 		<li><a id="9" href="lga_stock_summary_grid" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">LGA Stock Summary</a></li> -->
+		<li><a id="9" href="lga_stock_balance_dashboard_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab5View">LGA Stock Balance</a></li>
+<!-- 		<li><a id="9" href="lga_stock_summary_grid" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">LGA Stock Balance</a></li> -->
 		<li id="10" class="divider"></li>
 		<li><a id="11" href="state_stock_perfo_dashboard" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">LGA Stock Performance Dashboard</a></li>
 		<li id="12" class="divider"></li>
-		<li><a id="13" href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">Facility stock dashboard</a></li>
+		<li><a id="13" href="hf_stock_summary_sheet_page" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab3View">Stock balance dashboard</a></li>
+		<li id="14"><a href="state_stock_perfo_dashboard" onclick="showDashBoardDivAndHideIframe()" name="stockDashboardTab1View">State Stock Performance Dashboard</a></li>
 		
 	</ul>
+        
+                <!--Data Analysis - Dropdown Structure -->
+        <ul id="dataAnalysisDropdown" class="dropdown-content" style="">
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('hf_stock_perf_chart_page')">HF Stock Performance Chart</a></li>
+            <li class="divider"></li>
+            <li><a href="#" onclick="showIframeAndHideDashBoardDiv('lga_stock_perf_chart_page')">LGA Stock Performance Chart</a></li>
+        </ul>
 	
 	<!--SCCO - About - Dropdown Structure -->
 	<ul id="aboutDropdown" class="dropdown-content">
-		<li id="0"><a href="#" name="stockDashboardTab1View" onclick="showLicense()">License</a></li>
+		<li id="0"><a href="#" name="stockDashboardTab6View" onclick="showLicense()">License</a></li>
 	</ul>
 	
 	<nav class="#1b5e20 green darken-1">
@@ -586,6 +606,12 @@ $(document).ready(function(){
 						Stock Dashboard<i class="material-icons right">arrow_drop_down</i>
 					</a>
 				</li>
+                                <!--Data Analysis Charts Dropdown -->
+                                <li>
+                                    <a class="dropdown-button" href="#!" data-activates="dataAnalysisDropdown" data-beloworigin="true" data-constrainwidth="false">
+                                        Data Analysis Charts<i class="material-icons right">arrow_drop_down</i>
+                                    </a>
+                                </li>
 				
 			</ul>
 		</div>
@@ -595,35 +621,38 @@ $(document).ready(function(){
 	<div id="mainHomePageDiv" class="row">
 	    <div id="stockDashboardULTabsDiv" class="col l12">
 	      <ul id="stockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:5%">
-	        <li id="stockDashboardLiTab1" class="tab col l4"><a id="stockDashboardLiTab1Link"  href="#stockDashboardTab1View" name="state_stock_perfo_dashboard" >State Stock Performance Dashboard</a></li>
-	        <li id="stockDashboardLiTab5" class="tab col l4"><a id="stockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock dashboard</a></li> <!-- Actual: Lga Stock Balance Dashboard -->
-	        <li id="stockDashboardLiTab4" class="tab col l4"><a id="stockDashboardLiTab4Link" href="#stockDashboardTab4View" name="hf_stock_summary_sheet_page">Facility stock dashboard</a></li> 
-<!-- 		    <li id="stockDashboardLiTab3" class="tab col l4"><a id="stockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">Lga Stock Balance Dashboard</a></li> Actual: LGA stock dashboard -->
+	        <!--<li id="stockDashboardLiTab1" class="tab col l4"><a id="stockDashboardLiTab1Link"  href="#stockDashboardTab1View" name="state_stock_perfo_dashboard" >State Stock Performance Dashboard</a></li>-->
+	        <li id="stockDashboardLiTab4" class="tab col l4"><a id="stockDashboardLiTab4Link" href="#stockDashboardTab4View" name="hf_stock_summary_sheet_page">Stock balance dashboard</a></li> 
+	        <li id="stockDashboardLiTab6" class="tab col l4"><a id="stockDashboardLiTab6Link" href="#stockDashboardTab6View" name="hf_stock_issue_dashboard">Stock issue dashboard</a></li> 
+	        <li id="stockDashboardLiTab5" class="tab col l4"><a id="stockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock balance</a></li> <!-- Actual: Lga Stock Balance Dashboard -->
+<!-- 		    <li id="stockDashboardLiTab3" class="tab col l4"><a id="stockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">Lga Stock Balance Dashboard</a></li> Actual: LGA stock balance -->
 	      </ul>
 	      <ul id="ntoStockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:7%">
 <!-- 	      	default dashboard data action - get_lga_agg_stock_dashboard_data -->
 	        <li id="ntoStockDashboardLiTab1" class="tab col l6"><a id="ntoStockDashboardLiTab1Link" href="#stockDashboardTab1View" name="state_Stock_Status_DashboardPage">State Stock Status Dashboard</a></li>
-<!-- 	        <li id="ntoStockDashboardLiTab3" class="tab col l6"><a id="ntoStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">LGA stock dashboard</a></li> -->
-	         <li id="stockDashboardLiTab5" class="tab col l4"><a id="ntoStockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock dashboard</a></li>
+<!-- 	        <li id="ntoStockDashboardLiTab3" class="tab col l6"><a id="ntoStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="lga_stock_summary_grid">LGA stock balance</a></li> -->
+	         <li id="stockDashboardLiTab5" class="tab col l4"><a id="ntoStockDashboardLiTab5Link" href="#stockDashboardTab5View" name="lga_stock_balance_dashboard_page">LGA stock balance</a></li>
 	      </ul>
 	      <ul id="lioMohStockDashboardTabsUL" class="tabs" style="border-color: #95d0b7; height:7%">
 <!-- 	      	default dashboard data action - state_stock_perfo_dashboard : LGA dropdown hidden | default warehouse id passed is logged in LGA's ID -->
 	        <li id="lioMohStockDashboardLiTab1" class="tab col l6"><a id="lioMohStockDashboardLiTab1Link" href="#stockDashboardTab1View" name="state_stock_perfo_dashboard">LGA Stock Performance Dashboard</a></li>
-	        <li id="lioMohStockDashboardLiTab3" class="tab col l6"><a id="lioMohStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="hf_stock_summary_sheet_page">Facility stock dashboard</a></li>
+	        <li id="lioMohStockDashboardLiTab6" class="tab col l6"><a id="lioMohStockDashboardLiTab6Link" href="#stockDashboardTab6View" name="hf_stock_issue_dashboard">Stock issue dashboard</a></li> 
+	        <li id="lioMohStockDashboardLiTab3" class="tab col l6"><a id="lioMohStockDashboardLiTab3Link" href="#stockDashboardTab3View" name="hf_stock_summary_sheet_page">Stock balance dashboard</a></li>
 	      </ul>
 	    </div>
 	    <!-- For NTO/SCCO/SIO/SIFP -->
-		<div id="stockDashboardTab1View" class="col l12">State Stock Performance Dashboard</div> <!-- action = state_stock_perfo_dashboard -->
+		<!--<div id="stockDashboardTab1View" class="col l12">State Stock Performance Dashboard</div>   action = state_stock_perfo_dashboard -->
+		<div id="stockDashboardTab6View" class="col l12">Stock Issue Dashboard</div> <!-- action = hf_stock_issue_dashboard -->
+		<div id="stockDashboardTab4View" class="col l12">Stock balance dashboard</div> <!-- action = N/A -->
 <!-- 		<div id="stockDashboardTab2View" class="col l12">LGA Stock Performance Dashboard</div> action = N/A -->
-		<div id="stockDashboardTab5View" class="col l12">LGA stock dashboard</div> <!-- action = N/A -->
-		<div id="stockDashboardTab4View" class="col l12">Facility stock dashboard</div> <!-- action = N/A -->
-<!-- 	<div id="stockDashboardTab3View" class="col l12">LGA stock dashboard  </div> action = lga_stock_summary_grid --> <!-- LGA Stock Balance Dashboard -->
+		<div id="stockDashboardTab5View" class="col l12">LGA stock balance</div> <!-- action = N/A -->
+<!-- 	<div id="stockDashboardTab3View" class="col l12">LGA stock balance  </div> action = lga_stock_summary_grid --> <!-- LGA Stock Balance Dashboard -->
 		<!-- For LIO/MOH
-		<div id="stockDashboardTab3View" class="col s12">LGA Stock Summary</div>
-		<div id="stockDashboardTab4View" class="col s12">Facility stock dashboard</div> -->
+		<div id="stockDashboardTab3View" class="col s12">LGA Stock Balance</div>
+		<div id="stockDashboardTab4View" class="col s12">Stock balance dashboard</div> -->
 		
 	   <!-- For NTO 
-		<div id="stockDashboardTab3View" class="col s12">LGA Stock Summary</div> action = lga_stock_summary_grid
+		<div id="stockDashboardTab3View" class="col s12">LGA Stock Balance</div> action = lga_stock_summary_grid
 		<div id="stockDashboardTab1View" class="col s12">State Stock Status Dashboard</div> -->	 
 		
 		

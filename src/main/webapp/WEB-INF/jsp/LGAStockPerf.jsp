@@ -1,7 +1,7 @@
 <%-- 
-    Document   : WardsWithSolarChart
+    Document   : LGAStockPerf
     Created on : Mar 27, 2017, 11:02:59 PM
-    Author     : Temitayo Raimi
+    Author     : Temitayo
 --%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -15,7 +15,6 @@
 <%@page import="com.google.gson.JsonObject"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
-
 <html id="homepageHtmlElement">
     <head>
         <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico" />
@@ -26,7 +25,7 @@
         <script src="resources/js/jquery-2.2.3.min.js"></script>
         <script src="resources/js/materialize.min.js"></script>
 
-        <title>Wards With Solar Chart</title>
+        <title>LGA Stock Performance Chart</title>
         <link rel=" stylesheet" href="resources/css/w3css.css" type="text/css">
         <link rel="stylesheet" href="resources/css/table.css" type="text/css">
         <link rel="stylesheet" type="text/css" href="resources/easyui/themes/default/easyui.css">
@@ -79,22 +78,23 @@ font-weight: bold;
         <script type="text/javascript">
 
             $(document).ready(function () {
-            $('.tabs .tab').css('text-transform', 'none');
+                $('.tabs .tab').css('text-transform', 'none');
             });
+
 
             var reloadDashboards = true;
             $(document).ready(function () {
                 $(".dropdown-button").dropdown({hover: true});
-                $("#cceDashboardTabsUL .indicator").css('height', '5px');
+                $("#stockDashboardTabsUL .indicator").css('height', '5px');
                 var user = '${userdata.getX_ROLE_NAME()}';
                 $('#user').text('User: ' + user + ' ${userdata.getX_WAREHOUSE_NAME()}');
                 $('#login_time').text('${login_time}');
                 if ((user === 'SIO') || (user==='SIFP')|| (user==='SCCO')){
                     user = 'SCCO';	
-                    $('#cceListNavigationMenu').hide();
+                    $('#stockListNavigationMenu').hide();
                 } else if(user === 'MOH'|| (user==='LIO')|| (user==='CCO')) {
                     user = 'LIO';
-                    $('#cceListNavigationMenu').hide();
+                    $('#stockListNavigationMenu').hide();
                 }else if(user === 'NTO'){
 			user = 'NTO';
 		}
@@ -104,7 +104,7 @@ font-weight: bold;
                 switch (user) {
                     case "SCCO":
                             $('#warehouse_name').text('State: ${userdata.getX_WAREHOUSE_NAME()}');	
-                            $('#cceListNavigationMenu').hide();
+                            $('#stockListNavigationMenu').hide();
                             break;
 
                     case "NTO":
@@ -113,14 +113,15 @@ font-weight: bold;
                             break;
                     case "LIO":
                             $('#warehouse_name').text('LGA: ${userdata.getX_WAREHOUSE_NAME()}');	
-                            $('#cceListNavigationMenu').hide();	
+                            $('#stockListNavigationMenu').hide();	
 
                             break;
 		}
 
             });
+
             function showLicense() {
-            $('#license_modal').openModal();
+                $('#license_modal').openModal();
             }
 	function showDashBoardDivAndHideIframe() {
 		$('#mainHomePageDiv').show();
@@ -159,10 +160,9 @@ font-weight: bold;
         <!--Script of Chart goes here-->
         <!--  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.js"></script>
-        <!--<script type="text/javascript" src="resources/js/canvasjs.min.js"></script>-->
         <script type="text/javascript">
             $(document).ready(function () {
-            var url = "get_ward_with_solar_data?filterLevel=LGA";
+            var url = "get_lga_stock_perf_data?filterLevel=LGA";
             showChartData(url);
             });
             function showLicense() {
@@ -186,101 +186,66 @@ font-weight: bold;
             }
             function loadchartdata(data) {
                 
+                denom = data[0]["denom"];
+                
             //Construct Datapoints
-            var dps1 = [], dps2=[], dps3=[]; // dataPoints
             
-            for (var i = 0; i < data.length; i++) {
-          /*  wardArray[i] = data[i]["LG_NAME"];
-            functionalSRArray[i] = data[i]["FUNCTIONAL_SR"];
-            repairableSRArray[i] = data[i]["REPAIRABLE_SR"];
-            withoutSRArray[i] = data[i]["WITHOUT_SR"];*/
-            
+            var lbls = ["LGAs with All Antigens","LGAs with 1 to 2 antigens below buffer stock","LGAs with 3 or more antigens below buffer stock","LGAs with 3 or more antigens over stocked"]
+//            alert("wos "+denom);
              //Construct Datapoints
-                var dps1 = [], dps2 = [], dps3 = []; // dataPoints
-
-                for (var i = 0; i < data.length; i++) {
-                    dps1.push({
-                        y: data[i]["FUNCTIONAL_SR"],
-                        label: data[i]["LG_NAME"]
-                    });
-                    
-                    dps2.push({
-                        y: data[i]["REPAIRABLE_SR"],
-                        label: data[i]["LG_NAME"]
-                    });
-                    
-                    dps3.push({
-                        y: data[i]["WITHOUT_SR"],
-                        label: data[i]["LG_NAME"]
-                    });
-            }
+            var dps=[{
+                        y: Math.round((data[0]["status_green"]/denom)),
+                        label: lbls[0]
+                    },
+                    {
+                        y: Math.round((data[0]["status_yellow"]/denom)),
+                        label: lbls[1]
+                    },
+                    {
+                        y: Math.round((data[0]["status_red"]/denom)),
+                        label: lbls[2]
+                    },
+                    {
+                        y: Math.round((data[0]["status_blue"]/denom)),
+                        label: lbls[3]
+                    }
+            ];
+                
             
             
             
             window.chart = new CanvasJS.Chart("chartContainer",
             {
             title: {
-            text: "Wards With at least One Solar Refrigerator",
+            text: "LGA Stock Performance for current week",
                     fontFamily: "arial black"
             },
-                    axisX:{
+                     axisX:{
 			labelMaxWidth: 150,
 			labelWrap: true,   // change it to false
 			interval: 1,
                       },
                     axisY: {
-                    title: "Number of Wards"
+                    title: "",
+                    minimum: 0,
+                    maximum: 100
                     },
                     animationEnabled: true,
-                    legend: {
-                    verticalAlign: "bottom",
-                            horizontalAlign: "center"
-                    },
-                    exportFileName: "Wards with Solar Chart",
+                    
+                    exportFileName: "LGA Stock Performance",
                     exportEnabled: true,
                     theme: "theme1",
                     data: [
                     {
-                    type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
-                            name: "Wards with at least one functional SR",
-                            showInLegend: "true",
+                    type: "column",
+                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}%",
                             indexLabelFontSize: 5,
-                            dataPoints: dps1
-                    }, {
-                    type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
-                            name: "Wards with at least one repairable SR",
-                            showInLegend: "true",
-                            indexLabelFontSize: 5,
-                            dataPoints: dps2
-                    },
-                    {
-                    type: "stackedColumn",
-                            toolTipContent: "{label}<br/><span style='\"'color: {color};'\"'><strong>{name}</strong></span>: {y}",
-                            name: "Ward without SR",
-                            showInLegend: "true",
-                            indexLabelFontSize: 5,
-                            dataPoints: dps3
-                    }
-                    ]
-                    ,
-                    legend: {
-                    cursor: "pointer",
-                            itemclick: function (e) {
-                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                            e.dataSeries.visible = false;
-                            } else
-                            {
-                            e.dataSeries.visible = true;
-                            }
-                            chart.render();
-                            }
-                    }
+                            dataPoints: dps
+                    }]
             });
             chart.render();
             }
-        }
+        
         </script>           <!--Script of Chart ends here-->
     </head>
 
@@ -292,8 +257,8 @@ font-weight: bold;
 
         <br/>
     <center>
-      
-         <div id="chartContainer" style="height: 500px; width: 100%; f"></div>
+        
+       <div id="chartContainer" style="height: 500px; width: 100%; f"></div>
     </center>
     <!-- Modal Structure For license -->
     <div id="license_modal" class="modal modal-fixed-footer" >

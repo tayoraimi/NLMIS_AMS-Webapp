@@ -263,6 +263,70 @@ function showTableData4(url) {
 	xhttp.open("GET", url, true);
 	xhttp.send();
 }
+function loaddataHeadTable6(data){
+	var datacard="<tr>";
+	for (var i = 0; i < data.length; i++) {
+		datacard+="<td>"+data[i].product_name+"</td>";
+	}
+	datacard+="</tr>";
+	document.getElementById("heading_table6").innerHTML=datacard;
+}
+function loadHeadingTable6(lgaId,lgaName){
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			var ss = JSON.parse(xhttp.responseText);
+			loaddataHeadTable6(ss);
+		}
+	};
+	xhttp.open("POST", 'getheadingTableForHfStockIssue?lgaName='+lgaName, true);
+	xhttp.send();
+}
+function loaddata6(data) {
+	var headingrow = document.getElementById("heading_table6").rows[0].cells;
+	var datacard = "";
+	console.log("data length: ", data.length);
+	var activeButZeroDataHFList = data.pop();
+	console.log("activeButZeroDataHFList: ", JSON.stringify(activeButZeroDataHFList));
+	$('#activeHFCount').html("Active Facilities with Functional CCE : "+activeButZeroDataHFList.length);
+	for (var i = 0; i < data.length; i++) {
+		datacard += "<tr>";
+		datacard += "<td>" + data[i].CUSTOMER_NAME + "</td>";
+		for (var rowid = 1; rowid < headingrow.length; rowid++) {
+			$.each(data[i],function(itemName, itemValue) {
+				if(itemName==headingrow[rowid].innerHTML){
+					var color;
+					var stockBal;
+					$.each(itemValue,function(label, value) {						
+						if(label=='STOCK_BALANCE'){
+							stockBal=value;
+						}else{
+							color=value;
+						}
+					})
+					datacard += "<td style='background-color:"+color+";align:center;'>"
+					+ parseInt(stockBal) + "</td>";
+				}
+			})
+		}
+		datacard += "</tr>";
+	}
+	document.getElementById("table_body6").innerHTML = datacard;
+}
+function showTableData6(url) {
+	document.getElementById("loader_div").style.display = "block";
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			document.getElementById("loader_div").style.display = "none";
+			var ss = JSON.parse(xhttp.responseText);
+			loaddata6(ss);
+		}
+	};
+	xhttp.open("GET", url, true);
+	xhttp.send();
+}
+
 
 function loaddataNTO(data) {
 	var datacard = "";

@@ -225,7 +225,9 @@ font-weight: bold;
                     fontFamily: "arial black"
             },
                      axisX:{
-                        labelAngle: 10,
+			labelMaxWidth: 150,
+			labelWrap: true,   // change it to false
+			interval: 1,
                       },
                     axisY: {
                     title: "Number of Wards",
