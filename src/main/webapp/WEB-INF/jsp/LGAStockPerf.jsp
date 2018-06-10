@@ -216,16 +216,22 @@ font-weight: bold;
             
             window.chart = new CanvasJS.Chart("chartContainer",
             {
-            title: {
-            text: "LGA Stock Performance for current week",
-                    fontFamily: "arial black"
-            },
+                    title: {
+                    text: "LGA Stock Performance for current week",
+                            fontFamily: "arial black"
+                    },
+                    legend:{
+                            fontSize: 30,
+                           },
                      axisX:{
+                        labelFontSize: 18,
 			labelMaxWidth: 150,
 			labelWrap: true,   // change it to false
 			interval: 1,
                       },
                     axisY: {
+                        labelFontSize: 18,
+                    gridThickness: 0,
                     title: "",
                     minimum: 0,
                     maximum: 100
@@ -258,7 +264,7 @@ font-weight: bold;
         <br/>
     <center>
         
-       <div id="chartContainer" style="height: 500px; width: 100%; f"></div>
+       <div id="chartContainer" style="height: 500px; width: 70%; f"></div>
     </center>
     <!-- Modal Structure For license -->
     <div id="license_modal" class="modal modal-fixed-footer" >

@@ -223,7 +223,15 @@ font-weight: bold;
             text: "LGA Capacity Chart",
                     fontFamily: "arial black"
             },
+                     axisX:{
+                        labelFontSize: 18,
+			labelMaxWidth: 150,
+			labelWrap: true,   // change it to false
+			interval: 1,
+                      },
                     axisY: {
+                        labelFontSize: 18,
+                    gridThickness: 0,
                     title: "In Litres"
                     },
                     animationEnabled: true,
@@ -305,7 +313,7 @@ font-weight: bold;
         <br/>
     <center>
        
-        <div id="chartContainer" style="height: 500px; width: 100%; f"></div>
+        <div id="chartContainer" style="height: 500px; width: 70%; f"></div>
     </center>
     <!-- Modal Structure For license -->
     <div id="license_modal" class="modal modal-fixed-footer" >
